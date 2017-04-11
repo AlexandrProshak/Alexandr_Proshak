@@ -15,8 +15,20 @@ public class Max {
 	* @return returning max value.
 	*/
 	public int max(int first, int second) {
-		int max = 0;
-		max = first > second ? first : second;
-		return max;
+		int maximum = 0;
+		maximum = first > second ? first : second;
+		return maximum;
+	}
+	/**
+	* Maximum of three numbers.
+	* @param first - first number.
+	* @param second - second number.
+	* @param third - third number.
+	* @return returning max value.
+	*/
+	public int max(int first, int second, int third) {
+		int maximum = 0;
+		maximum = max(first, max(second, third));
+		return maximum;
 	}
 }
