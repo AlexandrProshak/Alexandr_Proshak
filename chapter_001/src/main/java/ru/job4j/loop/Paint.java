@@ -17,7 +17,7 @@ public class Paint {
 		char c = 94;
         int width = h - 1 + h;
         StringBuilder str = new StringBuilder();
-        StringBuilder st = new StringBuilder(width);
+        StringBuilder st = new StringBuilder();
         //initialisation of builder.
 		for (int i = 0; i < width; i++) {
             st.append(" ");
