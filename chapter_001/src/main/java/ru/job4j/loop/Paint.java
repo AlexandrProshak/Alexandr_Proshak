@@ -13,32 +13,19 @@ public class Paint {
 	* @param h - height.
 	* @return returning string of piramid.
 	*/
-	public String piramid(int h) {
-		char c = 94;
-        int width = h - 1 + h;
-        StringBuilder str = new StringBuilder();
-        StringBuilder st = new StringBuilder();
-        //initialisation of builder.
-		for (int i = 0; i < width; i++) {
-            st.append(" ");
-        }
-        if (h == 1) {
-            str.append(c);
-        } else {
-            for (int i = h; i > 1; i--) {
-                for (int j = 0; j <= i; j++) {
-                    st.setCharAt(i, c);
-                    st.setCharAt(i + j, c);
-                    st.setCharAt(i - j, c);
-                    str.append(st);
-                    str.append("\n");
-					//easy code duplication.
-                    for (int l = 0; l < width; l++) {
-                        st.append(" ");
-                    }
+    public String piramid(int h) {
+        int width = 2 * h - 1;
+        StringBuilder result = new StringBuilder();
+        for (int i = 1; i <= h; i++) {
+            for (int j = 1; j <= width; j++) {
+               if (j <= h - i || (j >= h + i)) {
+                result.append(" ");
+                } else {
+                result.append("^");
                 }
             }
+            result.append("\n");
         }
-        return str.toString();
+        return result.toString();
     }
 }
