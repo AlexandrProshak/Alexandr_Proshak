@@ -1,7 +1,7 @@
 package ru.job4j.condition;
 
 /**
-* Class Point.
+* Point.
 *
 * @author Alex Proshak (olexandr_proshak@ukr.net)
 * @version $Id$
@@ -46,6 +46,6 @@ public class Point {
 	* @return returning condition.
 	*/
     public boolean is(int a, int b) {
-        return getY() == (a * getX() + b) ? true : false;
+        return this.y == (a * this.x + b);
     }
 }
