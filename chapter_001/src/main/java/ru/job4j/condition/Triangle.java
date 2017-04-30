@@ -40,10 +40,10 @@ public class Triangle {
     public double area() {
         //calculate the triangle area
         double s;
-        if (checkExisting()) {
-            double aB = calculatingLength(this.a, this.b);
-            double bC = calculatingLength(this.b, this.c);
-            double cA = calculatingLength(this.c, this.a);
+        double aB = calculatingLength(this.a, this.b);
+        double bC = calculatingLength(this.b, this.c);
+        double cA = calculatingLength(this.c, this.a);
+        if (checkExisting(aB, bC, cA)) {
             double halfPerimetr = (aB + bC + cA) / 2;
             s = sqrt(halfPerimetr * (halfPerimetr - aB) * (halfPerimetr - bC) * (halfPerimetr - cA));
         } else {
@@ -53,21 +53,13 @@ public class Triangle {
     }
     /**
      * Checking of existing triangle.
+     * @param aB is length of side aB.
+     * @param bC is length of side bC.
+     * @param cA is length of side cA.
      * @return true if triangle exist or false if doesn't exist.
      */
-    public boolean checkExisting() {
-        double aB = calculatingLength(this.a, this.b);
-        double bC = calculatingLength(this.b, this.c);
-        double cA = calculatingLength(this.c, this.a);
-        boolean result = false;
-        if ((this.a.equals(this.b) || (this.b.equals(this.c) || (this.a.equals(this.c))))) {
-            result = false;
-        } else if ((aB + bC) > cA & (bC + cA) > aB & (aB + cA) > bC) {
-            result = true;
-        } else {
-            result = false;
-        }
-        return result;
+    public boolean checkExisting(double aB, double bC, double cA) {
+        return (aB + bC) > cA & (bC + cA) > aB & (aB + cA) > bC;
     }
     /**
      * Calculating distance between two points.

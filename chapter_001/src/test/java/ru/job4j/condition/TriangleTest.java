@@ -17,8 +17,14 @@ public class TriangleTest {
 	*/
 	@Test
 	public void whenTriangleExistThenReturnTrue() {
-		Triangle tr = new Triangle(new Point(1, 1), new Point(2, 6), new Point(6, 1));
-		boolean result = tr.checkExisting();
+		Point a = new Point(1, 1);
+		Point b = new Point(2, 6);
+		Point c = new Point(6, 1);
+		Triangle tr = new Triangle(a, b, c);
+		double aB = tr.calculatingLength(a, b);
+        double bC = tr.calculatingLength(b, c);
+        double cA = tr.calculatingLength(c, a);
+		boolean result = tr.checkExisting(aB, bC, cA);
 		boolean expected = true;
 		assertThat(result, is(expected));
 	}
@@ -27,8 +33,14 @@ public class TriangleTest {
 	*/
 	@Test
 	public void whenTwoPointAreTheSameThenReturnFalse() {
-		Triangle tr = new Triangle(new Point(1, 1), new Point(1, 1), new Point(6, 1));
-		boolean result = tr.checkExisting();
+		Point a = new Point(1, 1);
+		Point b = new Point(1, 1);
+		Point c = new Point(6, 1);
+		Triangle tr = new Triangle(a, b, c);
+		double aB = tr.calculatingLength(a, b);
+        double bC = tr.calculatingLength(b, c);
+        double cA = tr.calculatingLength(c, a);
+        boolean result = tr.checkExisting(aB, bC, cA);
 		boolean expected = false;
 		assertThat(result, is(expected));
 	}
