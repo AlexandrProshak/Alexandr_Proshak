@@ -1,7 +1,7 @@
 package ru.job4j.condition;
 
 /**
-* Point.
+* Class Point.
 *
 * @author Alex Proshak (olexandr_proshak@ukr.net)
 * @version $Id$
