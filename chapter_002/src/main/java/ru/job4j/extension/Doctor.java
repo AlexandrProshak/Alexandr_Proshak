@@ -1,7 +1,7 @@
 package ru.job4j.extension;
 
 /**
- * Class Doctor.
+ * The class Doctor describes a profession of a doctor.
  *
  * @author Alex Proshak (olexandr_proshak@ukr.net)
  * @version $Id$
@@ -9,54 +9,54 @@ package ru.job4j.extension;
  */
 public class Doctor extends Profession {
     /**
-     * number of diploma.
+     * Number of a diploma.
      */
-    private String diplomsNumber;
+    private String diplomaNumber;
     /**
-     * Constructor.
+     * A simple constructor.
      */
     public Doctor() {
     }
 
     /**
-     * Constructor.
+     * The constructor with parameters.
      * @param name of doctor.
      * @param specialization of doctor.
-     * @param graduatedSchool high school.
+     * @param graduatedSchool high school was graduated by a doctor.
      * @param experience year working as a doctor.
-     * @param diplomsNumber number of diploma.
+     * @param diplomaNumber number of diploma.
      */
-    public Doctor(String name, String specialization, String graduatedSchool, int experience, String diplomsNumber) {
+    public Doctor(String name, String specialization, String graduatedSchool, int experience, String diplomaNumber) {
         super(name, specialization, graduatedSchool, experience);
-        this.diplomsNumber = diplomsNumber;
+        this.diplomaNumber = diplomaNumber;
     }
 
     /**
-     * Diagnostic.
+     * Diagnostic patient.
      * @param patient for diagnostic.
-     * @return diagnose.
+     * @return diagnose for the given patient.
      */
     public String diagnose(Human patient) {
-        return "доктор " + this.getName() + " ставит диагноз " + patient.getName();
+        return "Doctor " + this.getName() + " diagnostics " + patient.getName();
     }
 
     /**
      * Treating patient.
      * @param patient for treating.
-     * @return line of treating.
+     * @return an information line of treating.
      */
     public String treat(Human patient) {
-        return "доктор " + this.getName() + " лечит " + patient.getName();
+        return "Doctor " + this.getName() + " treats " + patient.getName();
     }
 
     /**
-     * Writing diagnose for drugstore.
-     * @param patient for writing.
-     * @param diagnose for writing.
-     * @return diagnose.
+     * Writing a diagnose of a patient for a drugstore.
+     * @param patient for writing a recipe.
+     * @param diagnose of a patient for writing .
+     * @return a line with recipe.
      */
     public String writeOutRecipe(Human patient, String diagnose) {
-        return "доктор " + this.getName() + " выписал рецепт " + patient.getName() + " по диагнозу " + diagnose;
+        return "Doctor " + this.getName() + " have written a recipe " + patient.getName() + " based on diagnose of " + diagnose;
     }
 
 }

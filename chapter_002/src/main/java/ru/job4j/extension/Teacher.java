@@ -9,23 +9,23 @@ package ru.job4j.extension;
  */
 public class Teacher extends Profession {
     /**
-     * science degree.
+     * A science degree.
      */
     private String degree;
 
     /**
-     * Constructor.
+     * A simple constructor.
      */
     public Teacher() {
     }
 
     /**
-     * Constructor with parametes.
-     * @param name of teacher
-     * @param specialization of teacher
-     * @param graduatedSchool high school of finished by
-     * @param experience of working as a teacher
-     * @param degree science degree
+     * A constructor with parameters.
+     * @param name of a teacher.
+     * @param specialization of a teacher.
+     * @param graduatedSchool high school was graduated by a teacher.
+     * @param experience of working as a teacher.
+     * @param degree science degree.
      */
     public Teacher(String name, String specialization, String graduatedSchool, int experience, String degree) {
         super(name, specialization, graduatedSchool, experience);
@@ -33,12 +33,13 @@ public class Teacher extends Profession {
     }
 
     /**
-     * teaching a student by subject.
+     * Teaching a student by subject.
      * @param student for teaching
      * @param subject of teaching
      */
     public void teach(Human student, String subject) {
-        System.out.println("Учитель " + this.getName() + " учит студента " + student.getName() + " предмету " + subject);
+        System.out.println("A teacher " + this.getName() + " teaches the student "
+                + student.getName() + " of a subject " + subject);
     }
 
     /**
@@ -47,23 +48,25 @@ public class Teacher extends Profession {
      * @param subject of teaching
      */
     public void consultationStudent(Human student, String subject) {
-        System.out.println("Учитель " + this.getName() + " консультирует студента " + student.getName() + " предмету " + subject);
+        System.out.println("A teacher " + this.getName() + " consults a student "
+                + student.getName() + " of a subject " + subject);
     }
 
     /**
-     * a method of giving a task for a student.
-     * @param student for task
-     * @param task for student
+     * Giving a task for a student.
+     * @param student for a task.
+     * @param task for a student.
      */
     public void giveTask(Human student, Task task) {
-        System.out.println("Учитель " + this.getName() + " дает задание студенту " + student.getName() + " предмету " + task.getName());
+        System.out.println("A teacher " + this.getName() + " gives a task to a student "
+                + student.getName() + " of a task " + task.getName());
     }
 
     /**
-     * a method of checking a task and return an evaluation of task.
-     * @param student for task
-     * @param task for student
-     * @return garade for task (1-5)
+     * Checking a task and return an evaluation of task.
+     * @param student for a task.
+     * @param task for a student.
+     * @return grade for a task (1-5).
      */
     public int checkTask(Human student, Task task) {
         int grade = 5;

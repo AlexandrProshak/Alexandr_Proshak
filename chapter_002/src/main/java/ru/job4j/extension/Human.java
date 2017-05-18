@@ -1,7 +1,7 @@
 package ru.job4j.extension;
 
 /**
- * Class Human describe basic human.
+ * Class Human describes a basic human.
  *
  * @author Alex Proshak (olexandr_proshak@ukr.net)
  * @version $Id$
@@ -9,18 +9,18 @@ package ru.job4j.extension;
  */
 public class Human {
     /**
-     * name of humans being.
+     * Name of humans being.
      */
     private String name;
 
     /**
-     * Constructor.
+     * A simple constructor.
      */
     public Human() {
     }
 
     /**
-     * Constructor.
+     * A constructor with parameters.
      * @param name of human being.
      */
     public Human(String name) {
@@ -28,7 +28,7 @@ public class Human {
     }
 
     /**
-     * Geter name.
+     * Geter for name's field.
      * @return name of instance of human.
      */
     public String getName() {

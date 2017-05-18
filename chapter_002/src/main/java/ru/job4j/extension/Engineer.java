@@ -1,7 +1,7 @@
 package ru.job4j.extension;
 
 /**
- * Engineer describes a profession of a engineer.
+ * The class Engineer describes a profession of an engineer.
  *
  * @author Alex Proshak (olexandr_proshak@ukr.net)
  * @version $Id$
@@ -22,18 +22,18 @@ public class Engineer extends Profession {
     private int accessLevel;
 
     /**
-     * Constructor.
+     * A simple constructor.
      */
     public Engineer() {
     }
 
     /**
-     * Constructor.
-     * @param name name of engineer.
-     * @param specialization of engineer.
-     * @param graduatedSchool finished school of engineer.
-     * @param experience amount of years working as an engineer.
-     * @param degree of engineer (middle, senior).
+     * The constructor with parameters.
+     * @param name name of an engineer.
+     * @param specialization of an engineer.
+     * @param graduatedSchool finished school of an engineer.
+     * @param experience amount years working as an engineer.
+     * @param degree science degree of an engineer (middle, senior).
      */
     public Engineer(String name, String specialization, String graduatedSchool, int experience, String degree) {
         super(name, specialization, graduatedSchool, experience);
@@ -41,38 +41,40 @@ public class Engineer extends Profession {
     }
 
     /**
-     * a method of meeting activity.
-     * @param nameOfMeeting name meeting.
-     * @return line with meetings name.
+     * A meeting's activity.
+     * @param nameOfMeeting name of a meeting.
+     * @return an information line of an engineer activity on meeting.
      */
     public String takePartInMeeting(String nameOfMeeting) {
-        return this.getName() + "берет участие в митинге " + nameOfMeeting;
+        return "An engineer " + this.getName() + " takes a part in a meeting "
+                + nameOfMeeting;
     }
 
     /**
-     * a method of studying documentation activity.
+     * Studying documentation of a project.
      * @param project of studying.
      * @param time spent for studying.
-     * @return line of information about studying documentation.
+     * @return an information line about studying.
      */
     public String studyDocumentationOfProject(Project project, int time) {
-        return this.getName() + " изучал документацию о проекте "
-                + project.getName() + time + " часов";
+        return "An engineer " + this.getName() + " has been studying a projects  "
+                + project.getName() + " documentation " + time + " часов";
     }
 
     /**
-     *  a method of consultation colleague.
+     * Consultation colleague.
      * @param colleague for consultation with.
      * @return line of information about consultation colleague.
      */
     public String consultationColleague(Colleague colleague) {
-        return this.getName() + " консультировал колегу " + colleague.getName();
+        return "An engineer " + this.getName()
+                + " консультировал колегу " + colleague.getName();
     }
 
     /**
-     *  a method of doing project.
+     * Doing project.
      * @param project for doing.
-     * @param time spent for work.
+     * @param time was spent for work.
      * @return finished project.
      */
     public Project doProject(Project project, int time) {
@@ -81,9 +83,9 @@ public class Engineer extends Profession {
     }
 
     /**
-     *  a method of fixing project.
+     * Fixing project.
      * @param project for fixing.
-     * @param time spent for fix.
+     * @param time was spent for work.
      * @return fixed project.
      */
     public Project fixProject(Project project, int time) {
@@ -92,7 +94,7 @@ public class Engineer extends Profession {
     }
 
     /**
-     * calculation salary for engineer.
+     * Calculation salary for engineer.
      * @param amount of money.
      * @param project of paid.
      */

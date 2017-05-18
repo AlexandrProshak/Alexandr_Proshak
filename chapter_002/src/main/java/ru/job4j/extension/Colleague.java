@@ -1,7 +1,7 @@
 package ru.job4j.extension;
 
 /**
- * Colleague describe colleagues being.
+ * The class Colleague describes colleague.
  *
  * @author Alex Proshak (olexandr_proshak@ukr.net)
  * @version $Id$
@@ -11,7 +11,7 @@ public class Colleague extends Human {
 
     /**
      * Constructor.
-     * @param name of colleague.
+     * @param name of colleague, sent to super class constructor.
      */
     public Colleague(String name) {
         super(name);

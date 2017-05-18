@@ -1,7 +1,7 @@
 package ru.job4j.extension;
 
 /**
- * Class Project.
+ * Class Project describes a simple template of a project.
  *
  * @author Alex Proshak (olexandr_proshak@ukr.net)
  * @version $Id$
@@ -9,36 +9,36 @@ package ru.job4j.extension;
  */
 public class Project {
     /**
-     * name of project.
+     * A name of project.
      */
     private String name;
     /**
-     * spent time.
+     * A time was spent.
      */
     private int time;
     /**
-     * spent money.
+     * A money was spent.
      */
     private float money;
 
     /**
-     * Constructor.
-     * @param name of project.
+     * A constructor.
+     * @param name of a project.
      */
     public Project(String name) {
         this.name = name;
     }
 
     /**
-     * Geter for name fild.
-     * @return name of project.
+     * Geter for name's field.
+     * @return name of a project.
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Seter for time fild.
+     * Seter for a time's field.
      * @param time set time.
      */
     public void setTime(int time) {
@@ -46,7 +46,7 @@ public class Project {
     }
 
     /**
-     * Calculate money.
+     * Calculating money was spent for the project.
      * @param money for calculating.
      */
     public void setMoney(float money) {

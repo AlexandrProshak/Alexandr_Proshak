@@ -1,7 +1,7 @@
 package ru.job4j.extension;
 
 /**
- * Class Task describing task for student .
+ * Class Task describes a simple template of a task.
  *
  * @author Alex Proshak (olexandr_proshak@ukr.net)
  * @version $Id$
@@ -9,21 +9,21 @@ package ru.job4j.extension;
  */
 public class Task {
     /**
-     * name of task.
+     * A name of task.
      */
     private String name;
 
     /**
-     * Constructor.
-     * @param name of task.
+     * A constructor.
+     * @param name of a task.
      */
     public Task(String name) {
         this.name = name;
     }
 
     /**
-     * Geter for name of task.
-     * @return name of task.
+     * Geter for name's of a ask.
+     * @return name of a task.
      */
     public String getName() {
         return name;

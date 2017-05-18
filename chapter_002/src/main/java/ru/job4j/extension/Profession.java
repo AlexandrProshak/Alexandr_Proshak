@@ -1,7 +1,7 @@
 package ru.job4j.extension;
 
 /**
- * Class Profession.
+ * Class Profession describes a simple template of a profession.
  *
  * @author Alex Proshak (olexandr_proshak@ukr.net)
  * @version $Id$
@@ -9,30 +9,30 @@ package ru.job4j.extension;
  */
 public abstract class Profession extends Human {
     /**
-     * specialization of humans being.
+     * A specialization of humans being.
      */
     private String specialization;
     /**
-     * high school graduated by humans being.
+     * A high school was graduated by humans being.
      */
     private String graduatedSchool;
     /**
-     * experience of humans being.
+     * An experience of humans being.
      */
     private int experience;
     /**
-     * wage for work accepted by humans being.
+     * A wage for work accepted by humans being.
      */
     private float salary = 0.0f;
 
     /**
-     * Constructor.
+     * A simple constructor.
      */
     protected Profession() {
     }
 
     /**
-     * Constructor.
+     * A constructor with parameters.
      * @param name for super class.
      * @param specialization for super class.
      * @param graduatedSchool for super class.
@@ -45,7 +45,7 @@ public abstract class Profession extends Human {
         this.experience = experience;
     }
     /**
-     * a method increase a field of a salary.
+     * Increasing a field of a salary.
      * @param amount of money per month for work.
      * @param month was paid.
      */
@@ -54,7 +54,7 @@ public abstract class Profession extends Human {
     }
 
     /**
-     * Seter salary.
+     * Seter for salary's field.
      * @param salary wage for work.
      */
     public void setSalary(float salary) {
