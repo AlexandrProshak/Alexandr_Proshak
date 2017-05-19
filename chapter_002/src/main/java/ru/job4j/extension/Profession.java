@@ -54,10 +54,18 @@ public abstract class Profession extends Human {
     }
 
     /**
-     * Seter for salary's field.
+     * A setter for salary's field.
      * @param salary wage for work.
      */
     public void setSalary(float salary) {
         this.salary = salary;
+    }
+
+    /**
+     * A getter for salary's field.
+     * @return amount of money.
+     */
+    public float getSalary() {
+        return salary;
     }
 }

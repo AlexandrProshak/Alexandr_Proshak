@@ -30,7 +30,7 @@ public class Project {
     }
 
     /**
-     * Geter for name's field.
+     * A getter for name's field.
      * @return name of a project.
      */
     public String getName() {
@@ -38,11 +38,19 @@ public class Project {
     }
 
     /**
-     * Seter for a time's field.
+     * Setter for a time's field.
      * @param time set time.
      */
     public void setTime(int time) {
         this.time += time;
+    }
+
+    /**
+     * A getter for time's field.
+     * @return a value of time's field.
+     */
+    public int getTime() {
+        return time;
     }
 
     /**
@@ -52,4 +60,13 @@ public class Project {
     public void setMoney(float money) {
         this.money += money;
     }
+
+    /**
+     * A getter for money's field.
+     * @return an amount fo money.
+     */
+    public float getMoney() {
+        return money;
+    }
 }
+

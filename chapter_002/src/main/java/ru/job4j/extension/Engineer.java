@@ -57,8 +57,8 @@ public class Engineer extends Profession {
      * @return an information line about studying.
      */
     public String studyDocumentationOfProject(Project project, int time) {
-        return "An engineer " + this.getName() + " has been studying a projects  "
-                + project.getName() + " documentation " + time + " часов";
+        return "An engineer " + this.getName() + " has been studying documentation of a project "
+                + project.getName() + " " + time + " часов";
     }
 
     /**
@@ -68,7 +68,7 @@ public class Engineer extends Profession {
      */
     public String consultationColleague(Colleague colleague) {
         return "An engineer " + this.getName()
-                + " консультировал колегу " + colleague.getName();
+                + " consults a colleague " + colleague.getName();
     }
 
     /**
