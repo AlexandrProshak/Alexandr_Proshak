@@ -36,30 +36,33 @@ public class Teacher extends Profession {
      * Teaching a student by subject.
      * @param student for teaching
      * @param subject of teaching
+     * @return an information line.
      */
-    public void teach(Human student, String subject) {
-        System.out.println("A teacher " + this.getName() + " teaches the student "
-                + student.getName() + " of a subject " + subject);
+    public String teach(Human student, String subject) {
+        return "A teacher " + this.getName() + " teaches the student "
+                + student.getName() + " of a subject " + subject;
     }
 
     /**
-     * consultation a student by subject.
+     * Consultation a student by task.
      * @param student for teaching
-     * @param subject of teaching
+     * @param task of teaching
+     * @return an information line.
      */
-    public void consultationStudent(Human student, String subject) {
-        System.out.println("A teacher " + this.getName() + " consults a student "
-                + student.getName() + " of a subject " + subject);
+    public String consultationStudent(Human student, Task task) {
+        return "A teacher " + this.getName() + " consults a student "
+                + student.getName() + " by " + task.getName() + " task";
     }
 
     /**
      * Giving a task for a student.
      * @param student for a task.
      * @param task for a student.
+     * @return an information line.
      */
-    public void giveTask(Human student, Task task) {
-        System.out.println("A teacher " + this.getName() + " gives a task to a student "
-                + student.getName() + " of a task " + task.getName());
+    public String giveTask(Human student, Task task) {
+        return "A teacher " + this.getName() + " gives a task to a student "
+                + student.getName() + " of a task " + task.getName();
     }
 
     /**
