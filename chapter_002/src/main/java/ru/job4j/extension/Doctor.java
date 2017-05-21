@@ -39,8 +39,8 @@ public class Doctor extends Profession {
      * @return diagnose for the given patient.
      */
     public String diagnose(Human patient) {
-        return "Doctor " + this.getName()
-                + " diagnostics " + patient.getName();
+        return String.format("Doctor %s diagnostics %s",
+                this.getName(), patient.getName());
     }
 
     /**
@@ -49,8 +49,8 @@ public class Doctor extends Profession {
      * @return an information line of treating.
      */
     public String treat(Human patient) {
-        return "Doctor " + this.getName()
-                + " treats " + patient.getName();
+        return String.format("Doctor %s treats %s",
+                this.getName(), patient.getName());
     }
 
     /**
@@ -60,8 +60,8 @@ public class Doctor extends Profession {
      * @return a line with recipe.
      */
     public String writeOutRecipe(Human patient, String diagnose) {
-        return "Doctor " + this.getName() + " have written a recipe "
-                + patient.getName() + " based on diagnose of " + diagnose;
+        return String.format("Doctor %s have written a recipe %s based on diagnose of %s",
+                this.getName(), patient.getName(), diagnose);
     }
 
 }

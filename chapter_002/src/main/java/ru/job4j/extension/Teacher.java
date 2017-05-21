@@ -39,8 +39,8 @@ public class Teacher extends Profession {
      * @return an information line.
      */
     public String teach(Human student, String subject) {
-        return "A teacher " + this.getName() + " teaches the student "
-                + student.getName() + " of a subject " + subject;
+        return String.format("A teacher %s teaches the student %s of a subject %s",
+                this.getName(), student.getName(), subject);
     }
 
     /**
@@ -50,8 +50,8 @@ public class Teacher extends Profession {
      * @return an information line.
      */
     public String consultationStudent(Human student, Task task) {
-        return "A teacher " + this.getName() + " consults a student "
-                + student.getName() + " by " + task.getName() + " task";
+        return String.format("A teacher %s consults a student %s by %s task",
+                this.getName(), student.getName(), task.getName());
     }
 
     /**
@@ -61,8 +61,8 @@ public class Teacher extends Profession {
      * @return an information line.
      */
     public String giveTask(Human student, Task task) {
-        return "A teacher " + this.getName() + " gives a task to a student "
-                + student.getName() + " of a task " + task.getName();
+        return String.format("A teacher %s gives a task to a student %s of a task %s",
+                this.getName(), student.getName(), task.getName());
     }
 
     /**

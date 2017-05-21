@@ -46,8 +46,8 @@ public class Engineer extends Profession {
      * @return an information line of an engineer activity on meeting.
      */
     public String takePartInMeeting(String nameOfMeeting) {
-        return "An engineer " + this.getName() + " takes a part in a meeting "
-                + nameOfMeeting;
+        return String.format("An engineer %s takes a part in a meeting %s",
+                this.getName(), nameOfMeeting);
     }
 
     /**
@@ -57,8 +57,8 @@ public class Engineer extends Profession {
      * @return an information line about studying.
      */
     public String studyDocumentationOfProject(Project project, int time) {
-        return "An engineer " + this.getName() + " has been studying documentation of a project "
-                + project.getName() + " " + time + " часов";
+        return String.format("An engineer %s has been studying documentation of a project %s %s часов",
+                this.getName(), project.getName(), time);
     }
 
     /**
@@ -67,8 +67,8 @@ public class Engineer extends Profession {
      * @return line of information about consultation colleague.
      */
     public String consultationColleague(Colleague colleague) {
-        return "An engineer " + this.getName()
-                + " consults a colleague " + colleague.getName();
+        return String.format("An engineer %s consults a colleague %s",
+                this.getName(), colleague.getName());
     }
 
     /**
