@@ -1,5 +1,7 @@
 package ru.job4j.encapsulation;
 
+import java.util.Random;
+
 /**
  * Class Item describes item.
  *
@@ -8,35 +10,47 @@ package ru.job4j.encapsulation;
  * @since 0.1
  */
 public class Item {
+
     /**
      * An identification of an element.
      */
     private String id;
+
     /**
      * A name of element.
      */
     private String name;
+
     /**
      * A description of an element.
      */
     private String description;
+
     /**
      * A date when an element was created.
      */
     private long created;
+
     /**
      * An array of an item comments.
      */
     private String[] comments;
 
-    private static int counter = 0;
+    /**
+     * A constant for generation id.
+     */
+    private static final Random RN = new Random();
 
-    public Item(String name, String description, String[] comments) {
-        this.id = "id: " + String.valueOf(counter++);
+    /**
+     * A constructor with parameters for class Item.
+     * @param name for a created item.
+     * @param description of a created item.
+     */
+    public Item(String name, String description) {
         this.name = name;
         this.description = description;
         this.created = System.currentTimeMillis();
-        this.comments = comments;
+        this.id = generateId();
     }
 
     /**
@@ -45,6 +59,14 @@ public class Item {
      */
     public String getId() {
         return id;
+    }
+
+    /**
+     * A setter for id field.
+     * @param id for item.
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**
@@ -101,5 +123,13 @@ public class Item {
      */
     public void setComments(String[] comments) {
         this.comments = comments;
+    }
+
+    /**
+     * A method generateId creates unique id for item.
+     * @return id.
+     */
+    private String generateId() {
+        return String.valueOf(System.currentTimeMillis() + RN.nextInt());
     }
 }

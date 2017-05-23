@@ -8,17 +8,30 @@ package ru.job4j.encapsulation;
  * @since 0.1
  */
 public class Tracker {
+
     /**
      * An array of items.
      */
-    private Item[] items = new Item[100];
+    private Item[] items;
+
     /**
      * Thr last index of the added element.
      */
     private int position = 0;
+
+    /**
+     * A constructor for class Tracker.
+     */
+    public Tracker() {
+        this.items = new Item[100];
+        this.position = 0;
+    }
+
     /**
      * A method add adds the item passed in the arguments
-     * to the array of Items.
+     * to the array of the Items.
+     * @param item for add.
+     * @return item.
      */
     public Item add(Item item) {
         this.items[position++] = item;
@@ -28,11 +41,14 @@ public class Tracker {
     /**
      * A method update replaces the cell into the array of items
      * passed in the arguments.
+     * @param item for update.
      */
     public void update(Item item) {
-        for (int i = 0; i < this.items.length; i++) {
-            if (item != null && this.items[i].getId().equals(item.getId())) {
-                this.items[i] = item;
+        if (item != null) {
+            for (int i = 0; i < this.items.length; i++) {
+                if (this.items[i] != null && this.items[i].getId().equals(item.getId())) {
+                    this.items[i] = item;
+                }
             }
         }
     }
@@ -40,37 +56,32 @@ public class Tracker {
     /**
      * A method delete assigns the cell of the items array to null
      * if the field id of passed item equals to the id in the items array.
+     * @param item for delete.
      */
     public void delete(Item item) {
-        for (int i = 0; i < this.items.length; i++) {
-            if (item != null && this.items[i].getId().equals(item.getId())) {
-                this.items[i] = null;
-                break;
+        if (item != null) {
+            for (int i = 0; i < this.items.length; i++) {
+                if (this.items[i] != null && this.items[i].getId().equals(item.getId())) {
+                    this.items[i] = null;
+                    break;
+                }
             }
         }
     }
 
     /**
-     * A method findAll returns copy of the array item without null elements.
+     * A method findAll returns copy of the array items without null elements.
      * @return copy of the array.
      */
     public Item[] findAll() {
-        int nullElements = 0;
+        int index = 0;
+        Item[] result = new Item[this.position];
         for (Item it : this.items) {
-            if (it.equals(null)) {
-                nullElements++;
+            if (it != null) {
+                result[index++] = it;
             }
         }
-        int j = 0;
-        Item[] result = new Item[this.items.length - nullElements];
-        for (Item it : this.items) {
-            if (it.equals(null)) {
-                continue;
-            } else {
-                result[j++] = it;
-            }
-        }
-        return result;
+        return exclusionNullElements(result, index);
     }
 
     /**
@@ -82,13 +93,11 @@ public class Tracker {
         Item[] result = new Item[this.items.length];
         int index = 0;
         for (Item item: this.items) {
-            if (key != null && item.getName().equals(key)) {
+            if (item != null && item.getName().equals(key)) {
                 result[index++] = item;
             }
         }
-        Item[] finalResult = new Item[index];
-        System.arraycopy(result, 0, finalResult, 0, index);
-        return finalResult;
+        return exclusionNullElements(result, index);
     }
 
     /**
@@ -99,14 +108,27 @@ public class Tracker {
      */
     public Item findById(String id) {
         Item result = null;
-        for (Item item: this.items) {
-            if (item != null && item.getId().equals(id)){
-                result = item;
-                break;
+        if (id != null) {
+            for (Item item : this.items) {
+                if (item != null && item.getId().equals(id)) {
+                    result = item;
+                    break;
+                }
             }
         }
         return result;
     }
 
+    /**
+     * A method deletes null elements from the given array.
+     * @param nullItems array which has null elements located in end.
+     * @param endPosition index in the array after that are null.
+     * @return array without null elements.
+     */
+    private Item[] exclusionNullElements(Item[] nullItems, int endPosition) {
+        Item[] result = new Item[endPosition];
+        System.arraycopy(nullItems, 0, result, 0, endPosition);
+        return result;
+    }
 }
 
