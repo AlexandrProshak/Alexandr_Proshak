@@ -37,9 +37,12 @@ public class Menu {
      * @throws IOException if something was wrong.
      */
     public String showMenu() throws IOException {
+        System.out.println("Enter the number of the action below");
+        System.out.println();
         for (String menuItem : this.menu) {
             System.out.println(menuItem);
         }
+        System.out.println();
         return new ConsoleInput().consoleInput("Select: ");
     }
 }
