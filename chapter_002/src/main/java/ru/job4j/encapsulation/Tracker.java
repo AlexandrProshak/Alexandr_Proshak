@@ -1,5 +1,7 @@
 package ru.job4j.encapsulation;
 
+import java.util.Arrays;
+
 /**
  * Class Tracker describes a wrapper of the item's array.
  *
@@ -48,6 +50,7 @@ public class Tracker {
             for (int i = 0; i < this.items.length; i++) {
                 if (this.items[i] != null && this.items[i].getId().equals(item.getId())) {
                     this.items[i] = item;
+                    break;
                 }
             }
         }
@@ -81,7 +84,7 @@ public class Tracker {
                 result[index++] = it;
             }
         }
-        return exclusionNullElements(result, index);
+        return Arrays.copyOf(result, index);
     }
 
     /**
@@ -97,7 +100,7 @@ public class Tracker {
                 result[index++] = item;
             }
         }
-        return exclusionNullElements(result, index);
+        return Arrays.copyOf(result, index);
     }
 
     /**
@@ -116,18 +119,6 @@ public class Tracker {
                 }
             }
         }
-        return result;
-    }
-
-    /**
-     * A method deletes null elements from the given array.
-     * @param nullItems array which has null elements located in end.
-     * @param endPosition index in the array after that are null.
-     * @return array without null elements.
-     */
-    private Item[] exclusionNullElements(Item[] nullItems, int endPosition) {
-        Item[] result = new Item[endPosition];
-        System.arraycopy(nullItems, 0, result, 0, endPosition);
         return result;
     }
 }

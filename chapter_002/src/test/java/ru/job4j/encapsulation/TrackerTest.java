@@ -65,11 +65,12 @@ public class TrackerTest {
      * @throws Exception if something goes wrong.
      */
     @Test
-    public void whenUpdateItemThanReturnUpdateedOne() throws Exception {
+    public void whenUpdateItemThanReturnUpdatedOne() throws Exception {
+        Item itemCheck = new Item("check", "checking item");
         String id = this.itemB.getId();
-        this.itemB.setName("second");
-        this.tracker.update(this.itemB);
-        assertEquals("second", this.tracker.findById(id).getName());
+        itemCheck.setId(id);
+        this.tracker.update(itemCheck);
+        assertEquals(itemCheck, this.tracker.findById(id));
     }
 
     /**
