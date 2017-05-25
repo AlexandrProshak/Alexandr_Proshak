@@ -43,6 +43,6 @@ public class Menu {
             System.out.println(menuItem);
         }
         System.out.println();
-        return new ConsoleInput().consoleInput("Select: ");
+        return new ConsoleInput().input("Select: ");
     }
 }

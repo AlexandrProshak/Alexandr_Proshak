@@ -1,8 +1,6 @@
 package ru.job4j.polymorphism;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Scanner;
 
 /**
  * Class ConsoleInput performs input from a console.
@@ -11,20 +9,19 @@ import java.io.InputStreamReader;
  * @version $Id$
  * @since 0.1
  */
-public class ConsoleInput {
+public class ConsoleInput implements Input{
     /**
-     * A buffered class reader uses for input date from a console.
+     * A class scanner is used for input date from a console.
      */
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private Scanner scanner = new Scanner(System.in);
 
     /**
-     * A method consoleInput provides an users input.
+     * A method input provides an users input.
      * @param ask a question for user to help make a choice.
      * @return a line which contents users answer.
-     * @throws IOException if same was wrong.
      */
-    public String consoleInput(String ask) throws IOException {
+    public String input(String ask) {
         System.out.print(ask);
-        return reader.readLine();
+        return scanner.nextLine();
     }
 }
