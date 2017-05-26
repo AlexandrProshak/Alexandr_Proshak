@@ -3,13 +3,13 @@ package ru.job4j.polymorphism;
 import java.io.IOException;
 
 /**
- * Class Menu.
+ * Class MenuTracker.
  *
  * @author Alex Proshak (olexandr_proshak@ukr.net)
  * @version $Id$
  * @since 0.1
  */
-public class Menu {
+public class MenuTracker {
 
     /**
      * An array of menu.
@@ -19,7 +19,7 @@ public class Menu {
     /**
      * A constructor for class menu.
      */
-    public Menu() {
+    public MenuTracker() {
         this.menu = new String[]{
                 "0. Add new Item",
                 "1. Show all items",
@@ -32,17 +32,18 @@ public class Menu {
     }
 
     /**
-     * A method showMenu prints menu.
+     * A method select prints menu.
      * @return users answer.
      * @throws IOException if something was wrong.
      */
-    public String showMenu() throws IOException {
+    public Action select() throws IOException {
         System.out.println("Enter the number of the action below");
         System.out.println();
         for (String menuItem : this.menu) {
             System.out.println(menuItem);
         }
         System.out.println();
-        return new ConsoleInput().input("Select: ");
+        int userChoice = Integer.parseInt(new ConsoleInput().input("Select: "));
+        return null;
     }
 }

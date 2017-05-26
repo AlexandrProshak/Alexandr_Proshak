@@ -1,5 +1,7 @@
 package ru.job4j.polymorphism;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
+
 import java.util.Scanner;
 
 /**
@@ -21,7 +23,11 @@ public class ConsoleInput implements Input{
      * @return a line which contents users answer.
      */
     public String input(String ask) {
-        System.out.print(ask);
+        print(ask);
         return scanner.nextLine();
+    }
+
+    public void print(String message) {
+        System.out.print(message);
     }
 }
