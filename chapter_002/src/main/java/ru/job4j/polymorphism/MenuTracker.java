@@ -12,15 +12,15 @@ import java.io.IOException;
 public class MenuTracker {
 
     /**
-     * An array of menu.
+     * An array of actions.
      */
-    private String[] menu;
+    private String[] actions;
 
     /**
-     * A constructor for class menu.
+     * A constructor for class actions.
      */
     public MenuTracker() {
-        this.menu = new String[]{
+        this.actions = new String[]{
                 "0. Add new Item",
                 "1. Show all items",
                 "2. Edit item",
@@ -32,18 +32,19 @@ public class MenuTracker {
     }
 
     /**
-     * A method select prints menu.
+     * A method select prints actions.
      * @return users answer.
      * @throws IOException if something was wrong.
      */
-    public Action select() throws IOException {
+    public int select() throws IOException {
         System.out.println("Enter the number of the action below");
         System.out.println();
-        for (String menuItem : this.menu) {
+        for (String menuItem : this.actions) {
             System.out.println(menuItem);
         }
         System.out.println();
-        int userChoice = Integer.parseInt(new ConsoleInput().input("Select: "));
-        return null;
+        return Integer.parseInt(new ConsoleInput().input("Select: "));
+
+
     }
 }

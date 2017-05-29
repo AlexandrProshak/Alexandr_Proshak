@@ -1,5 +1,6 @@
 package ru.job4j.polymorphism;
 
+import ru.job4j.encapsulation.Item;
 import ru.job4j.encapsulation.Tracker;
 
 import java.io.IOException;
@@ -24,11 +25,16 @@ public class StartUi {
         Tracker tracker = new Tracker();
         MenuTracker menu = new MenuTracker();
 
-        while (flag) {
-            menu.select().execute(tracker, this.input);
-        }
 
+        String itemName = input.input("Enter your name, please ");
+        String itemDescription = input.input("Enter the item's description, please ");
+        tracker.add(new Item(itemName, itemDescription));
+        System.out.println("Ok");
+
+        flag = false;
     }
+
+
 
     public static void main(String[] args) throws IOException {
         new StartUi(new ConsoleInput()).init();
