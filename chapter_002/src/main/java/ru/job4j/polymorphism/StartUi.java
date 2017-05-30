@@ -21,20 +21,12 @@ public class StartUi {
     }
 
     private void init() throws IOException {
-        boolean flag = true;
+
         Tracker tracker = new Tracker();
         MenuTracker menu = new MenuTracker();
+        int choice = menu.select();
 
-
-        String itemName = input.input("Enter your name, please ");
-        String itemDescription = input.input("Enter the item's description, please ");
-        tracker.add(new Item(itemName, itemDescription));
-        System.out.println("Ok");
-
-        flag = false;
     }
-
-
 
     public static void main(String[] args) throws IOException {
         new StartUi(new ConsoleInput()).init();
