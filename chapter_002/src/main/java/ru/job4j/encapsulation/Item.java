@@ -35,6 +35,10 @@ public class Item {
      * An array of an item comments.
      */
     private String[] comments;
+    /**
+     * length of comment's array.
+     */
+    private int position = 0;
 
     /**
      * A constant for generation id.
@@ -51,6 +55,7 @@ public class Item {
         this.description = description;
         this.created = System.currentTimeMillis();
         this.id = generateId();
+        this.comments = new String[10];
     }
 
     /**
@@ -119,10 +124,10 @@ public class Item {
 
     /**
      * A setter for comments field.
-     * @param comments an array of comments passed by.
+     * @param comments a line of comment passed by.
      */
-    public void setComments(String[] comments) {
-        this.comments = comments;
+    public void setComments(String comments) {
+        this.comments[position++] = comments;
     }
 
     /**

@@ -37,14 +37,15 @@ public class MenuTracker {
      * @throws IOException if something was wrong.
      */
     public int select() throws IOException {
+        System.out.println("____________________________________");
         System.out.println("Enter the number of the action below");
         System.out.println();
         for (String menuItem : this.actions) {
             System.out.println(menuItem);
         }
         System.out.println();
-        return Integer.parseInt(new ConsoleInput().input("Select: "));
-
-
+        int result = Integer.parseInt(new ConsoleInput().input("Select: "));
+        System.out.println();
+        return result;
     }
 }

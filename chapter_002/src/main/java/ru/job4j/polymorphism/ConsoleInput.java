@@ -1,7 +1,5 @@
 package ru.job4j.polymorphism;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
-
 import java.util.Scanner;
 
 /**
@@ -11,7 +9,7 @@ import java.util.Scanner;
  * @version $Id$
  * @since 0.1
  */
-public class ConsoleInput implements Input{
+public class ConsoleInput implements Input {
     /**
      * A class scanner is used for input date from a console.
      */
@@ -27,6 +25,10 @@ public class ConsoleInput implements Input{
         return scanner.nextLine();
     }
 
+    /**
+     * A method of printing in a console.
+     * @param message for print.
+     */
     public void print(String message) {
         System.out.print(message);
     }
