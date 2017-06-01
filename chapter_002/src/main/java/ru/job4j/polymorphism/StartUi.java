@@ -16,12 +16,18 @@ public class StartUi {
      * A field of an input system.
      */
     private Input input;
+    /**
+     * A field of a tracker instance.
+     */
+    private Tracker tracker;
 
     /**
      * A constructor.
      * @param input an input interface.
+     * @param tracker is an instance of a tracker.
      */
-    public StartUi(Input input) {
+    public StartUi(Tracker tracker, Input input) {
+        this.tracker = tracker;
         this.input = input;
     }
 
@@ -29,7 +35,7 @@ public class StartUi {
      * An initialisation method.
      * @throws IOException if same thing was wrong.
      */
-    private void init() throws IOException {
+    public void init() throws IOException {
         boolean flag = true;
         Tracker tracker = new Tracker();
         MenuTracker menu = new MenuTracker();
@@ -47,7 +53,7 @@ public class StartUi {
      * @throws IOException if something was wrong.
      */
     public static void main(String[] args) throws IOException {
-        new StartUi(new ConsoleInput()).init();
+        new StartUi(new Tracker(), new ConsoleInput()).init();
     }
 }
 
