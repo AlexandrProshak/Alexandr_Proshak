@@ -32,11 +32,10 @@ public class MenuTracker {
     }
 
     /**
-     * A method select prints actions.
-     * @return users answer.
+     * A method show prints actions.
      * @throws IOException if something was wrong.
      */
-    public int select() throws IOException {
+    public void show() throws IOException {
         System.out.println("____________________________________");
         System.out.println("Enter the number of the action below");
         System.out.println();
@@ -44,8 +43,5 @@ public class MenuTracker {
             System.out.println(menuItem);
         }
         System.out.println();
-        int result = Integer.parseInt(new ConsoleInput().input("Select: "));
-        System.out.println();
-        return result;
     }
 }

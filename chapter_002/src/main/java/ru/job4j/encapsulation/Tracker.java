@@ -89,6 +89,7 @@ public class Tracker {
 
     /**
      * A method findByName returns copy of the array item where key == items.name.
+     * If an array has not such a name than return null.
      * @param key name for searching in array.
      * @return returns copy of the array where key == items.name.
      */

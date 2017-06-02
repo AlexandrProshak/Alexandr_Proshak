@@ -37,19 +37,19 @@ public class StartUi {
      */
     public void init() throws IOException {
         boolean flag = true;
-        Tracker tracker = new Tracker();
         MenuTracker menu = new MenuTracker();
         Action action = new Action();
         //a loop of showing menu.
         while (flag) {
-            int userChoice = menu.select();
+            menu.show();
+            int userChoice = Integer.parseInt(input.input("Select: "));
             flag = action.execute(input, tracker, userChoice);
         }
     }
 
     /**
      * A main method.
-     * @param args for the mathod main.
+     * @param args for the method main.
      * @throws IOException if something was wrong.
      */
     public static void main(String[] args) throws IOException {
