@@ -3,7 +3,8 @@ package ru.job4j.strategy;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * Class PaintTest.
@@ -13,9 +14,14 @@ import static org.junit.Assert.*;
  * @since 0.1
  */
 public class PaintTest {
-
+    /**
+     * An instance of a class Paint.
+     */
     private static Paint paint;
 
+    /**
+     * An initialisation date for test.
+     */
     @BeforeClass
     public static void init() {
         PaintTest.paint = new Paint();
@@ -27,7 +33,7 @@ public class PaintTest {
      */
     @Test
     public void whenShapeIsTriangleThanDrawTriangle() throws Exception {
-        assertEquals(PaintTest.paint.draw(new Triangle()), "I am a triangle");
+        assertThat(PaintTest.paint.draw(new Triangle()), is(String.format(" ^ %s^^^", "\n")));
     }
 
     /**
@@ -36,7 +42,7 @@ public class PaintTest {
      */
     @Test
     public void whenShapeIsSquareThanDrawSquare() throws Exception {
-        assertEquals(PaintTest.paint.draw(new Square()), "I am a square");
+        assertThat(PaintTest.paint.draw(new Square()), is(String.format("^^^%s^^^%s^^^", "\n", "\n")));
     }
 
 }

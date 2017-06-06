@@ -10,6 +10,8 @@ package ru.job4j.strategy;
 public class Triangle implements Shape {
     @Override
     public String pic() {
-        return "I am a triangle";
+        StringBuilder sb = new StringBuilder();
+        sb.append(" ^ ").append("\n").append("^^^");
+        return sb.toString();
     }
 }

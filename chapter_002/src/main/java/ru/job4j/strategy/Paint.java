@@ -8,6 +8,11 @@ package ru.job4j.strategy;
  * @since 0.1
  */
 public class Paint {
+    /**
+     * A method is drawing a shape.
+     * @param shape is a parameter for drawing.
+     * @return a line of the shape.
+     */
     public String draw(Shape shape) {
         return shape.pic();
     }

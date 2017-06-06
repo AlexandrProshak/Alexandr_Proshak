@@ -10,6 +10,8 @@ package ru.job4j.strategy;
 public class Square implements Shape {
     @Override
     public String pic() {
-        return "I am a square";
+        StringBuilder sb = new StringBuilder();
+        sb.append("^^^").append("\n").append("^^^").append("\n").append("^^^");
+        return sb.toString();
     }
 }
