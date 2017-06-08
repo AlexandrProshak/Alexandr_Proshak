@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.job4j.encapsulation.Item;
 import ru.job4j.encapsulation.Tracker;
+import ru.job4j.exceptions.Input;
+import ru.job4j.exceptions.StubInput;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;

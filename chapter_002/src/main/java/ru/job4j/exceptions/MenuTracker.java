@@ -1,8 +1,8 @@
-package ru.job4j.inner;
+package ru.job4j.exceptions;
 
 import ru.job4j.encapsulation.Item;
 import ru.job4j.encapsulation.Tracker;
-import ru.job4j.polymorphism.Input;
+import ru.job4j.inner.UserAction;
 
 /**
  * Class MenuTracker.
@@ -12,8 +12,9 @@ import ru.job4j.polymorphism.Input;
  * @since 0.1
  */
 public class MenuTracker {
+
     /**
-     * A field for link of input interface.
+     * A field for link of ask interface.
      */
     private Input input;
     /**
@@ -24,15 +25,31 @@ public class MenuTracker {
      * An array of users actions.
      */
     private UserAction[] userAction = new UserAction[6];
+    /**
+     * A range of menu.
+     */
+    private int[] range = new int[userAction.length];
 
     /**
      * A constructor of a class MenuTracker.
-     * @param input is an input interface.
+     * @param input is an ask interface.
      * @param tracker is an instance of a tracker.
      */
     public MenuTracker(Input input, Tracker tracker) {
         this.input = input;
         this.tracker = tracker;
+    }
+
+    /**
+     * A getter and an initialization an array of a menu.
+     * @return an array of menu's index.
+     */
+    public int[] getUserActionIndexes() {
+        int index = 0;
+        while (index < userAction.length) {
+            this.range[index++] = index++;
+        }
+        return this.range;
     }
 
     /**
@@ -78,8 +95,8 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            String name = input.input("Please enter the name: ");
-            String desc = input.input("Please enter the description: ");
+            String name = input.ask("Please enter the name: ");
+            String desc = input.ask("Please enter the description: ");
             tracker.add(new Item(name, desc));
 
         }
@@ -125,10 +142,10 @@ class EditItem implements UserAction {
 
     @Override
     public void execute(Input input, Tracker tracker) {
-        String itemIdToUpdate = input.input("Enter item's id to update: ");
-        String name = input.input("Enter new items name: ");
-        String desc = input.input("Enter new items description: ");
-        String comment = input.input("Add a comment ");
+        String itemIdToUpdate = input.ask("Enter item's id to update: ");
+        String name = input.ask("Enter new items name: ");
+        String desc = input.ask("Enter new items description: ");
+        String comment = input.ask("Add a comment ");
         Item itemToUpdate = new Item(name, desc);
         itemToUpdate.setComments(comment);
         itemToUpdate.setId(itemIdToUpdate);
@@ -152,7 +169,7 @@ class DeleteItem implements UserAction {
 
     @Override
     public void execute(Input input, Tracker tracker) {
-        String itemIdToRemove = input.input("Enter item's id to remove: ");
+        String itemIdToRemove = input.ask("Enter item's id to remove: ");
         tracker.delete(tracker.findById(itemIdToRemove));
     }
 
@@ -173,7 +190,7 @@ class FindItemById implements UserAction {
 
     @Override
     public void execute(Input input, Tracker tracker) {
-        String itemId = input.input("Enter the item's id: ");
+        String itemId = input.ask("Enter the item's id: ");
         Item item = tracker.findById(itemId);
         System.out.println(item);
     }
@@ -196,7 +213,7 @@ class FindItemByName implements UserAction {
 
     @Override
     public void execute(Input input, Tracker tracker) {
-        String searchName = input.input("Enter the item's name: ");
+        String searchName = input.ask("Enter the item's name: ");
         Item[] itemsName = tracker.findByName(searchName);
         for (Item itName : itemsName) {
             System.out.format("%s - %s. %s", itName.getId(), itName.getName(), "\n");

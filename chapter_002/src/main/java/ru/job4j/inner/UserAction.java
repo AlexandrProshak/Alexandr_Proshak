@@ -1,7 +1,7 @@
 package ru.job4j.inner;
 
 import ru.job4j.encapsulation.Tracker;
-import ru.job4j.polymorphism.Input;
+import ru.job4j.exceptions.Input;
 
 /**
  * Interface UserAction.
@@ -19,7 +19,7 @@ public interface UserAction {
 
     /**
      * An unique method for tracker.
-     * @param input is an input interface.
+     * @param input is an ask interface.
      * @param tracker is an instance of a class Tracker.
      */
     void execute(Input input, Tracker tracker);

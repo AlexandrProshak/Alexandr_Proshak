@@ -1,6 +1,8 @@
 package ru.job4j.polymorphism;
 
 import ru.job4j.encapsulation.Tracker;
+import ru.job4j.exceptions.ConsoleInput;
+import ru.job4j.exceptions.Input;
 
 import java.io.IOException;
 
@@ -13,7 +15,7 @@ import java.io.IOException;
  */
 public class StartUi {
     /**
-     * A field of an input system.
+     * A field of an ask system.
      */
     private Input input;
     /**
@@ -23,7 +25,7 @@ public class StartUi {
 
     /**
      * A constructor.
-     * @param input an input interface.
+     * @param input an ask interface.
      * @param tracker is an instance of a tracker.
      */
     public StartUi(Tracker tracker, Input input) {
@@ -42,7 +44,7 @@ public class StartUi {
         //a loop of showing menu.
         while (flag) {
             menu.show();
-            int userChoice = Integer.parseInt(input.input("Select: "));
+            int userChoice = Integer.parseInt(input.ask("Select: "));
             flag = action.execute(input, tracker, userChoice);
         }
     }

@@ -1,8 +1,6 @@
-package ru.job4j.inner;
+package ru.job4j.exceptions;
 
 import ru.job4j.encapsulation.Tracker;
-import ru.job4j.polymorphism.ConsoleInput;
-import ru.job4j.polymorphism.Input;
 
 import java.io.IOException;
 
@@ -16,13 +14,13 @@ import java.io.IOException;
 public class StartUi {
 
     /**
-     * A field of an input system.
+     * A field of an ask system.
      */
     private Input input;
 
     /**
      * A constructor for a class.
-     * @param input is an input interface.
+     * @param input is an ask interface.
      */
     public StartUi(Input input) {
         this.input = input;
@@ -41,9 +39,9 @@ public class StartUi {
             System.out.println();
             menu.showMenu();
             System.out.println();
-            menu.select(Integer.parseInt(this.input.input("Please select action: ")));
+            menu.select(this.input.ask("Please select action: ", menu.getUserActionIndexes()));
             System.out.println();
-        } while (!"y".equals(this.input.input("For exit enter Y : ")));
+        } while (!"y".equals(this.input.ask("For exit enter Y : ")));
     }
 
     /**
@@ -52,7 +50,7 @@ public class StartUi {
      * @throws IOException if something was wrong.
      */
     public static void main(String[] args) throws IOException {
-        Input input = new ConsoleInput();
+        Input input = new ValidateInput();
         new StartUi(input).init();
     }
 }

@@ -2,6 +2,7 @@ package ru.job4j.polymorphism;
 
 import ru.job4j.encapsulation.Item;
 import ru.job4j.encapsulation.Tracker;
+import ru.job4j.exceptions.Input;
 
 /**
  * Class Action provides a performance of trackers operations.
@@ -13,7 +14,7 @@ import ru.job4j.encapsulation.Tracker;
 public class Action {
     /**
      * A method execute performs trackers operations.
-     * @param input is input interface.
+     * @param input is ask interface.
      * @param tracker is an instance of the class Tracker.
      * @param choice is a number of user's choice.
      * @return false for exit and an incorrect users enter.
@@ -23,8 +24,8 @@ public class Action {
         switch (choice) {
             // add an items to the tracker.
             case 0:
-                String itemName = input.input("Enter your name please: ");
-                String itemDesc = input.input("Enter the item's description: ");
+                String itemName = input.ask("Enter your name please: ");
+                String itemDesc = input.ask("Enter the item's description: ");
                 tracker.add(new Item(itemName, itemDesc));
                 result = true;
                 break;
@@ -39,10 +40,10 @@ public class Action {
                 break;
             //update item.
             case 2:
-                String itemIdToUpdate = input.input("Enter item's id to update: ");
-                String name = input.input("Enter new items name: ");
-                String desc = input.input("Enter new items description: ");
-                String comment = input.input("Add a comment ");
+                String itemIdToUpdate = input.ask("Enter item's id to update: ");
+                String name = input.ask("Enter new items name: ");
+                String desc = input.ask("Enter new items description: ");
+                String comment = input.ask("Add a comment ");
                 Item itemToUpdate = new Item(name, desc);
                 itemToUpdate.setComments(comment);
                 itemToUpdate.setId(itemIdToUpdate);
@@ -51,20 +52,20 @@ public class Action {
                 break;
             //delete item by id.
             case 3:
-                String itemIdToRemove = input.input("Enter item's id to remove: ");
+                String itemIdToRemove = input.ask("Enter item's id to remove: ");
                 tracker.delete(tracker.findById(itemIdToRemove));
                 result = true;
                 break;
             //return item by id.
             case 4:
-                String itemId = input.input("Enter the item's id: ");
+                String itemId = input.ask("Enter the item's id: ");
                 Item item = tracker.findById(itemId);
                 System.out.println(item);
                 result = true;
                 break;
             //return item by name.
             case 5:
-                String searchName = input.input("Enter the item's name: ");
+                String searchName = input.ask("Enter the item's name: ");
                 Item[] itemsName = tracker.findByName(searchName);
                 for (Item itName : itemsName) {
                     System.out.println(itName);

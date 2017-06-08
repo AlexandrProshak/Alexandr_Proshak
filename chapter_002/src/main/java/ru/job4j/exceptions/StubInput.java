@@ -1,4 +1,4 @@
-package ru.job4j.polymorphism;
+package ru.job4j.exceptions;
 
 /**
  * Class StubInput.
@@ -27,12 +27,24 @@ public class StubInput implements Input {
     }
 
     /**
-     * A method imitates user's input.
+     * A method imitates user's ask.
      * @param ask a parameter for a method.
      * @return a pre-programmed behavior.
      */
     @Override
-    public String input(String ask) {
+    public String ask(String ask) {
         return this.answers[position++];
+    }
+
+    /**
+     * A method imitates user's ask with a validation of ask.
+     * @param ask a parameter for a method.
+     * @param range is range of the menu.
+     * @return a pre-programmed behavior.
+     */
+    @Override
+    public int ask(String ask, int[] range) {
+        //throw new UnsupportedOperationException("Unsupported operation");
+        return -1;
     }
 }
