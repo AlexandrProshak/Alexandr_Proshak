@@ -1,5 +1,6 @@
 package ru.job4j.exceptions;
 
+import ru.job4j.abstractions.BaseAction;
 import ru.job4j.encapsulation.Item;
 import ru.job4j.encapsulation.Tracker;
 import ru.job4j.inner.UserAction;
@@ -53,15 +54,27 @@ public class MenuTracker {
     }
 
     /**
+     * An index for an Action array to increase incrementally.
+     */
+    private int position = 0;
+
+    /**
      * A method for registration actions.
      */
     public void fillActions() {
-        this.userAction[0] = new AddItem();
-        this.userAction[1] = new MenuTracker.ShowItems();
-        this.userAction[2] = new EditItem();
-        this.userAction[3] = new DeleteItem();
-        this.userAction[4] = new FindItemById();
-        this.userAction[5] = new FindItemByName();
+        this.userAction[position++] = new AddItem(0, "Add new item to the tracker");
+        this.userAction[position++] = new MenuTracker.ShowItems(1, "Show all items");
+        this.userAction[position++] = new EditItem(2, "Edit item by id");
+        this.userAction[position++] = new DeleteItem(3, "Delete item");
+        this.userAction[position++] = new FindItemById(4, "Find item by Id");
+    }
+
+    /**
+     * A method for add an action item to the tracker.
+     * @param action is an instance of an action.
+     */
+    public void addAction(UserAction action) {
+        this.userAction[position++] = action;
     }
 
     /**
@@ -86,47 +99,44 @@ public class MenuTracker {
     /**
      * A class for add an item to a tracker.
      */
-    private class AddItem implements UserAction {
+    private class AddItem extends BaseAction {
 
-        @Override
-        public int key() {
-            return 0;
+        /**
+         * A constructor with was declared in an abstract class
+         * and must be redefined in an inheritor class.
+         * @param key is a index of menu tracker.
+         * @param name is an action's name.
+         */
+        private AddItem(int key, String name) {
+            super(key, name);
         }
-
         @Override
         public void execute(Input input, Tracker tracker) {
             String name = input.ask("Please enter the name: ");
             String desc = input.ask("Please enter the description: ");
             tracker.add(new Item(name, desc));
-
-        }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s.", this.key(), "Add new item to the tracker");
         }
     }
 
     /**
      * A class for displaying all items in the tracker.
      */
-    private static class ShowItems implements UserAction {
+    private static class ShowItems extends BaseAction {
 
-        @Override
-        public int key() {
-            return 1;
+        /**
+         * A constructor with was declared in an abstract class
+         * and must be redefined in an inheritor class.
+         * @param key is a index of menu tracker.
+         * @param name is an action's name.
+         */
+        private ShowItems(int key, String name) {
+            super(key, name);
         }
-
         @Override
         public void execute(Input input, Tracker tracker) {
             for (Item item : tracker.findAll()) {
                 System.out.format("%s - %s %s", item.getId(), item.getName(), "\n");
             }
-        }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s.", this.key(), "Show all items");
         }
     }
 }
@@ -134,12 +144,17 @@ public class MenuTracker {
 /**
  * A class for edit item by id.
  */
-class EditItem implements UserAction {
-    @Override
-    public int key() {
-        return 2;
-    }
+class EditItem extends BaseAction {
 
+    /**
+     * A constructor with was declared in an abstract class
+     * and must be redefined in an inheritor class.
+     * @param key is a index of menu tracker.
+     * @param name is an action's name.
+     */
+    protected EditItem(int key, String name) {
+        super(key, name);
+    }
     @Override
     public void execute(Input input, Tracker tracker) {
         String itemIdToUpdate = input.ask("Enter item's id to update: ");
@@ -151,77 +166,47 @@ class EditItem implements UserAction {
         itemToUpdate.setId(itemIdToUpdate);
         tracker.update(itemToUpdate);
     }
-
-    @Override
-    public String info() {
-        return String.format("%s. %s.", this.key(), "Edit item by id");
-    }
 }
 
 /**
  * A class for remove an item by the id from a tracker.
  */
-class DeleteItem implements UserAction {
-    @Override
-    public int key() {
-        return 3;
-    }
+class DeleteItem extends BaseAction {
 
+    /**
+     * A constructor with was declared in an abstract class
+     * and must be redefined in an inheritor class.
+     * @param key is a index of menu tracker.
+     * @param name is an action's name.
+     */
+    protected DeleteItem(int key, String name) {
+        super(key, name);
+    }
     @Override
     public void execute(Input input, Tracker tracker) {
         String itemIdToRemove = input.ask("Enter item's id to remove: ");
         tracker.delete(tracker.findById(itemIdToRemove));
-    }
-
-    @Override
-    public String info() {
-        return String.format("%s. %s.", this.key(), "Delete item");
     }
 }
 
 /**
  * A class searching item by id.
  */
-class FindItemById implements UserAction {
-    @Override
-    public int key() {
-        return 4;
-    }
+class FindItemById extends BaseAction {
 
+    /**
+     * A constructor with was declared in an abstract class
+     * and must be redefined in an inheritor class.
+     * @param key is a index of menu tracker.
+     * @param name is an action's name.
+     */
+    protected FindItemById(int key, String name) {
+        super(key, name);
+    }
     @Override
     public void execute(Input input, Tracker tracker) {
         String itemId = input.ask("Enter the item's id: ");
         Item item = tracker.findById(itemId);
         System.out.println(item);
-    }
-
-    @Override
-    public String info() {
-        return String.format("%s. %s.", this.key(), "Find item by Id");
-
-    }
-}
-
-/**
- * A class searching item by name.
- */
-class FindItemByName implements UserAction {
-    @Override
-    public int key() {
-        return 5;
-    }
-
-    @Override
-    public void execute(Input input, Tracker tracker) {
-        String searchName = input.ask("Enter the item's name: ");
-        Item[] itemsName = tracker.findByName(searchName);
-        for (Item itName : itemsName) {
-            System.out.format("%s - %s. %s", itName.getId(), itName.getName(), "\n");
-        }
-    }
-
-    @Override
-    public String info() {
-        return String.format("%s. %s.", this.key(), "Find items by name");
     }
 }

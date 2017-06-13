@@ -1,7 +1,5 @@
 package ru.job4j.abstractions;
 
-import ru.job4j.encapsulation.Tracker;
-import ru.job4j.exceptions.Input;
 import ru.job4j.inner.UserAction;
 
 /**
@@ -13,7 +11,14 @@ import ru.job4j.inner.UserAction;
  */
 public abstract class BaseAction implements UserAction {
 
-    private String key;
+    /**
+     * An index of menu tracker.
+     */
+    private int key;
+
+    /**
+     * An action's name.
+     */
     private String name;
 
     /**
@@ -21,9 +26,14 @@ public abstract class BaseAction implements UserAction {
      * @param name is a name;
      * @param key is a key;
      */
-    public BaseAction(String key, String name) {
+    public BaseAction(int key, String name) {
         this.key = key;
         this.name = name;
+    }
+
+    @Override
+    public int key() {
+        return this.key;
     }
 
     @Override
