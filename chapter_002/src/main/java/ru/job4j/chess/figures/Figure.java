@@ -37,5 +37,4 @@ public abstract class Figure {
     protected void impMoveEx() throws ImpossibleMoveException {
         throw new ImpossibleMoveException();
     }
-
 }

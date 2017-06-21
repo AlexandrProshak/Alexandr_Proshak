@@ -1,5 +1,6 @@
 package ru.job4j.chess.figures;
 
+import ru.job4j.chess.board.Board;
 import ru.job4j.chess.board.Cell;
 import ru.job4j.chess.board.Color;
 import ru.job4j.chess.chessEcxeptions.ImpossibleMoveException;
@@ -40,6 +41,12 @@ public class Bishop extends Figure {
         int lengthOfArray = Math.abs(bishopX - destX);
         Cell[] result = new Cell[lengthOfArray];
 
+        Figure[] figures = new Figure[] {
+          new Bishop(new Cell(5,6)),
+          new Bishop(new Cell(3,4))
+        };
+
+        Board board = new Board(figures);
         //a way when bishop moves up-right.
         if (destX > bishopX && destY > bishopY) {
             for (int i = 0; i < lengthOfArray; i++) {
@@ -86,7 +93,7 @@ public class Bishop extends Figure {
             }
         }
         //a checking of the final destination.
-            if (dest.getX() != result[lengthOfArray - 1].getX() && dest.getY() != result[lengthOfArray - 1].getY()) {
+            if (!dest.equals(result[lengthOfArray - 1])) {
             this.impMoveEx();
         }
         return result;

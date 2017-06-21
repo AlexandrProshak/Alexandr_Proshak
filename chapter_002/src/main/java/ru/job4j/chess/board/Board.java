@@ -18,6 +18,22 @@ public class Board {
      */
     private Figure[] figures;
 
+    private Cell[][] boxes = new Cell[8][8];
+
+
+    public Board(Figure[] figures) {
+        this.figures = figures;
+    }
+
+    private void init() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                boxes[j][i] = new Cell(j, i);
+            }
+
+        }
+    }
+
     public boolean move(Cell source, Cell dist)
             throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
         return false;
