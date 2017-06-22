@@ -16,22 +16,10 @@ public class Board {
     /**
      * An array of the chess figures.
      */
-    private Figure[] figures;
-
-    private Cell[][] boxes = new Cell[8][8];
-
+    private final Figure[] figures;
 
     public Board(Figure[] figures) {
         this.figures = figures;
-    }
-
-    private void init() {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                boxes[j][i] = new Cell(j, i);
-            }
-
-        }
     }
 
     public boolean move(Cell source, Cell dist)

@@ -41,12 +41,6 @@ public class Bishop extends Figure {
         int lengthOfArray = Math.abs(bishopX - destX);
         Cell[] result = new Cell[lengthOfArray];
 
-        Figure[] figures = new Figure[] {
-          new Bishop(new Cell(5,6)),
-          new Bishop(new Cell(3,4))
-        };
-
-        Board board = new Board(figures);
         //a way when bishop moves up-right.
         if (destX > bishopX && destY > bishopY) {
             for (int i = 0; i < lengthOfArray; i++) {
@@ -56,39 +50,6 @@ public class Bishop extends Figure {
                     this.impMoveEx();
                 } else {
                     result[i] = cell;
-                }
-            }
-        }
-        //a way when bishop moves down-left.
-        if (destX < bishopX && destY < bishopY) {
-            for (int i = 1; i <= lengthOfArray; i++) {
-                Cell cell = new Cell(bishopX - i, bishopY - i);
-                if (cell.getOccupiedByFigure() == true) {
-                    this.impMoveEx();
-                } else {
-                    result[i - 1] = cell;
-                }
-            }
-        }
-        //a way when bishop moves down-right.
-        if (destX > bishopX && destY < bishopY) {
-            for (int i = 1; i <= lengthOfArray; i++) {
-                Cell cell = new Cell(bishopX + i, bishopY - i);
-                if (cell.getOccupiedByFigure() == true) {
-                    this.impMoveEx();
-                } else {
-                    result[i - 1] = cell;
-                }
-            }
-        }
-        //a way when bishop moves up-left.
-        if (destX < bishopX && destY > bishopY) {
-            for (int i = 1; i <= lengthOfArray; i++) {
-                Cell cell = new Cell(bishopX - i, bishopY + i);
-                if (cell.getOccupiedByFigure() == true) {
-                    this.impMoveEx();
-                } else {
-                    result[i - 1] = cell;
                 }
             }
         }
