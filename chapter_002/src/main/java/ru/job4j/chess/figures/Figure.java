@@ -12,6 +12,7 @@ import ru.job4j.chess.chessEcxeptions.ImpossibleMoveException;
  * @since 0.1
  */
 public abstract class Figure {
+
     /**
      * a cell of figures position.
      */
@@ -23,7 +24,6 @@ public abstract class Figure {
      */
     protected Figure(Cell position) {
         this.position = position;
-        this.position.setOccupiedByFigure(true);
     }
 
     /**
@@ -33,8 +33,4 @@ public abstract class Figure {
      * @throws ImpossibleMoveException is an exception throws if a current way is impossible.
      */
     public abstract Cell[] way(Cell dest) throws ImpossibleMoveException;
-
-    protected void impMoveEx() throws ImpossibleMoveException {
-        throw new ImpossibleMoveException();
-    }
 }

@@ -1,7 +1,5 @@
 package ru.job4j.chess.board;
 
-import ru.job4j.chess.figures.Figure;
-
 /**
  * Class Cell.
  *
@@ -21,11 +19,6 @@ public class Cell {
     private int y;
 
     /**
-     * a figure with cell has, if cell has not a figure - false.
-     */
-    private boolean occupiedByFigure = false;
-
-    /**
      * A constructor for a current cell.
      * @param x is a current coordinate of a horizontal position.
      * @param y is a current coordinate of a vertical position.
@@ -35,20 +28,20 @@ public class Cell {
         this.y = y;
     }
 
+    /**
+     * A getter for x.
+     * @return x.
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * A getter for y.
+     * @return y.
+     */
     public int getY() {
         return y;
-    }
-
-    public void setOccupiedByFigure(boolean occupiedByFigure) {
-        this.occupiedByFigure = occupiedByFigure;
-    }
-
-    public boolean getOccupiedByFigure() {
-        return occupiedByFigure;
     }
 
     @Override
