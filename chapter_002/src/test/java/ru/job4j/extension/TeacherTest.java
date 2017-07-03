@@ -14,15 +14,15 @@ import static org.junit.Assert.assertEquals;
  */
 public class TeacherTest {
     /**
-     *  A current student under test.
+     *  A current student under Test.
      */
     private static Human student;
     /**
-     *  A current teacher under test.
+     *  A current teacher under Test.
      */
     private static Teacher teacher;
     /**
-     *  A current task under test.
+     *  A current task under Test.
      */
     private static Task task;
 

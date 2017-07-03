@@ -16,15 +16,15 @@ import static org.junit.Assert.assertTrue;
  */
 public class EngineerTest {
     /**
-     * A current engineer under test.
+     * A current engineer under Test.
      */
     private static Engineer engineer;
     /**
-     * A current project under test.
+     * A current project under Test.
      */
     private Project project;
     /**
-     * A current colleague under test.
+     * A current colleague under Test.
      */
     private static Colleague colleague;
 

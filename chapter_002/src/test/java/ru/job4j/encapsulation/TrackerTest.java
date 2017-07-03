@@ -17,7 +17,7 @@ import static org.junit.Assert.assertArrayEquals;
 public class TrackerTest {
 
     /**
-     * A current tracker test.
+     * A current tracker Test.
      */
     private Tracker tracker;
 

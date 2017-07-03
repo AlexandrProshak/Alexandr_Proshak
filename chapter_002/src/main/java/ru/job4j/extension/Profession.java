@@ -46,7 +46,7 @@ public abstract class Profession extends Human {
     }
     /**
      * Increasing a field of a salary.
-     * @param amount of money per month for work.
+     * @param amount of MONEY per month for work.
      * @param month was paid.
      */
     protected void earnedSalary(float amount, String month) {
@@ -63,7 +63,7 @@ public abstract class Profession extends Human {
 
     /**
      * A getter for salary's field.
-     * @return amount of money.
+     * @return amount of MONEY.
      */
     public float getSalary() {
         return salary;

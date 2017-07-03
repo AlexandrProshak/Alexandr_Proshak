@@ -20,7 +20,7 @@ public class PaintTest {
     private static Paint paint;
 
     /**
-     * An initialisation date for test.
+     * An initialisation date for Test.
      */
     @BeforeClass
     public static void init() {
@@ -28,7 +28,7 @@ public class PaintTest {
 
     }
     /**
-     * A test for a triangle.
+     * A Test for a triangle.
      * @throws Exception if something goes wrong.
      */
     @Test
@@ -37,7 +37,7 @@ public class PaintTest {
     }
 
     /**
-     * A test for a square.
+     * A Test for a square.
      * @throws Exception if something goes wrong.
      */
     @Test

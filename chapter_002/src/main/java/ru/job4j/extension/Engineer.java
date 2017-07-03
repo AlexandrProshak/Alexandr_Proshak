@@ -95,7 +95,7 @@ public class Engineer extends Profession {
 
     /**
      * Calculation salary for engineer.
-     * @param amount of money.
+     * @param amount of MONEY.
      * @param project of paid.
      */
     protected void earnedSalary(float amount, Project project) {

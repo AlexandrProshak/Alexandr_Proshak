@@ -17,7 +17,7 @@ public class Project {
      */
     private int time;
     /**
-     * A money was spent.
+     * A MONEY was spent.
      */
     private float money;
 
@@ -54,7 +54,7 @@ public class Project {
     }
 
     /**
-     * Calculating money was spent for the project.
+     * Calculating MONEY was spent for the project.
      * @param money for calculating.
      */
     public void setMoney(float money) {
@@ -62,8 +62,8 @@ public class Project {
     }
 
     /**
-     * A getter for money's field.
-     * @return an amount fo money.
+     * A getter for MONEY's field.
+     * @return an amount fo MONEY.
      */
     public float getMoney() {
         return money;
