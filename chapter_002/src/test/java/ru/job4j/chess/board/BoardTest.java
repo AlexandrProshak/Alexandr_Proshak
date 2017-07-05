@@ -1,6 +1,6 @@
 package ru.job4j.chess.board;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 import ru.job4j.chess.ecxeptions.FigureNotFoundException;
 import ru.job4j.chess.ecxeptions.ImpossibleMoveException;
@@ -21,28 +21,28 @@ public class BoardTest {
     /**
      * Our board for figures.
      */
-    private  static Board board;
+    private Board board;
 
     /**
      * Figure is a bishop.
      */
-    private static Figure bishop;
+    private Figure bishop;
 
     /**
      * A current position for bishop.
      */
-    private static Cell currentPosition;
+    private Cell currentPosition;
 
     /**
      * Set up initialisation date.
      * @throws Exception if something goes wrong.
      */
-    @BeforeClass
-    public static void setUp() throws Exception {
-        BoardTest.board = new Board();
-        BoardTest.currentPosition = new Cell(5, 5);
-        BoardTest.bishop = new Bishop(BoardTest.currentPosition);
-        BoardTest.board.addFigure(BoardTest.bishop);
+    @Before
+    public void setUp() throws Exception {
+        this.board = new Board();
+        this.currentPosition = new Cell(5, 5);
+        this.bishop = new Bishop(this.currentPosition);
+        this.board.addFigure(this.bishop);
     }
 
     /**
@@ -53,7 +53,7 @@ public class BoardTest {
     public void whenFigureIsAbsentThenThrowFigureNotFoundException() throws Exception {
         Cell falseStart = new Cell(1, 1);
         Cell dest = new Cell(4, 1);
-        BoardTest.board.move(falseStart, dest);
+        this.board.move(falseStart, dest);
     }
 
     /**
@@ -63,7 +63,7 @@ public class BoardTest {
     @Test(expected = ImpossibleMoveException.class)
     public void whenWayIsImpossibleThenThrowImpossibleMoveException() throws Exception {
         Cell dest = new Cell(4, 1);
-        BoardTest.board.move(BoardTest.currentPosition, dest);
+        this.board.move(this.currentPosition, dest);
     }
 
     /**
@@ -73,8 +73,8 @@ public class BoardTest {
     @Test(expected = OccupiedWayException.class)
     public void whenWayIsOccupiedThenThrowOccupiedWayException() throws Exception {
         Cell dest = new Cell(7, 7);
-        BoardTest.board.addFigure(new Bishop(new Cell(6, 6)));
-        BoardTest.board.move(BoardTest.currentPosition, dest);
+        this.board.addFigure(new Bishop(new Cell(6, 6)));
+        this.board.move(this.currentPosition, dest);
     }
 
     /**
@@ -82,10 +82,27 @@ public class BoardTest {
      * @throws Exception if something goes wrong.
      */
     @Test
-    public void whenBishopCanMoveThanHasBishopInDestinationCell() throws Exception {
+    public void whenBishopCanMoveThanBoardMoveReturnsTrue() throws Exception {
         Cell dest = new Cell(7, 7);
-        boolean result = BoardTest.board.move(BoardTest.currentPosition, dest);
+        boolean result = this.board.move(this.currentPosition, dest);
         assertTrue(result);
     }
 
+    /**
+     * Testing an ability of correction clone.
+     * @throws Exception if something goes wrong.
+     */
+    @Test
+    public void whenBishopCanMoveThanCurrentBishopIsInDestinationCell() throws Exception {
+        boolean result = false;
+        Cell dest = new Cell(7, 7);
+        this.board.move(this.currentPosition, dest);
+        Figure[] figures = this.board.getFigures();
+        for (Figure fig : figures) {
+            if (fig != null && fig.equals(this.board.getFigureOnPosition(dest))) {
+                result = true;
+            }
+        }
+        assertTrue(result);
+    }
 }

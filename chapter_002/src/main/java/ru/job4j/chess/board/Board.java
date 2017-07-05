@@ -30,6 +30,14 @@ public class Board {
     private Figure[] figures = new Figure[AMOUNT_OF_FIGURES];
 
     /**
+     * A getter for an array of the figures.
+     * @return an array of figures.
+     */
+    public Figure[] getFigures() {
+        return this.figures;
+    }
+
+    /**
      * A method of putting a figure on the board.
      *
      * @param figure for put.
@@ -53,34 +61,48 @@ public class Board {
 
         boolean result = false;
         Cell[] pass = null;
+        Figure figureOnSource = this.getFigureOnPosition(source);
 
-        for (Figure figure : this.figures) {
-            if (figure != null && source != null && source.equals(figure.getPosition())) {
-                result = true;
-                pass = figure.way(dist);
-                break;
-            } else {
-                throw new FigureNotFoundException();
-            }
+        if (figureOnSource == null) {
+            throw new FigureNotFoundException();
+        } else {
+            pass = figureOnSource.way(dist);
+            result = true;
         }
 
         if (result) {
-            for (Figure figure : this.figures) {
-                for (Cell cell : pass) {
-                    if (figure != null && cell.equals(figure.getPosition())) {
-                        throw new OccupiedWayException();
-                    }
+            for (Cell cell : pass) {
+                if (this.getFigureOnPosition(cell) != null) {
+                    throw new OccupiedWayException();
                 }
             }
         }
 
-        for (Figure figure : this.figures) {
-            if (figure != null && figure.getPosition().equals(source)) {
-                figure = figure.clone(dist);
+        for (int i = 0; i < this.figures.length; i++) {
+            if (this.figures[i].equals(figureOnSource)) {
+                this.figures[i] = this.figures[i].clone(dist);
                 break;
             }
         }
+        return result;
+    }
 
+    /**
+     * The method return an existing figure on the given position.
+     * The method can returns null if a figure is not exist.
+     * @param source a position for checking.
+     * @return figure on the given position or null if a figure is not exist.
+     */
+    public Figure getFigureOnPosition(Cell source) {
+        Figure result = null;
+        for (Figure figure : this.figures) {
+            if (figure != null && figure.getPosition().equals(source)) {
+                result = figure;
+                break;
+            } else {
+                result = null;
+            }
+        }
         return result;
     }
 }
