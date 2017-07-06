@@ -7,6 +7,7 @@ import ru.job4j.chess.ecxeptions.ImpossibleMoveException;
 import ru.job4j.chess.ecxeptions.OccupiedWayException;
 import ru.job4j.chess.figures.Bishop;
 import ru.job4j.chess.figures.Figure;
+
 import static org.junit.Assert.assertTrue;
 
 /**

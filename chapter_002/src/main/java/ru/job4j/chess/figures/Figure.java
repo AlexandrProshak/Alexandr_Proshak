@@ -34,6 +34,35 @@ public abstract class Figure {
     }
 
     /**
+     * An overridden equals method for figure.
+     * @param o parameter.
+     * @return result.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Figure figure = (Figure) o;
+
+        return position != null ? position.equals(figure.position) : figure.position == null;
+    }
+
+    /**
+     * An overridden hashCode method for figure.
+     * @return result.
+     */
+    @Override
+    public int hashCode() {
+        return position != null ? position.hashCode() : 0;
+    }
+
+    /**
      * A method witch is returned an array of a figure must go.
      * @param dest is a cell of a final destination for a current figure.
      * @return an array of the cells witch a figure must go.
