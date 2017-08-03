@@ -21,9 +21,9 @@ public class ConvertList {
     public List<Integer> toList(int[][] array) {
         List<Integer> result = new ArrayList<>();
 
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array.length; j++) {
-                result.add(array[i][j]);
+        for (int[] element : array) {
+            for (int el : element) {
+                result.add(el);
             }
         }
         return result;
@@ -67,8 +67,8 @@ public class ConvertList {
     public List<Integer> convert(List<int[]> list) {
         List<Integer> result = new ArrayList<>();
         for (int[] element: list) {
-            for (int i = 0; i < element.length; i++) {
-                result.add(element[i]);
+            for (int el: element) {
+                result.add(el);
             }
         }
         return result;
