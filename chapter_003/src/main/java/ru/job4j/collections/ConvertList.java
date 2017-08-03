@@ -58,4 +58,19 @@ public class ConvertList {
         }
         return result;
     }
+
+    /**
+     * A method is merging elements of the arrays from list to one list.
+     * @param list of arrays.
+     * @return result list.
+     */
+    public List<Integer> convert(List<int[]> list) {
+        List<Integer> result = new ArrayList<>();
+        for (int[] element: list) {
+            for (int i = 0; i < element.length; i++) {
+                result.add(element[i]);
+            }
+        }
+        return result;
+    }
 }

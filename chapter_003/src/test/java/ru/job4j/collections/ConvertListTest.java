@@ -82,4 +82,28 @@ public class ConvertListTest {
         };
         assertThat(expected, is(result));
     }
+
+    /**
+     * Testing of a convert a list of arrays to a list of with one array.
+     * @throws Exception if something goes wrong.
+     */
+    @Test
+    public void whenGiveListOfArraysThanReturnListContainsAllElementsFromArrays() throws Exception {
+        List<int[]> list = new ArrayList<>();
+        list.add(new int[]{1, 2, 3});
+        list.add(new int[]{4, 5, 6, 7});
+        list.add(new int[]{8, 9});
+        List<Integer> result = convert.convert(list);
+        List<Integer> expected = new ArrayList<>();
+        expected.add(1);
+        expected.add(2);
+        expected.add(3);
+        expected.add(4);
+        expected.add(5);
+        expected.add(6);
+        expected.add(7);
+        expected.add(8);
+        expected.add(9);
+        assertThat(expected, is(result));
+    }
 }
