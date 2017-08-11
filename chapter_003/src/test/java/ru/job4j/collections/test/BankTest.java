@@ -36,7 +36,7 @@ public class BankTest {
     }
 
     /**
-     * Testing method add user to the bank.
+     * Testing a method add user to the bank.
      * @throws Exception if something went wrong.
      */
     @Test
@@ -46,7 +46,7 @@ public class BankTest {
     }
 
     /**
-     * Testing method delete user from the bank.
+     * Testing a method delete user from the bank.
      * @throws Exception if something went wrong.
      */
     @Test
@@ -59,7 +59,7 @@ public class BankTest {
     }
 
     /**
-     * Testing method addAccount to the user.
+     * Testing a method addAccount to the user.
      * @throws Exception if something went wrong.
      */
     @Test
@@ -71,7 +71,7 @@ public class BankTest {
     }
 
     /**
-     * Testing method deleteAccount from the user.
+     * Testing a method deleteAccount from the user.
      * @throws Exception if something went wrong.
      */
     @Test
@@ -86,7 +86,7 @@ public class BankTest {
     }
 
     /**
-     * Testing method deleteAccount deletes an account from an invalid user.
+     * Testing a method deleteAccount deletes an account from an invalid user.
      * @throws Exception if something went wrong.
      */
     @Test(expected = UnsupportedOperationException.class)

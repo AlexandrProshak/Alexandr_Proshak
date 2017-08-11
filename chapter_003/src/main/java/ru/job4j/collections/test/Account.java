@@ -53,11 +53,11 @@ public class Account {
     }
 
     /**
-     * A setter for the field value.
+     * A setter for the value.
      * @param value to set.
      */
     public void setValue(double value) {
-        this.value += value;
+        this.value = value;
     }
 
     /**
@@ -74,6 +74,14 @@ public class Account {
      */
     public void setRequisites(String requisites) {
         this.requisites = requisites;
+    }
+
+    /**
+     * A method increases the field value.
+     * @param value to increase.
+     */
+    public void increaseValue(double value) {
+        this.value += value;
     }
 
     /**

@@ -1,6 +1,5 @@
 package ru.job4j.collections.test;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,11 +17,6 @@ public class Bank {
      * A Map of bank's clients.
      */
     private Map<User, List<Account>> clients;
-
-    /**
-     * An empty list of account, creates by default.
-     */
-    private List<Account> emptyList = new ArrayList<>(0);
 
     /**
      * A constructor.
@@ -45,7 +39,9 @@ public class Bank {
      */
     public void addUser(User user) {
         if (user != null) {
-            this.clients.put(user, emptyList);
+            Account emptyAccount = new Account("empty", 0.0, "0000 0000 0000 0000");
+            user.addUserAccounts(emptyAccount);
+            this.clients.put(user, user.getUserAccountList());
         } else {
             throw new UnsupportedOperationException("An invalid user to add");
         }
@@ -68,8 +64,7 @@ public class Bank {
      */
     public void addAccountToUser(User user, Account account) {
         if (valid(user, account)) {
-            List<Account> userAccounts = this.clients.get(user);
-            userAccounts.add(account);
+            user.addUserAccounts(account);
         }
     }
 
@@ -80,12 +75,13 @@ public class Bank {
      */
     public void deleteAccountFromUser(User user, Account account) {
         if (valid(user, account)) {
-            List<Account> userAccounts = this.clients.get(user);
-            if (userAccounts.contains(account)) {
-                userAccounts.remove(account);
-            } else {
-                throw new UnsupportedOperationException("A current user hasn't this account");
+            boolean result = user.removeAccountFromList(account);
+            if (!result) {
+                throw new UnsupportedOperationException("An invalid account");
             }
+        } else {
+            throw new UnsupportedOperationException(String.format(
+                    "Account %s does not belong to this user %s", account.getRequisites(), user.getName()));
         }
     }
 
@@ -113,8 +109,8 @@ public class Bank {
                 if (srcAccount.getValue() > amount) {
                     double srcCheck = srcAccount.getValue();
                     double dstCheck = dstAccount.getValue();
-                    dstAccount.setValue(amount);
-                    srcAccount.setValue(-amount);
+                    dstAccount.increaseValue(amount);
+                    srcAccount.increaseValue(-amount);
                     if (dstAccount.getValue() == dstCheck + amount && srcAccount.getValue() == srcCheck - amount) {
                         result = true;
                     }
@@ -134,7 +130,8 @@ public class Bank {
             throw new UnsupportedOperationException("An invalid user");
         }
         if (!this.clients.containsKey(user)) {
-            throw new UnsupportedOperationException("There is't a such user");
+            throw new UnsupportedOperationException(String.format(
+                    "%s is not a customer of our bank", user.getName()));
         }
         return true;
     }
@@ -153,7 +150,8 @@ public class Bank {
             throw new UnsupportedOperationException("An invalid account");
         }
         if (!this.clients.containsKey(user)) {
-            throw new UnsupportedOperationException("There is't a such user");
+            throw new UnsupportedOperationException(String.format(
+                    "%s is not a customer of our bank", user.getName()));
         }
         return true;
     }

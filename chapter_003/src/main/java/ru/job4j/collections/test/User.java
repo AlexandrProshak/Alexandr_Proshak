@@ -1,5 +1,8 @@
 package ru.job4j.collections.test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Class User.
  *
@@ -18,6 +21,11 @@ public class User {
      * User passport.
      */
     private String passport;
+
+    /**
+     * An empty list of account, creates by default.
+     */
+    private List<Account> userAccountList = new ArrayList<>();
 
     /**
      * A constructor with parameters.
@@ -43,6 +51,38 @@ public class User {
      */
     public String getPassport() {
         return passport;
+    }
+
+    /**
+     * A getter for the list of user's accounts.
+     * @return a list of user's accounts.
+     */
+    public List<Account> getUserAccountList() {
+        return userAccountList;
+    }
+
+    /**
+     * A method adds account to the user's list of accounts.
+     * @param account to add.
+     */
+    public void addUserAccounts(Account account) {
+        this.userAccountList.add(account);
+    }
+
+    /**
+     * A method removes an account from the user's list of accounts.
+     * @param account to remove.
+     * @return true if an operation was done.
+     */
+    public boolean removeAccountFromList(Account account) {
+        boolean result = false;
+        if (account != null) {
+            if (this.userAccountList.contains(account)) {
+                this.userAccountList.remove(account);
+                result = true;
+            }
+        }
+        return result;
     }
 
     /**
