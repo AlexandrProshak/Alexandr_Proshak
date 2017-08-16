@@ -17,7 +17,7 @@ import java.util.Comparator;
 public class SortUser {
 
     /**
-     * A method directSort sorts users in a given list by age.
+     * A method sort sorts users in a given list by age.
      * @param list of users to directSort.
      * @return TreeSet.
      */
@@ -28,7 +28,7 @@ public class SortUser {
 
     /**
      * A method sorts user from the list by the user name length.
-     * @param list to directSort.
+     * @param list to sort.
      * @return sorted list.
      */
     public List<User> sortNameLength(List<User> list) {
@@ -57,7 +57,7 @@ public class SortUser {
 
     /**
      * A method sorts user from the list by all fields.
-     * @param list to directSort.
+     * @param list to sort.
      * @return sorted list.
      */
     public List<User> sortByAllFields(List<User> list) {
