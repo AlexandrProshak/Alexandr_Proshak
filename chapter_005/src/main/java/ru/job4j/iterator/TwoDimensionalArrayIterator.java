@@ -15,50 +15,49 @@ public class TwoDimensionalArrayIterator implements Iterator {
     /**
      * An array for iterator.
      */
-    private final int[] values;
+    private final int[][] values;
 
     /**
-     * An index for the iteration by tmpIterator array.
+     * An positionX for the iteration by X direction.
      */
-    private int index = 0;
+    private int positionX = 0;
 
+    /**
+     * An positionY for the iteration by Y direction.
+     */
+    private int positionY = 0;
 
     /**
      * A constructor.
      * @param values two dimensional array.
      */
     public TwoDimensionalArrayIterator(int[][] values) {
-        int counter = 0;
-
-        for (int i = 0; i < values.length; i++) {
-            for (int j = 0; j < values[i].length; j++) {
-                counter++;
-            }
-        }
-
-        int[] result = new int[counter];
-        int position = 0;
-        for (int i = 0; i < values.length; i++) {
-            for (int j = 0; j < values[i].length; j++) {
-                result[position++] = values[i][j];
-            }
-        }
-        this.values = result;
+        this.values = values;
     }
-
 
     @Override
     public boolean hasNext() {
-        return this.values.length > index;
+        boolean result = false;
+
+        if (this.values.length > positionX && this.values[positionX].length > positionY) {
+            result = true;
+        }
+        return result;
     }
 
     @Override
     public Object next() {
         Object result;
-        if (this.hasNext()) {
-            result = this.values[index++];
+
+        if (hasNext()) {
+            result = this.values[positionX][positionY++];
         } else {
             throw new NoSuchElementException();
+        }
+
+        if (this.values[positionX].length == positionY) {
+            positionX++;
+            positionY = 0;
         }
         return result;
     }
