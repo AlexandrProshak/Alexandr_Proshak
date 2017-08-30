@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -19,7 +20,7 @@ public class SimpleArrayTest {
     /**
      * The array for the executions.
      */
-    private SimpleArray<Integer> array;
+    private SimpleArray<String> array;
 
     /**
      * The capacity of this simple array.
@@ -41,7 +42,7 @@ public class SimpleArrayTest {
      */
     @Test
     public void whenAddNewElementThanIrIsInSimpleArray() throws Exception {
-        assertTrue(array.add(8));
+        this.array.add("one");
     }
 
     /**
@@ -50,17 +51,18 @@ public class SimpleArrayTest {
      */
     @Test(expected = UnsupportedOperationException.class)
     public void whenAddMoreNewElementsThanCapacityThanThrowUnsupportedOperationException() throws Exception {
-        this.array.add(8);
-        this.array.add(8);
-        this.array.add(8);
-        this.array.add(8);
-        this.array.add(8);
-        this.array.add(8);
-        this.array.add(8);
-        this.array.add(8);
-        this.array.add(8);
-        this.array.add(8);
-        assertTrue(this.array.add(8));
+        this.array.add("one");
+        this.array.add("one");
+        this.array.add("one");
+        this.array.add("one");
+        this.array.add("one");
+        this.array.add("one");
+        this.array.add("one");
+        this.array.add("one");
+        this.array.add("one");
+        this.array.add("one");
+        this.array.add("one");
+        assertTrue(this.array.add("one"));
     }
 
     /**
@@ -69,12 +71,12 @@ public class SimpleArrayTest {
      */
     @Test
     public void whenUpdateExistingElementThanReturnTrue() throws Exception {
-        this.array.add(8);
-        this.array.add(8);
-        this.array.add(1);
-        this.array.add(8);
-        this.array.add(8);
-        assertTrue(this.array.update(2, 25));
+        this.array.add("one");
+        this.array.add("one");
+        this.array.add("one");
+        this.array.add("one");
+        this.array.add("one");
+        assertTrue(this.array.update(2, "two"));
     }
 
     /**
@@ -83,8 +85,8 @@ public class SimpleArrayTest {
      */
     @Test(expected = UnsupportedOperationException.class)
     public void whenUpdateUnExistingElementThanThrowUnsupportedOperationException() throws Exception {
-        this.array.add(8);
-        this.array.update(-1, 25);
+        this.array.add("one");
+        this.array.update(-1, "two");
     }
 
     /**
@@ -93,19 +95,20 @@ public class SimpleArrayTest {
      */
     @Test
     public void whenDeleteExistingElementThanReturnTrue() throws Exception {
-        this.array.add(8);
-        this.array.add(8);
-        assertTrue(this.array.delete(8));
+        this.array.add("one");
+        this.array.add("two");
+        this.array.add("one");
+        assertTrue(this.array.delete("two"));
     }
 
     /**
      * Testing the method delete() in case while there is not given index.
      * @throws Exception if something went wrong.
      */
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void whenDeleteUnExistingElementThanThrowUnsupportedOperationException() throws Exception {
-        this.array.add(8);
-        this.array.delete(7);
+        this.array.add("one");
+        assertFalse(this.array.delete("fife"));
     }
 
     /**
@@ -114,9 +117,10 @@ public class SimpleArrayTest {
      */
     @Test
     public void whenGetExistingElementThanReturnThisElement() throws Exception {
-        this.array.add(8);
-        this.array.add(8);
-        assertThat(this.array.get(1), is(8));
+        this.array.add("one");
+        this.array.add("two");
+        this.array.add("three");
+        assertThat(this.array.get(1), is("two"));
     }
 
     /**
@@ -125,8 +129,8 @@ public class SimpleArrayTest {
      */
     @Test(expected = UnsupportedOperationException.class)
     public void whenGetUnExistingElementThanThrowUnsupportedOperationException() throws Exception {
-        this.array.add(8);
-        this.array.add(8);
-        assertThat(this.array.get(-1), is(8));
+        this.array.add("one");
+        this.array.add("two");
+        this.array.get(-1);
     }
 }

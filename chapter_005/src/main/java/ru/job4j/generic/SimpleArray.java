@@ -69,20 +69,46 @@ public class SimpleArray<T> {
     }
 
     /**
+     * Updates the old value by the given new value.
+     * @param oldValue is the old value.
+     * @param newValue is the new value.
+     * @return true if the operation complete successfully; false if not.
+     */
+    public boolean update(T oldValue, T newValue) {
+        boolean result = false;
+        if (oldValue != null && newValue != null) {
+            for (int i = 0; i < this.value.length; i++) {
+                if (oldValue.equals(this.value[i])) {
+                    this.value[i] = newValue;
+                    result = true;
+                    break;
+                } else {
+                    throw new UnsupportedOperationException("There is not this index in this array.");
+                }
+            }
+        } else {
+            throw new UnsupportedOperationException("There is a null value to update.");
+        }
+        return result;
+    }
+
+    /**
      * Deletes the element from the array by value.
      * @param oldValue the value to delete.
      * @return true if the operation complete successfully; false if not.
      */
     public boolean delete(T oldValue) {
         boolean result = false;
-        for (int i = 0; i < this.capacity; i++) {
-            if (this.value[i] == oldValue) {
-                this.value[i] = null;
-                result = true;
-                break;
-            } else {
-                throw new UnsupportedOperationException("There is not this value " + oldValue + " in the array");
+        if (oldValue != null) {
+            for (int i = 0; i < this.value.length; i++) {
+                if (oldValue.equals(this.value[i])) {
+                    this.value[i] = null;
+                    result = true;
+                    break;
+                }
             }
+        } else {
+            throw new UnsupportedOperationException("You try to delete null");
         }
         return result;
     }
