@@ -8,7 +8,7 @@ package ru.job4j.list;
  * @since 0.1
  * @param <T> generic type.
  */
-public interface SimpleContainer<T> {
+public interface SimpleContainer<T> extends Iterable<T> {
 
     /**
      * Adds element.
