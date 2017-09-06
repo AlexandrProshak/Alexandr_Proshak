@@ -7,6 +7,7 @@ import java.util.Iterator;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Class LinkedContainerTest.
@@ -20,7 +21,7 @@ public class LinkedContainerTest {
     /**
      * The linc for the instance of DynamicList class.
      */
-    private SimpleContainer<String> linkedContainer;
+    private LinkedContainer<String> linkedContainer;
 
     /**
      * Setups initial date for the tests.
@@ -72,7 +73,6 @@ public class LinkedContainerTest {
         this.linkedContainer.get(5);
     }
 
-
     /**
      * Tests an iterator.
      * @throws Exception if something went wrong.
@@ -85,5 +85,63 @@ public class LinkedContainerTest {
             result.append(it.next()).append(" ");
         }
         assertThat(result.toString(), is("one two three "));
+    }
+
+    /**
+     * Tests a removeLast().
+     * @throws Exception if something went wrong.
+     */
+    @Test
+    public void whenTheLastElementIsDeletedThanReturnTrue() throws Exception {
+        assertTrue(this.linkedContainer.removeLast());
+    }
+
+    /**
+     * Tests a removeFirst().
+     * @throws Exception if something went wrong.
+     */
+    @Test
+    public void whenTheFirstElementIsDeletedThanReturnTrue() throws Exception {
+        assertTrue(this.linkedContainer.removeFirst());
+    }
+
+    /**
+     * Tests rest of collection after removeFirst() by an iterator.
+     * @throws Exception if something went wrong.
+     */
+    @Test
+    public void whenTheFirstElementIsDeletedThanCollectionHasNotTheFirstElement() throws Exception {
+        Iterator<String> it = this.linkedContainer.iterator();
+        StringBuilder result = new StringBuilder();
+        this.linkedContainer.removeFirst();
+        while (it.hasNext()) {
+            result.append(it.next()).append(" ");
+        }
+        assertThat(result.toString(), is("two three "));
+    }
+
+    /**
+     * Tests decreasing size after removeLast() .
+     * @throws Exception if something went wrong.
+     */
+    @Test
+    public void whenTheLastElementIsDeletedThanSizeIsDecreased() throws Exception {
+        this.linkedContainer.removeLast();
+        assertThat(this.linkedContainer.getSize(), is(2));
+    }
+
+    /**
+     * Tests rest of collection after removeLast() by an iterator.
+     * @throws Exception if something went wrong.
+     */
+    @Test
+    public void whenTheLastElementIsDeletedThanCollectionHasNotTheLastElement() throws Exception {
+        Iterator<String> it = this.linkedContainer.iterator();
+        StringBuilder result = new StringBuilder();
+        this.linkedContainer.removeLast();
+        while (it.hasNext()) {
+            result.append(it.next()).append(" ");
+        }
+        assertThat(result.toString(), is("one two "));
     }
 }

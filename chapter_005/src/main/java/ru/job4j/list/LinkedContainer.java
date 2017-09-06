@@ -41,10 +41,19 @@ public class LinkedContainer<T> implements SimpleContainer<T> {
             this.next = next;
         }
     }
+
     /**
      * Pointer to first node.
      */
     private Node<T> first;
+
+    /**
+     * Getter for the value of the head of the collection.
+     * @return first Node.
+     */
+    public T getFirstItem() {
+        return this.first.item;
+    }
 
     /**
      * Pointer to last node.
@@ -52,14 +61,75 @@ public class LinkedContainer<T> implements SimpleContainer<T> {
     private Node<T> last;
 
     /**
+     * Getter for the value of the of the collection.
+     * @return first Node.
+     */
+    public T getLastItem() {
+        return this.last.item;
+    }
+
+    /**
      * Size of the LinkedContainer.
      */
     private int size;
 
     /**
+     * Getter for the field size.
+     * @return size of the collection.
+     */
+    public int getSize() {
+        return this.size;
+    }
+
+    /**
      * Index for the iterator.
      */
     private int index;
+
+    /**
+     * Removes the last element from the collection.
+     * @return if operation was successful returns true, otherwise - false.
+     */
+    public boolean removeLast() {
+        boolean result = false;
+        if (this.size > 0) {
+            this.last = this.last.prev;
+            this.size--;
+            result = true;
+        }
+        return result;
+    }
+
+    /**
+     * Removes the first element from the collection.
+     * @return if operation was successful returns true, otherwise - false.
+     */
+    public boolean removeFirst() {
+        boolean result = false;
+        if (this.size > 0) {
+            this.first = this.first.next;
+            this.size--;
+            result = true;
+        }
+        return result;
+    }
+
+    /**
+     * Returns the Node according to given index.
+     * @param index for Node to be returned.
+     * @return Node.
+     */
+    public Node<T> node(int index) {
+        Node<T> result = this.first;
+        if (index >= 0 && index < size) {
+            for (int i = 0; i < index; i++) {
+                result = result.next;
+            }
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
+        return result;
+    }
 
     @Override
     public void add(T value) {
@@ -77,14 +147,8 @@ public class LinkedContainer<T> implements SimpleContainer<T> {
 
     @Override
     public T get(int index) {
-        Node<T> result = this.first;
-        if (index >= 0 && index < size) {
-            for (int i = 0; i < index; i++) {
-                result = result.next;
-            }
-        } else {
-            throw new IndexOutOfBoundsException();
-        }
+        Node<T> result;
+        result = node(index);
         return result.item;
     }
 
