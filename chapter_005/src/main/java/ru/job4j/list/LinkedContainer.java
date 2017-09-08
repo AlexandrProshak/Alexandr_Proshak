@@ -82,11 +82,6 @@ public class LinkedContainer<T> implements SimpleContainer<T> {
     }
 
     /**
-     * Index for the iterator.
-     */
-    private int index;
-
-    /**
      * Removes the last element from the collection.
      * @return if operation was successful returns true, otherwise - false.
      */
@@ -154,24 +149,38 @@ public class LinkedContainer<T> implements SimpleContainer<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
-            @Override
-            public boolean hasNext() {
-                boolean result = false;
-                if (index < size) {
-                    result = true;
-                }
-                return result;
-            }
+        return new LinkedContainerIterator<>();
+    }
 
-            @Override
-            public T next() {
-                if (hasNext()) {
-                    return get(index++);
-                } else {
-                    throw new NoSuchElementException();
-                }
+    /**
+     * Inner class LinkedContainerIterator describes an iterator
+     * for the LinkedContainer class.
+     *
+     * @param <T> generic type.
+     */
+    private class LinkedContainerIterator<T> implements Iterator<T> {
+
+        /**
+         * Index for the iterator.
+         */
+        private int index;
+
+        @Override
+        public boolean hasNext() {
+            boolean result = false;
+            if (index < size) {
+                result = true;
             }
-        };
+            return result;
+        }
+
+        @Override
+        public T next() {
+            if (hasNext()) {
+                return (T) get(index++);
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
     }
 }
