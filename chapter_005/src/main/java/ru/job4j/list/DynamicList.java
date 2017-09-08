@@ -11,7 +11,7 @@ import java.util.Iterator;
  * @since 0.1
  * @param <T> generic type.
  */
-public class DynamicList<T> implements SimpleContainer, Iterable {
+public class DynamicList<T> implements SimpleContainer<T> {
 
     /**
      * Initial capacity for the new created container.
@@ -29,15 +29,16 @@ public class DynamicList<T> implements SimpleContainer, Iterable {
     private int index;
 
     /**
-     * An index for the internal iterator.
+     * Link to the iterator of the collection.
      */
-    private int iteratorIndex;
+    private Iterator iterator;
 
     /**
      * Constructor.
      */
     public DynamicList() {
         this.container = new Object[INITIAL_CAPACITY];
+        this.iterator = new DynamicListIterator(this.container);
     }
 
     @Override
@@ -52,24 +53,8 @@ public class DynamicList<T> implements SimpleContainer, Iterable {
         }
     }
 
-    /**
-     * Increases capacity if need it.
-     */
-    private void increaseCapacity() {
-        this.container = Arrays.copyOf(this.container,
-                this.container.length * this.container.length >> 1);
-    }
-
-    /**
-     * Checks existing free space in the container.
-     * @return true if free space is available.
-     */
-    private boolean checkFreeSpace() {
-        return this.index < this.container.length;
-    }
-
     @Override
-    public Object get(int position) {
+    public T get(int position) {
         T result;
         if (position >= 0 && position < this.index) {
             result = (T) this.container[position];
@@ -81,27 +66,79 @@ public class DynamicList<T> implements SimpleContainer, Iterable {
 
     @Override
     public Iterator iterator() {
-        return new Iterator() {
+        return this.iterator;
+    }
 
-            @Override
-            public boolean hasNext() {
-                boolean result = false;
-                if (container.length > iteratorIndex) {
-                    if (container[iteratorIndex] != null) {
-                        result = true;
-                    }
-                }
-                return result;
-            }
+    /**
+     * Returns fresh iterator of the DynamicList class.
+     * @return an instance of iterator.
+     */
+    public Iterator newIterator() {
+        return new DynamicListIterator(this.container);
+    }
 
-            @Override
-            public Object next() {
-                Object result = null;
-                if (hasNext()) {
-                    result = container[iteratorIndex++];
+    /**
+     * Checks existing free space in the container.
+     * @return true if free space is available.
+     */
+    private boolean checkFreeSpace() {
+        return this.index < this.container.length;
+    }
+
+    /**
+     * Increases capacity if need it.
+     */
+    private void increaseCapacity() {
+        this.container = Arrays.copyOf(this.container,
+                this.container.length * this.container.length >> 1);
+    }
+
+    /**
+     * Inner class DynamicListIterator describes an iterator
+     * for the DynamicList class.
+     *
+     * @param <E> generic type.
+     */
+    private class DynamicListIterator<E> implements Iterator<E> {
+
+        /**
+         * Container for the iterator.
+         */
+        private Object[] container;
+
+        /**
+         * An index for the iterator.
+         */
+        private int index;
+
+        /**
+         * Constructor.
+         * @param container container for the iteration.
+         */
+        DynamicListIterator(Object[] container) {
+            this.container = container;
+        }
+
+        @Override
+        public boolean hasNext() {
+            boolean result = false;
+            if (container.length >= index) {
+                if (container[index] != null) {
+                    result = true;
                 }
-                return result;
             }
-        };
+            return result;
+        }
+
+        @Override
+        public E next() {
+            Object result;
+            if (hasNext()) {
+                result = container[index++];
+            } else {
+                throw new IllegalStateException();
+            }
+            return (E) result;
+        }
     }
 }
