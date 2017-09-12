@@ -45,6 +45,7 @@ public class UserMap {
 
         /**
          * Overloaded method equals.
+         *
          * @return true in case when inner state of two instances is different;
          * false when not.
          */
@@ -67,23 +68,36 @@ public class UserMap {
             }
             return birthday != null ? birthday.equals(user.birthday) : user.birthday == null;
         }
+
+        /**
+         * Overloaded method hashCode.
+         *
+         * @return hashCode related from field of class user.
+         */
+        @Override
+        public int hashCode() {
+            int result = name != null ? name.hashCode() : 0;
+            result = 31 * result + children;
+            result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
+            return result;
+        }
     }
 
-    /**
-     * Main method.
-     * @param args arguments.
-     */
-    public static void main(String[] args) {
-        User firstUser = new User(
-                "John", 2,  new GregorianCalendar(1896, Calendar.JULY, 14));
-        User secondUser = new User(
-                "John", 2,  new GregorianCalendar(1896, Calendar.JULY, 14));
+        /**
+         * Main method.
+         * @param args arguments.
+         */
+        public static void main(String[] args) {
+            User firstUser = new User(
+                    "John", 2,  new GregorianCalendar(1896, Calendar.JULY, 14));
+            User secondUser = new User(
+                    "John", 2,  new GregorianCalendar(1896, Calendar.JULY, 14));
 
-        Map<User, Object> map = new HashMap<>();
+            Map<User, Object> map = new HashMap<>();
 
-        map.put(firstUser, "first user value");
-        map.put(secondUser, "second user value");
+            map.put(firstUser, "first user value");
+            map.put(secondUser, "second user value");
 
-        System.out.println(map);
+            System.out.println(map);
+        }
     }
-}
