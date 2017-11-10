@@ -1,4 +1,4 @@
-package ru.job4j.tree;
+package ru.job4j.tree.simpletree;
 
 /**
  * An interface SimpleTree describes a simple tree behavior.
