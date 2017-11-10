@@ -84,6 +84,40 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         return result;
     }
 
+    /**
+     * A method check the tree is it binary or not.
+     * @return true if a tree is binary, or false otherwise.
+     */
+    public boolean isBinary() {
+        try {
+            if (!root.children.isEmpty()) {
+                return recBinaryCheck(root);
+            } else {
+                return true;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * A method check a propagated root, uses a recursion call,
+     * has the root <= 2 children or not.
+     * @param propagatedRoot root to check.
+     * @return true if root has <= children, or false otherwise.
+     */
+    private boolean recBinaryCheck(Node<E> propagatedRoot) {
+        boolean result = true;
+        if (propagatedRoot.children.size() <= 2) {
+            for (Node<E> node : propagatedRoot.children) {
+                return recBinaryCheck(node);
+            }
+        } else {
+            return false;
+        }
+        return result;
+    }
+
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {

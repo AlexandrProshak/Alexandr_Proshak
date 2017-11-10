@@ -7,6 +7,7 @@ import java.util.Iterator;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for the SimpleTree class.
@@ -90,5 +91,32 @@ public class TreeTest {
             result.append(it.next());
         }
         assertThat(result.toString(), is(expectedResult));
+    }
+
+    /**
+     * Testing method isBinary.
+     */
+    @Test
+    public void whenTreeIsBinaryThanReturnTrue() {
+        assertTrue(tree.isBinary());
+    }
+
+    /**
+     * Testing method isBinary, in case when root has tree children.
+     */
+    @Test
+    public void whenTreeIsNotBinaryThanReturnFalse() {
+        tree.add("Pavel", "Alex");
+        assertTrue(!tree.isBinary());
+    }
+
+    /**
+     * Testing method isBinary, in case when any child has tree kids.
+     */
+    @Test
+    public void whenChildHasTreeKidsThanReturnFalse() {
+        tree.add("Alexandr", "Josh");
+        tree.add("Alexandr", "Bob");
+        assertTrue(!tree.isBinary());
     }
 }
