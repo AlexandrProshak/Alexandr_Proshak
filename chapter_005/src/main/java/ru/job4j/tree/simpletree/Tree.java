@@ -49,7 +49,7 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
             this.root = new Node<>(parent);
             this.root.children.add(new Node<>(child));
         } else {
-            result = recMove(this.root, parent, child);
+            result = recursiveMove(this.root, parent, child);
         }
         return result;
     }
@@ -61,27 +61,63 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
      * @param child value of child node.
      * @return true in case of success, or false otherwise.
      */
-    private boolean recMove(Node<E> currentRoot, E parent, E child) {
-        boolean result = false;
-        if (currentRoot.value.compareTo(parent) == 0) {
-            for (Node<E> node : currentRoot.children) {
-                if (node.value.compareTo(child) == 0) {
-                    return false;
-                }
+    private boolean recursiveMove(Node<E> currentRoot, E parent, E child) {
+        boolean result;
+        Node<E> parentNodeValue = new Node<>(parent);
+        Node<E> childNodeValue = new Node<>(child);
+        Node<E> foundParent = findNode(parent);
+        Node<E> foundChild = findNode(child);
+
+        if (foundParent == null) {
+            if (foundChild == null) {
+                parentNodeValue.children.add(childNodeValue);
+                currentRoot.children.add(parentNodeValue);
+                result = true;
+            } else {
+                currentRoot.children.add(parentNodeValue);
+                result = true;
             }
-            currentRoot.children.add(new Node<>(child));
-            return true;
+        } else if (foundChild == null) {
+            foundParent.children.add(childNodeValue);
+            result = true;
         } else {
-            for (Node<E> node : currentRoot.children) {
-                if (node.value.compareTo(parent) == 0) {
-                    return recMove(node, parent, child);
-                }
-            }
-            Node<E> parentNode = new Node<>(parent);
-            parentNode.children.add(new Node<>(child));
-            currentRoot.children.add(parentNode);
+            result = false;
         }
         return result;
+    }
+
+    /**
+     * A method searches a node by given value.
+     * @param value is value to be found.
+     * @return node which contains given value.
+     */
+    private Node<E> findNode(E value) {
+        Node<E> result = this.root;
+        if (result.value.compareTo(value) != 0) {
+            result = recursiveSearch(result, value);
+        }
+        return result;
+    }
+
+    /**
+     * A method recursive searches a node with given value.
+     * @param currentRoot current node to start searching.
+     * @param value is value to be found.
+     * @return node which contains given value.
+
+     */
+    private Node<E> recursiveSearch(Node<E> currentRoot, E value) {
+    Node<E> result = null;
+        for (Node<E> child : currentRoot.children) {
+            if (child.value.compareTo(value) == 0) {
+                result = child;
+                break;
+            }
+            if (result == null) {
+                result = recursiveSearch(child, value);
+            }
+        }
+    return result;
     }
 
     /**
@@ -91,7 +127,7 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     public boolean isBinary() {
         try {
             if (!root.children.isEmpty()) {
-                return recBinaryCheck(root);
+                return recursiveBinaryCheck(this.root);
             } else {
                 return true;
             }
@@ -106,14 +142,14 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
      * @param propagatedRoot root to check.
      * @return true if root has <= children, or false otherwise.
      */
-    private boolean recBinaryCheck(Node<E> propagatedRoot) {
+    private boolean recursiveBinaryCheck(Node<E> propagatedRoot) {
         boolean result = true;
         if (propagatedRoot.children.size() <= 2) {
             for (Node<E> node : propagatedRoot.children) {
-                return recBinaryCheck(node);
+                return recursiveBinaryCheck(node);
             }
         } else {
-            return false;
+            result = false;
         }
         return result;
     }

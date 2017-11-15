@@ -65,7 +65,7 @@ public class TreeTest {
      */
     @Test
     public void whenAddNullParentElementThanItAreNotInTree() {
-        tree.add(null, "Maik");
+        tree.add(null, "Mick");
         StringBuilder result = new StringBuilder();
         String expectedResult = "AlinaIrinaArtemAlexandrPavel";
         Iterator<String> it = tree.iterator();
@@ -118,5 +118,27 @@ public class TreeTest {
         tree.add("Alexandr", "Josh");
         tree.add("Alexandr", "Bob");
         assertTrue(!tree.isBinary());
+    }
+
+    /**
+     * Testing method add.
+     */
+    @Test
+    public void whenAddChildToChildThanItBelongChild() {
+        Tree<Integer> tree = new Tree<>();
+        tree.add(50, 70);
+        tree.add(50, 80);
+        tree.add(70, 90);
+        tree.add(70, 100);
+        tree.add(90, 110);
+        tree.add(90, 120);
+
+        StringBuilder result = new StringBuilder();
+        String expectedResult = "80 100 120 110 90 70 50 ";
+        Iterator<Integer> it = tree.iterator();
+        while (it.hasNext()) {
+            result.append(it.next() + " ");
+        }
+        assertThat(result.toString(), is(expectedResult));
     }
 }
