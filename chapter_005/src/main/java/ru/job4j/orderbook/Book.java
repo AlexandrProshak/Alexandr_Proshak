@@ -51,11 +51,7 @@ public class Book {
      * @param order to be added.
      */
     public void addBidOrder(Order order) {
-        if (this.bidOrders.containsKey(order.getPrice())) {
-            this.bidOrders.get(order.getPrice()).increaseVolume(order.getVolume());
-        } else {
-            this.bidOrders.put(order.getPrice(), order);
-        }
+        aggregateOrder(this.bidOrders, order);
     }
 
     /**
@@ -63,11 +59,20 @@ public class Book {
      * @param order to be added.
      */
     public void addAskOrder(Order order) {
-        if (this.askOrders.containsKey(order.getPrice())) {
-            this.askOrders.get(order.getPrice()).increaseVolume(order.getVolume());
-        } else {
-            this.askOrders.put(order.getPrice(), order);
-        }
+        aggregateOrder(this.askOrders, order);
+    }
+
+    /**
+     * Aggregates map's orders to the given one.
+     * @param map to be processed.
+     * @param order to be aggregated.
+     */
+    private void aggregateOrder(Map<Float, Order> map, Order order) {
+        map.computeIfPresent(order.getPrice(), (key, value) -> {
+            value.increaseVolume(order.getVolume());
+            return value;
+        });
+        map.putIfAbsent(order.getPrice(), order);
     }
 
     /**
