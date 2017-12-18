@@ -1,4 +1,4 @@
-package jmm;
+package ru.job4j.jmm;
 
 /**
  * The class ConcurrentCounter describes a race condition situation

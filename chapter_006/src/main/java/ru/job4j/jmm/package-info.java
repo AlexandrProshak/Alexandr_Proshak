@@ -1,4 +1,4 @@
 /**
  * The package is for the illustration of multithreading.
  */
-package jmm;
+package ru.job4j.jmm;
