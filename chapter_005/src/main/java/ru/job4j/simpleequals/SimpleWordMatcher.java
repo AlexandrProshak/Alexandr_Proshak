@@ -1,5 +1,9 @@
 package ru.job4j.simpleequals;
 
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.Arrays;
 
 /**
@@ -49,5 +53,47 @@ public class SimpleWordMatcher {
         char[] array = string.toCharArray();
         Arrays.sort(array);
         return array;
+    }
+
+    /**
+     * A method is matching two strings use hashMap. A case sensitive version.
+     * @param first word.
+     * @param second word.
+     * @return result of matching two sets of character.
+     */
+    public boolean hasMapWordMatcher(String first, String second) {
+        char[] a = toSortedArray(first);
+        char[] b = toSortedArray(second);
+
+        String firstKey = new String(a);
+        String secondKey = new String(b);
+
+        Map<String, String> map = new HashMap<>();
+
+        map.put(firstKey, first);
+        map.put(secondKey, second);
+
+        return map.size() == 1 ? true : false;
+    }
+
+    /**
+     * A method is matching two strings use hashSet. A case sensitive version.
+     * @param first word.
+     * @param second word.
+     * @return result of matching two sets of character.
+     */
+    public boolean hasSetWordMatcher(String first, String second) {
+        char[] a = toSortedArray(first);
+        char[] b = toSortedArray(second);
+
+        String firstSequence = new String(a);
+        String secondSequence = new String(b);
+
+        Set<String> set = new HashSet<>();
+
+        set.add(firstSequence);
+        set.add(secondSequence);
+
+        return set.size() == 1 ? true : false;
     }
 }

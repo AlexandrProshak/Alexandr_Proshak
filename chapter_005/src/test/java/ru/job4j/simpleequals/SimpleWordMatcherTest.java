@@ -55,4 +55,28 @@ public class SimpleWordMatcherTest {
     public void whenTwoWordInDifferentRegisterThanReturnTrue() {
         assertTrue(this.matcher.matchIgnoreCase("java", "Avaj"));
     }
+
+    /**
+     * Tests method hasMapWordMatcher().
+     */
+    @Test
+    public void whenTwoWordContainsSameCharacterSetThanHasMapWordMatcherTrue() {
+        assertTrue(this.matcher.hasMapWordMatcher("hello", "hello"));
+    }
+
+    /**
+     * Tests method hasSetWordMatcher().
+     */
+    @Test
+    public void whenTwoWordContainsSameCharacterSetThanHasSetWordMatcherTrue() {
+        assertTrue(this.matcher.hasSetWordMatcher("hello", "hello"));
+    }
+
+    /**
+     * Tests method hasSetWordMatcher().
+     */
+    @Test
+    public void whenTwoWordContainsDifferentCharacterSetThanHasSetWordMatcherFalse() {
+        assertFalse(this.matcher.hasSetWordMatcher("hello", "world"));
+    }
 }
