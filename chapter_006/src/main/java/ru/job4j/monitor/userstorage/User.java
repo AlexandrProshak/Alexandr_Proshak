@@ -39,7 +39,7 @@ public class User {
      * Setter for the user's id.
      * @param id user's id.
      */
-    public synchronized void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -55,7 +55,7 @@ public class User {
      * A setter for the users money.
      * @param amount amount.
      */
-    public synchronized void setAmount(int amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 

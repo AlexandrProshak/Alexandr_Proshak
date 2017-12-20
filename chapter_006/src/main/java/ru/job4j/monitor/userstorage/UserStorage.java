@@ -31,27 +31,27 @@ public class UserStorage {
      */
     @GuardedBy("this.storage")
     public boolean add(User user) {
-        if (user == null) {
-            return false;
-        }
         synchronized (this.storage) {
-        return this.storage.putIfAbsent(user.getId(), user) == null ? false : true;
+            if (user == null) {
+                return false;
+            }
+            return this.storage.putIfAbsent(user.getId(), user) != null;
+        }
     }
-}
 
     /**
      * A method updates user in the storage.
      * @param user to be updated.
      * @return true in case of success or false otherwise.
      */
-    @GuardedBy("this")
+    @GuardedBy("this.storage")
     public boolean update(User user) {
-        if (user == null || !this.storage.containsKey(user.getId())) {
-            return false;
-        }
-        synchronized (this) {
+        synchronized (this.storage) {
+            if (user == null || !this.storage.containsKey(user.getId())) {
+                return false;
+            }
             return this.storage.computeIfPresent(user.getId(), (k, v) ->
-                    this.storage.replace(user.getId(), user)) == null ? false : true;
+                    this.storage.replace(user.getId(), user)) != null;
         }
     }
 
@@ -62,10 +62,10 @@ public class UserStorage {
      */
     @GuardedBy("this.storage")
     public boolean delete(User user) {
-        if (user == null) {
-            return false;
-        }
         synchronized (this.storage) {
+            if (user == null) {
+                return false;
+            }
             return this.storage.remove(user.getId(), user);
         }
     }
@@ -77,37 +77,39 @@ public class UserStorage {
      * @param amount of money.
      * @return true in case of success or false otherwise.
      */
-    @GuardedBy("creditor user and recipient user")
+    @GuardedBy("this.storage")
     public boolean  transfer(int fromId, int toId, int amount) {
-        if (!this.storage.containsKey(fromId)
-                || !this.storage.containsKey(toId)
-                || this.storage.get(fromId).getAmount() < amount) {
-            return false;
-        }
-        User creditor = this.storage.get(fromId);
-        User recipient = this.storage.get(toId);
-
-        synchronized (creditor) {
-            synchronized (recipient) {
-                int donorAmount = creditor.getAmount();
-                int recipientAmount = recipient.getAmount();
-
-                int newDonorAmount = donorAmount - amount;
-                int newRecipientAmount = recipientAmount + amount;
-
-                this.storage.get(fromId).setAmount(newDonorAmount);
-                this.storage.get(toId).setAmount(newRecipientAmount);
-                return true;
+        synchronized (this.storage) {
+            if (!this.storage.containsKey(fromId)
+                    || !this.storage.containsKey(toId)
+                    || this.storage.get(fromId).getAmount() < amount) {
+                return false;
             }
+
+            User creditor = this.storage.get(fromId);
+            User recipient = this.storage.get(toId);
+
+            int donorAmount = creditor.getAmount();
+            int recipientAmount = recipient.getAmount();
+
+            int newDonorAmount = donorAmount - amount;
+            int newRecipientAmount = recipientAmount + amount;
+
+            this.storage.get(fromId).setAmount(newDonorAmount);
+            this.storage.get(toId).setAmount(newRecipientAmount);
+            return true;
         }
     }
 
     /**
      * The method prints storage.
      */
+    @GuardedBy("this.storage")
     public void printStorage() {
-        for (User each : this.storage.values()) {
-            System.out.println(" id " + each.getId() + " amount " + each.getAmount());
+        synchronized (this.storage) {
+            for (User each : this.storage.values()) {
+                System.out.println(" id " + each.getId() + " amount " + each.getAmount());
+            }
         }
     }
 }
