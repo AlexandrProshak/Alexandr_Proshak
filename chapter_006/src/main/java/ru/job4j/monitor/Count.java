@@ -12,12 +12,12 @@ public class Count {
     /**
      * The accumulator of increasing.
      */
+    @GuardedBy("this")
     private int counter;
 
     /**
      * A method increments the counter field.
      */
-    @GuardedBy("this")
     public void increment() {
         synchronized (this) {
             this.counter++;
@@ -28,7 +28,6 @@ public class Count {
      * A getter for the counter field.
      * @return counter.
      */
-    @GuardedBy("this")
     public synchronized int getCounter() {
         return counter;
     }
