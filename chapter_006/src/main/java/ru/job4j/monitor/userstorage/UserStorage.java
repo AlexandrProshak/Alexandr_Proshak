@@ -15,6 +15,7 @@ public class UserStorage {
     /**
      * The Map for storing users.
      */
+    @GuardedBy("itself")
     private final Map<Integer, User> storage;
 
     /**
