@@ -29,18 +29,19 @@ public class SimpleThreadPool {
     private final SimpleBlockingQueue<Runnable> queue;
 
     /**
-     * A thread group for the shutDown() method.
-     */
-    private final ThreadGroup group;
-
-    /**
      * A constructor.
      */
     public SimpleThreadPool() {
         this.pool = new Thread[CORES];
         this.queue = new SimpleBlockingQueue<>(new LinkedList<>(), QUEUE_LIMIT);
-        this.group = new ThreadGroup("group");
+    }
+
+    /**
+     * The method starts pool.
+     */
+    public void start() {
         execute();
+
     }
 
     /**
@@ -48,23 +49,22 @@ public class SimpleThreadPool {
      */
     private void execute() {
         for (Thread thread : this.pool) {
-            thread = new Thread(group, () -> {
+            thread = new Thread(() -> {
+                Thread me = Thread.currentThread();
                 while (true) {
                     Runnable work = this.queue.peek();
                     work.run();
+                    if (me.isInterrupted()) {
+                        break;
+                    }
                 }
             });
-            thread.setDaemon(true);
             thread.start();
-            if (thread.isInterrupted()) {
-                System.exit(0);
-            }
         }
     }
 
     /**
      * The method adds work to the queue in the pool.
-     *
      * @param work is a task  be executed, an implementation of the interface Runnable.
      */
     public void add(Runnable work) {
@@ -72,18 +72,13 @@ public class SimpleThreadPool {
     }
 
     /**
-     * The method interrupts all threads.
+     * The method adds specific work to the pool which force each thread finish.
      */
-    public void shutDown() {
-        this.group.interrupt();
-    }
-
-    /**
-     * The method sends the poisoned pill to the thread pool.
-     */
-    public void shutDownWithSystemExit() {
-        Runnable death = (()-> System.exit(0));
-        this.add(death);
+    public void stop() {
+        Runnable stopper = () -> Thread.currentThread().interrupt();
+        for (int i = 0; i < pool.length; i++) {
+            this.add(stopper);
+        }
     }
 }
 

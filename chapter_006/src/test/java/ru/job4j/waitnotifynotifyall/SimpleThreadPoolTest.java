@@ -2,7 +2,9 @@ package ru.job4j.waitnotifynotifyall;
 
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
-import static org.junit.Assert.assertTrue;
+
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 /**
@@ -39,12 +41,28 @@ public class SimpleThreadPoolTest {
     public void whenAddsBillionWorksThanHaveCalculatedResult() {
 
         SimpleThreadPool pool = new SimpleThreadPool();
+        pool.start();
+
         Runnable work = (()-> increment());
 
         for (int i = 0; i < 1000; i++) {
             pool.add(work);
         }
-        System.out.println(result);
-        assertTrue(result == 1000);
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        pool.stop();
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        assertThat(result, is(1000));
     }
 }
