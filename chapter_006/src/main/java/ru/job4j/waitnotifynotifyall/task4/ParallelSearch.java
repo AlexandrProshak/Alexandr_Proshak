@@ -1,6 +1,5 @@
 package ru.job4j.waitnotifynotifyall.task4;
 
-import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
 
 import java.io.BufferedReader;
@@ -14,11 +13,11 @@ import java.nio.file.Files;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.FileVisitResult;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Collections;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutorService;
 
 /**
  * The class ParallelSearch for searching files including given text.
@@ -45,18 +44,12 @@ public class ParallelSearch {
 
         @Override
         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
-            if (exts.contains(getExtesionOfFile(file.toString()))) {
-                offer(file.toString());
+            if (exts.contains(getExtensionOfFile(file.toString()))) {
+                files.offer(file.toString());
             }
             return FileVisitResult.CONTINUE;
         }
     }
-
-
-    /**
-     * The private lock.
-     */
-    private final Object mutex = new Object();
 
     /**
      * The start directory.
@@ -74,16 +67,14 @@ public class ParallelSearch {
     private final List<String> exts;
 
     /**
-     * The queue for the files with appropriate extensions.
+     * The BlockingQueue for the files with appropriate extensions.
      */
-    @GuardedBy("mutex")
-    private final Queue<String> files = new LinkedList<>();
+    private final BlockingQueue<String> files = new ArrayBlockingQueue<>(256);
 
     /**
-     * The resulted list of files contains files with the searched text.
+     * The resulted BlockingQueue of files contains files with the searched text.
      */
-    @GuardedBy("mutex")
-    private final List<String> paths = new ArrayList<>();
+    private final BlockingQueue<String> paths = new ArrayBlockingQueue<>(256);
 
     /**
      * A volatile boolean flag indicates when a search is finished.
@@ -94,7 +85,7 @@ public class ParallelSearch {
      * The constructor.
      * @param root path to the searching directory.
      * @param text searching text.
-     * @param exts file extensions to startSearch.
+     * @param exts file extensions to searchFiles.
      */
     public ParallelSearch(String root, String text, List<String> exts) {
         this.root = root;
@@ -104,34 +95,25 @@ public class ParallelSearch {
 
     /**
      * The method initializes working threads.
+     * @return a collection of result.
      */
-    public void init() {
-        new Thread(this::startSearch).start();
-        Thread readThread = new Thread(this::startRead);
-        readThread.start();
-
+    public BlockingQueue<String> search() {
+        new Thread(this::searchFiles).start();
+        Thread read = new Thread(this::readFiles);
+        read.start();
         try {
-            readThread.join();
+            read.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * The method offers file neme to the queue in synchronize way.
-     * @param file to be offered.
-     */
-    private void offer(String file) {
-        synchronized (mutex) {
-            this.files.offer(file);
-        }
+        return paths;
     }
 
     /**
      * The method is walking through file tree and searches files with an appropriated extension.
      * Using the MyFileVisitor class.
      */
-    private void startSearch() {
+    private void searchFiles() {
         Path startDir = Paths.get(this.root);
         try {
             Files.walkFileTree(startDir, new MyFileVisitor());
@@ -145,30 +127,44 @@ public class ParallelSearch {
     /**
      * The method reads all files from the collection of files.
      */
-    @GuardedBy("mutex")
-    private void startRead() {
+    private void readFiles() {
+        int cores = Runtime.getRuntime().availableProcessors();
+        ExecutorService executor = Executors.newCachedThreadPool();
+        for (int i = 0; i < cores; i++) {
+            executor.submit(this::parse);
+        }
+
         while (true) {
-            synchronized (mutex) {
-                while (!this.files.isEmpty()) {
-                    File file = new File(this.files.poll());
-                    try {
-                        BufferedReader reader = new BufferedReader(
-                                new InputStreamReader(
-                                        new FileInputStream(file)));
-                        String result;
-                        while ((result = reader.readLine()) != null) {
-                            if (result.contains(this.text)) {
-                                this.paths.add(file.toString());
-                                break;
-                            }
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+            if (searchFinish && this.files.isEmpty()) {
+                executor.shutdownNow();
+                break;
+            }
+        }
+    }
+
+    /**
+     * The method parses file.
+     */
+    private void parse() {
+        while (true) {
+            File file;
+            try {
+                file = new File(this.files.take());
+            } catch (InterruptedException e) {
+                break;
+            }
+            try (BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(
+                            new FileInputStream(file)))) {
+                String result;
+                while ((result = reader.readLine()) != null) {
+                    if (result.contains(this.text)) {
+                        this.paths.offer(file.toString());
+                        break;
                     }
                 }
-            }
-            if (searchFinish) {
-                break;
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -178,23 +174,13 @@ public class ParallelSearch {
      * @param fileName file name.
      * @return extension of the file.
      */
-    private String getExtesionOfFile(String fileName) {
+    private String getExtensionOfFile(String fileName) {
         String extension = "";
         int beginIndex = fileName.lastIndexOf('.');
         if (beginIndex > 0) {
             extension = fileName.substring(beginIndex + 1);
         }
         return extension;
-    }
-
-    /**
-     * The method returns unmodifiable List of result.
-     * @return unmodifiable List of files path.
-     */
-    public List<String> results() {
-        synchronized (mutex) {
-            return Collections.unmodifiableList(paths);
-        }
     }
 
 }

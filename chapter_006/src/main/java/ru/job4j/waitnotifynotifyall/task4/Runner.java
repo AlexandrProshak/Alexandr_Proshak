@@ -3,6 +3,7 @@ package ru.job4j.waitnotifynotifyall.task4;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * The demonstrate client for parallel search class.
@@ -18,11 +19,8 @@ public class Runner {
         String text = "@ThreadSafe";
         List<String> exts = new ArrayList<>(Arrays.asList("java"));
 
-        ParallelSearch search = new ParallelSearch(root, text, exts);
-
-        search.init();
-
-        for (String string : search.results()) {
+        BlockingQueue<String> parallelSearch = new ParallelSearch(root, text, exts).search();
+        for (String string : parallelSearch) {
             System.out.println(string);
         }
     }
