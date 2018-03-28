@@ -46,8 +46,8 @@ INSERT INTO cars(name, engine_id, transmission_id, gearbox_id) values ('laguna',
 
 -- 4. Вывести все машины
 SELECT cr.name, en.name, tr.name, gr.name FROM cars AS cr
-INNER JOIN engines AS en ON c.engine_id = en.id
-INNER JOIN transmissions AS tr ON c.transmission_id = tr.id
+INNER JOIN engines AS en ON cr.engine_id = en.id
+INNER JOIN transmissions AS tr ON cr.transmission_id = tr.id
 INNER JOIN gearboxes AS gr ON cr.gearbox_id = gr.id;
 
 -- 5. Вывести все неиспользуемые детали.
