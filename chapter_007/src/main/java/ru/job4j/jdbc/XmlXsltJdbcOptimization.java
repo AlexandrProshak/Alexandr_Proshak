@@ -1,5 +1,10 @@
 package ru.job4j.jdbc;
 
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -15,8 +20,16 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import java.io.*;
-import java.sql.*;
+import java.io.InputStream;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +39,11 @@ import java.util.List;
  * The class describes XML XSLT JDBC optimisation.
  */
 public class XmlXsltJdbcOptimization {
+
+    /**
+     * The logger.
+     */
+    private static final Logger LOG = LoggerFactory.getLogger(XmlXsltJdbcOptimization.class);
 
     /**
      * An amount of entries.
@@ -43,6 +61,11 @@ public class XmlXsltJdbcOptimization {
     private final String password;
 
     /**
+     * The ClassLoader for load resources.
+     */
+    private final ClassLoader classLoader;
+
+    /**
      * A constructor.
      * @param n an amount of entries.
      * @param user of the DB.
@@ -52,6 +75,7 @@ public class XmlXsltJdbcOptimization {
         this.n = n;
         this.user = user;
         this.password = password;
+        this.classLoader = getClass().getClassLoader();
     }
 
     /**
@@ -59,20 +83,21 @@ public class XmlXsltJdbcOptimization {
      */
     public void work() {
         long startTime = System.currentTimeMillis();
-        Connection connection = this.getConnection();
-        try {
+        try (Connection connection = this.getConnection()) {
             this.prepareTable(connection);
             this.fillTable(connection);
             this.marshalToXml(this.makeIntermediateCollection(connection));
-            connection.close();
             this.xsltTransform();
-            System.out.printf("%s %s %s", "Sum of all elements =",
+            //Out to System.err to order output
+            System.err.printf("%s %s %s", "Sum of all elements =",
                     this.getSumUseParallelStream(), System.lineSeparator());
-            System.out.printf("%s %s millisecond %s", "Operating time =",
+            // this.getSum(), System.lineSeparator());
+            //Out to System.err to order output
+            System.err.printf("%s %s millisecond %s", "Operating time =",
                     System.currentTimeMillis() - startTime, System.lineSeparator());
-
+            LOG.info("work() -> has finished correctly");
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e.getSQLState(), e);
         }
     }
 
@@ -84,8 +109,7 @@ public class XmlXsltJdbcOptimization {
         long result = 0L;
         XMLInputFactory factory = XMLInputFactory.newInstance();
         XMLStreamReader reader = null;
-        try (InputStream inputStream = new FileInputStream(
-                ".\\chapter_007\\src\\main\\java\\ru\\job4j\\jdbc\\2.xml")) {
+        try (InputStream inputStream = this.classLoader.getResourceAsStream("2.xml")) {
             reader = factory.createXMLStreamReader(inputStream);
             int event;
             while (reader.hasNext()) {
@@ -102,10 +126,11 @@ public class XmlXsltJdbcOptimization {
                 try {
                     reader.close();
                 } catch (XMLStreamException e) {
-                    e.printStackTrace();
+                    LOG.error(e.getMessage(), e);
                 }
             }
         }
+        LOG.info("getSum() -> has finished correctly");
         return result;
     }
 
@@ -117,8 +142,7 @@ public class XmlXsltJdbcOptimization {
         long result = 0L;
         XMLInputFactory factory = XMLInputFactory.newInstance();
         XMLStreamReader reader = null;
-        try (InputStream inputStream = new FileInputStream(
-                ".\\chapter_007\\src\\main\\java\\ru\\job4j\\jdbc\\2.xml")) {
+        try (InputStream inputStream = this.classLoader.getResourceAsStream("2.xml")) {
             reader = factory.createXMLStreamReader(inputStream);
             int event;
             long[] array = new long[n];
@@ -132,16 +156,17 @@ public class XmlXsltJdbcOptimization {
             }
             result = Arrays.stream(array).parallel().sum();
         } catch (XMLStreamException | IOException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         } finally {
             if (reader != null) {
                 try {
                     reader.close();
                 } catch (XMLStreamException e) {
-                    e.printStackTrace();
+                    LOG.error(e.getMessage(), e);
                 }
             }
         }
+        LOG.info("getSumUseParallelStream() -> has finished correctly");
         return result;
     }
 
@@ -149,17 +174,18 @@ public class XmlXsltJdbcOptimization {
      * The method transforms xml file to a needed representation.
      */
     private void xsltTransform() {
-        String xmlFile = ".\\chapter_007\\src\\main\\java\\ru\\job4j\\jdbc\\1.xml";
-        String xslPattern = ".\\chapter_007\\src\\main\\java\\ru\\job4j\\jdbc\\xslPattern.xml";
+        String xmlFile = this.classLoader.getResource("1.xml").getFile();
+        String xslPattern = this.classLoader.getResource("xslPattern.xml").getFile();
         TransformerFactory factory = TransformerFactory.newInstance();
         try {
             Source xslt = new StreamSource(new File(xslPattern));
             Transformer transformer = factory.newTransformer(xslt);
             Source text = new StreamSource(new File(xmlFile));
             transformer.transform(text, new StreamResult(new File(
-                    ".\\chapter_007\\src\\main\\java\\ru\\job4j\\jdbc\\2.xml")));
+                    this.classLoader.getResource("2.xml").getFile())));
+            LOG.info("xsltTransform() -> has finished correctly");
         } catch (TransformerException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         }
     }
 
@@ -173,8 +199,9 @@ public class XmlXsltJdbcOptimization {
         try {
             result = DriverManager.getConnection(connectionUrl, user, password);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e.getSQLState(), e);
         }
+        LOG.info("getConnection() -> has finished correctly");
         return result;
     }
 
@@ -185,13 +212,15 @@ public class XmlXsltJdbcOptimization {
      */
     private void prepareTable(Connection connection) throws SQLException {
         if (connection == null) {
+            LOG.error("connection == null");
             throw new SQLException();
         }
         try (Statement statement = connection.createStatement()) {
             statement.execute("DROP TABLE IF EXISTS test;");
             statement.execute("CREATE TABLE test (id SERIAL PRIMARY KEY, field INTEGER);");
+            LOG.info("prepareTable() -> has finished correctly");
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e.getSQLState(), e);
         }
     }
 
@@ -209,15 +238,16 @@ public class XmlXsltJdbcOptimization {
             }
             statement.executeBatch();
             connection.commit();
+            LOG.info("fillTable() -> has finished correctly");
         } catch (SQLException e) {
             if (connection != null) {
                 try {
                     connection.rollback();
                 } catch (SQLException e1) {
-                    e1.printStackTrace();
+                    LOG.error(e1.getSQLState(), e1);
                 }
             }
-            e.printStackTrace();
+            LOG.error(e.getSQLState(), e);
         }
     }
 
@@ -244,12 +274,15 @@ public class XmlXsltJdbcOptimization {
             try {
                 if (connection != null) {
                     connection.rollback();
+                    LOG.info("connection.rollback()");
+
                 }
             } catch (SQLException e1) {
-                e1.printStackTrace();
+                LOG.error(e1.getSQLState(), e1);
             }
-            e.printStackTrace();
+            LOG.error(e.getSQLState(), e);
         }
+        LOG.info("makeIntermediateCollection() -> has finished correctly");
         return result;
     }
 
@@ -258,14 +291,14 @@ public class XmlXsltJdbcOptimization {
      * @param entries collection to be marshaled.
      */
     private void marshalToXml(Entries entries) {
-        try (FileWriter file = new FileWriter(".\\chapter_007\\src\\main\\java\\ru\\job4j\\jdbc\\1.xml")) {
+        try (FileWriter file = new FileWriter(this.classLoader.getResource("1.xml").getFile())) {
             JAXBContext jaxbContext = JAXBContext.newInstance(Entries.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             jaxbMarshaller.marshal(entries, file);
-            file.close();
+            LOG.info("marshalToXml() -> has finished correctly");
         } catch (JAXBException | IOException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         }
     }
 
