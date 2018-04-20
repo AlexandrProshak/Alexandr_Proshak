@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/AlexandrProshak/Alexandr_Proshak.svg?branch=master)](https://travis-ci.org/AlexandrProshak/Alexandr_Proshak)
+[![codecov](https://codecov.io/gh/AlexandrProshak/Alexandr_Proshak/branch/master/graph/badge.svg)](https://codecov.io/gh/AlexandrProshak/Alexandr_Proshak)
+
 <a href="http://job4j.ru"> <img src="http://job4j.ru/img/logomini.png"></a>
 
 # Проект job4j.ru
@@ -5,14 +8,14 @@
 #### Автор: А.Прошак
 #### E-mail: olexandr_proshak@ukr.net
 
-    Проекты осуществлены в учебных целях в рамках курса 
-    "С нуля до трудоустройства, Java SE + EE." на сайте http://job4j.ru/.
+    	Проекты осуществлены в учебных целях в рамках курса 
+    "С нуля до трудоустройства, Java SE + EE." на сайте job4j.ru
 
-Целью данного проекта является закрепление навыков программирования на Java, 
+	Целью данного проекта является закрепление навыков программирования на Java, 
 освоение необходимого стэк технологий для трудоустройства на позицию Java-разработчика.
 
-Планированая дата окончания курса: 01-08-2018.
-Планированая дата трудоустройства: 01-09-2018.
+	Планированая дата окончания курса: 01-08-2018.
+	Планированая дата трудоустройства: 01-09-2018.
 
 Главы проекта посвящены различным темам:
 
