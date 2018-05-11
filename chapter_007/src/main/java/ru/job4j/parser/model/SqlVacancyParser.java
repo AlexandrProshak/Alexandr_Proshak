@@ -10,16 +10,14 @@ import ru.job4j.parser.dao.DatabaseManager;
 import ru.job4j.parser.dao.VacancyDaoImpl;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.concurrent.Executors;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.LongAdder;
@@ -82,20 +80,25 @@ public class SqlVacancyParser {
      */
     public void start() {
         this.init();
-        try (Connection connection = new DatabaseManager().getConnection()) {
-            this.lastTimeUpdate = dao.getLastUpdate(connection);
-            ExecutorService executorService = Executors.newFixedThreadPool(THREADS);
-            for (int i = 1; i <= pages; i++) {
-                executorService.submit(this.parse(i));
-            }
-            while (index.intValue() < pages) {
-                continue;
-            }
-            this.shutdown(executorService);
-            this.saveToDb(connection);
-        } catch (SQLException e) {
-            LOG.error(e.getMessage(), e);
+        this.lastTimeUpdate = dao.getLastUpdate();
+        ExecutorService executorService = Executors.newFixedThreadPool(THREADS);
+        for (int i = 1; i <= pages; i++) {
+            executorService.submit(this.parse(i));
         }
+        while (index.intValue() < pages) {
+            continue;
+        }
+        this.shutdown(executorService);
+        this.saveToDb();
+    }
+
+    /**
+     * The method initializes the initial data.
+     */
+    public void init() {
+        this.dao = new VacancyDaoImpl(new DatabaseManager());
+        this.pages = getPageAmount();
+        this.storage = new ArrayBlockingQueue<>(pages * PREDICTED_JAVA_RECORDS_PER_PAGE);
     }
 
     /**
@@ -115,26 +118,6 @@ public class SqlVacancyParser {
     }
 
     /**
-     * The method saves data to th db.
-     * @param connection to db.
-     */
-    private void saveToDb(Connection connection) {
-        LOG.info("Start saving data ... ~>");
-        dao.saveVacancies(connection, storage);
-        dao.updateLustTimeUpdate(connection, new Timestamp(System.currentTimeMillis()));
-        LOG.info("      ... ~> Finish saving data.");
-    }
-
-    /**
-     * The method initializes the initial data.
-     */
-    public void init() {
-        this.dao = new VacancyDaoImpl();
-        this.pages = getPageAmount();
-        this.storage = new ArrayBlockingQueue<>(pages * PREDICTED_JAVA_RECORDS_PER_PAGE);
-    }
-
-    /**
      * The method retrieves the number of pages.
      * @return an amount of index.
      */
@@ -145,7 +128,7 @@ public class SqlVacancyParser {
             Elements elements = document.getElementsByClass("sort_options");
             result = Integer.parseInt(elements.select("a").last().text());
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         }
         return result;
     }
@@ -231,6 +214,16 @@ public class SqlVacancyParser {
             LOG.error(e.getMessage(), e);
         }
         return result;
+    }
+
+    /**
+     * The method saves data to th db.
+     */
+    private void saveToDb() {
+        LOG.info("Start saving data ... ~>");
+        dao.saveVacancies(storage);
+        dao.updateLustTimeUpdate(new Timestamp(System.currentTimeMillis()));
+        LOG.info("      ... ~> Finish saving data.");
     }
 
 }

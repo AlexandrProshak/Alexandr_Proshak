@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.job4j.parser.model.Vacancy;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.Timestamp;
 import java.sql.PreparedStatement;
@@ -60,9 +61,23 @@ public class VacancyDaoImpl implements VacancyDao {
      */
     private static final String UPDATE_LUST_UPDATE = "UPDATE Updates SET date = ? WHERE attempt = 1;";
 
+    /**
+     * The dataSource.
+     */
+    private DataSource dataSource;
+
+    /**
+     * The constructor.
+     * @param dataSource is connection source.
+     */
+    public VacancyDaoImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Override
-    public void saveVacancies(Connection connection, BlockingQueue<Vacancy> vacancies) {
-        try (PreparedStatement st = connection.prepareStatement(INSERT)) {
+    public void saveVacancies(BlockingQueue<Vacancy> vacancies) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement st = connection.prepareStatement(INSERT)) {
             for (Vacancy vacancy : vacancies) {
                 st.setInt(1, vacancy.getId());
                 st.setString(2, vacancy.getDescription());
@@ -76,9 +91,10 @@ public class VacancyDaoImpl implements VacancyDao {
     }
 
     @Override
-    public boolean deleteVacancyById(Connection connection, int id) {
+    public boolean deleteVacancyById(int id) {
         boolean result = false;
-        try (PreparedStatement st = connection.prepareStatement(DELETE)) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement st = connection.prepareStatement(DELETE)) {
             st.setInt(1, id);
             result = st.execute();
         } catch (SQLException e) {
@@ -88,16 +104,18 @@ public class VacancyDaoImpl implements VacancyDao {
     }
 
     @Override
-    public Vacancy findItemById(Connection connection, int id) {
+    public Vacancy findItemById(int id) {
         Vacancy vacancy = new Vacancy();
-        try (PreparedStatement st = connection.prepareStatement(FIND_BY_ID)) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement st = connection.prepareStatement(FIND_BY_ID)) {
             st.setInt(1, id);
-            ResultSet resultSet = st.executeQuery();
-            while (resultSet.next()) {
-                vacancy.setId(resultSet.getInt("id"));
-                vacancy.setDescription(resultSet.getString("description"));
-                vacancy.setDate(resultSet.getTimestamp("date"));
-                vacancy.setLink(resultSet.getString("link"));
+            try (ResultSet resultSet = st.executeQuery()) {
+                while (resultSet.next()) {
+                    vacancy.setId(resultSet.getInt("id"));
+                    vacancy.setDescription(resultSet.getString("description"));
+                    vacancy.setDate(resultSet.getTimestamp("date"));
+                    vacancy.setLink(resultSet.getString("link"));
+                }
             }
         } catch (SQLException e) {
             LOG.error(e.getSQLState(), e);
@@ -106,10 +124,11 @@ public class VacancyDaoImpl implements VacancyDao {
     }
 
     @Override
-    public List<Vacancy> showAllVacancy(Connection connection) {
+    public List<Vacancy> showAllVacancy() {
         List<Vacancy> list = new LinkedList<>();
-        try (PreparedStatement st = connection.prepareStatement(SELECT_ALL)) {
-            ResultSet resultSet = st.executeQuery();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement st = connection.prepareStatement(SELECT_ALL);
+             ResultSet resultSet = st.executeQuery()) {
             while (resultSet.next()) {
                 Vacancy vacancy = new Vacancy();
                 vacancy.setId(resultSet.getInt("id"));
@@ -125,10 +144,11 @@ public class VacancyDaoImpl implements VacancyDao {
     }
 
     @Override
-    public Timestamp getLastUpdate(Connection connection) {
+    public Timestamp getLastUpdate() {
         Timestamp result = null;
-        try (PreparedStatement st = connection.prepareStatement(SELECT_LUST_UPDATE)) {
-            ResultSet resultSet = st.executeQuery();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement st = connection.prepareStatement(SELECT_LUST_UPDATE);
+             ResultSet resultSet = st.executeQuery()) {
             while (resultSet.next()) {
                 result = resultSet.getTimestamp("date");
             }
@@ -140,12 +160,12 @@ public class VacancyDaoImpl implements VacancyDao {
 
     /**
      * The method updates the row with id = 1, it sets the date of the lust update into it.
-     * @param connection to db.
      * @param time of the lust update.
      */
     @Override
-    public void updateLustTimeUpdate(Connection connection, Timestamp time) {
-        try (PreparedStatement st = connection.prepareStatement(UPDATE_LUST_UPDATE)) {
+    public void updateLustTimeUpdate(Timestamp time) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement st = connection.prepareStatement(UPDATE_LUST_UPDATE)) {
             st.setTimestamp(1, time);
             st.executeUpdate();
         } catch (SQLException e) {
