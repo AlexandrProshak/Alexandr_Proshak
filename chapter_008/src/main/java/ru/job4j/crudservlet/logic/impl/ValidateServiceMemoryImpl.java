@@ -3,7 +3,7 @@ package ru.job4j.crudservlet.logic.impl;
 import ru.job4j.crudservlet.logic.ValidateService;
 import ru.job4j.crudservlet.logic.entity.User;
 import ru.job4j.crudservlet.persistent.Store;
-import ru.job4j.crudservlet.persistent.impl.MemoryStore;
+import ru.job4j.jsp.persistent.impl.DatabaseStoreImpl;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -22,6 +22,8 @@ public class ValidateServiceMemoryImpl implements ValidateService {
      * Private constructor to avoid client applications to use constructor.
      */
     private ValidateServiceMemoryImpl() {
+        //store = MemoryStore.getInstance();
+        store = DatabaseStoreImpl.getInstance();
     }
 
     /**
@@ -35,7 +37,7 @@ public class ValidateServiceMemoryImpl implements ValidateService {
     /**
      * The field for an implementation of a Store interface.
      */
-    private final Store store = MemoryStore.getInstance();
+    private Store store;
 
     @Override
     public boolean add(User user) {

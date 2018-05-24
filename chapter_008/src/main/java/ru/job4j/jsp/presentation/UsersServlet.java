@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.job4j.crudservlet.logic.ValidateService;
 import ru.job4j.crudservlet.logic.entity.User;
+import ru.job4j.crudservlet.logic.impl.ValidateServiceMemoryImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -38,7 +39,8 @@ public class UsersServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         try {
             HttpSession session = req.getSession();
-            ValidateService storage = (ValidateService) session.getAttribute(ATTRIBUTE_STORAGE);
+            ValidateService storage = ValidateServiceMemoryImpl.getInstance();
+            session.setAttribute(ATTRIBUTE_STORAGE, storage);
             if (storage == null) {
                 RequestDispatcher page = req.getRequestDispatcher("empty.jsp");
                 page.forward(req, resp);
