@@ -65,7 +65,7 @@ public class DaoManager extends BaseDataSource {
         try (PreparedStatement statement = this.getConnection().prepareStatement(INIT_TABLE)) {
             statement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         }
     }
 
