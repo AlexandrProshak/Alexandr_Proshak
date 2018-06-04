@@ -6,11 +6,17 @@ import ru.job4j.mvc.model.entity.User;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * The class of implementation the Store interface for memory.
  */
 public class MemoryStoreImpl implements Store {
+
+    /**
+     * The generator id.
+     */
+    private static AtomicInteger index = new AtomicInteger(1);
 
     /**
      * The field to store a single INSTANCE of the class.
@@ -38,7 +44,9 @@ public class MemoryStoreImpl implements Store {
 
     @Override
     public void add(User user) {
-        store.put(user.getId(), user);
+        int id = index.getAndIncrement();
+        user.setId(id);
+        store.put(id, user);
     }
 
     @Override

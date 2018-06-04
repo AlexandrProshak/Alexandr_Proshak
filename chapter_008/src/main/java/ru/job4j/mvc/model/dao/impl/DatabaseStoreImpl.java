@@ -2,6 +2,7 @@ package ru.job4j.mvc.model.dao.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.job4j.mvc.model.entity.Role;
 import ru.job4j.mvc.model.entity.User;
 import ru.job4j.mvc.model.dao.Store;
 
@@ -53,8 +54,8 @@ public class DatabaseStoreImpl implements Store {
      * The query string for inserting user to database.
      */
     private static final String INSERT = "INSERT INTO "
-            + "users(id, name, login, email, date) "
-            + "VALUES(?, ?, ?, ?, ?);";
+            + "users(name, login, password, email, role, date) "
+            + "VALUES(?, ?, ?, ?, ?, ?);";
 
     /**
      * The query string for updating the user by id.
@@ -62,7 +63,9 @@ public class DatabaseStoreImpl implements Store {
     private static final String UPDATE = "UPDATE users SET "
             + "name = ?,"
             + "login = ?,"
-            + "email = ? WHERE users.id = ?;";
+            + "password = ?,"
+            + "email = ?,"
+            + "role = ? WHERE users.id = ?;";
 
     /**
      * The query string for removing the user by id from database.
@@ -76,7 +79,9 @@ public class DatabaseStoreImpl implements Store {
             + "users.id AS id, "
             + "users.name AS name, "
             + "users.login AS login, "
+            + "users.password AS password, "
             + "users.email AS email, "
+            + "users.role AS role, "
             + "users.date AS date FROM users;";
 
     /**
@@ -86,7 +91,9 @@ public class DatabaseStoreImpl implements Store {
             + "users.id AS id, "
             + "users.name AS name, "
             + "users.login AS login, "
+            + "users.password AS password, "
             + "users.email AS email, "
+            + "users.role AS role, "
             + "users.date AS date FROM users WHERE id = ?;";
 
     @Override
@@ -94,11 +101,12 @@ public class DatabaseStoreImpl implements Store {
         if (user != null) {
             try (Connection con = source.getConnection();
                  PreparedStatement statement = con.prepareStatement(INSERT)) {
-                statement.setInt(1, user.getId());
-                statement.setString(2, user.getName());
-                statement.setString(3, user.getLogin());
+                statement.setString(1, user.getName());
+                statement.setString(2, user.getLogin());
+                statement.setString(3, user.getPassword());
                 statement.setString(4, user.getEmail());
-                statement.setTimestamp(5, user.getCrateDate());
+                statement.setString(5, user.getRole().toString());
+                statement.setTimestamp(6, user.getCrateDate());
                 statement.execute();
             } catch (SQLException e) {
                 LOG.error(e.getSQLState(), e);
@@ -115,8 +123,10 @@ public class DatabaseStoreImpl implements Store {
                  PreparedStatement statement = con.prepareStatement(UPDATE)) {
                 statement.setString(1, user.getName());
                 statement.setString(2, user.getLogin());
-                statement.setString(3, user.getEmail());
-                statement.setInt(4, user.getId());
+                statement.setString(3, user.getPassword());
+                statement.setString(4, user.getEmail());
+                statement.setString(5, user.getRole().toString());
+                statement.setInt(6, user.getId());
                 statement.executeUpdate();
             } catch (SQLException e) {
                 LOG.error(e.getSQLState(), e);
@@ -152,7 +162,9 @@ public class DatabaseStoreImpl implements Store {
                 user.setId(Integer.valueOf(resultSet.getInt("id")));
                 user.setName(resultSet.getString("name"));
                 user.setLogin(resultSet.getString("login"));
+                user.setPassword(resultSet.getString("password"));
                 user.setEmail((resultSet.getString("email")));
+                user.setRole(Role.valueOf(resultSet.getString("role")));
                 user.setCrateDate(resultSet.getTimestamp("date"));
                 result.add(user);
             }
@@ -175,7 +187,9 @@ public class DatabaseStoreImpl implements Store {
                     user.setId(Integer.valueOf(resultSet.getInt("id")));
                     user.setName(resultSet.getString("name"));
                     user.setLogin(resultSet.getString("login"));
+                    user.setPassword(resultSet.getString("password"));
                     user.setEmail((resultSet.getString("email")));
+                    user.setRole((Role.valueOf(resultSet.getString("role"))));
                     user.setCrateDate(resultSet.getTimestamp("date"));
                 }
             } catch (SQLException e) {

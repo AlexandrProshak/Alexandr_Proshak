@@ -78,4 +78,18 @@ public class ValidateServiceImpl implements ValidateService {
     public User findById(int id) {
         return store.findById(id);
     }
+
+    @Override
+    public User isCredential(String login, String password) {
+        User result = null;
+        Collection<User> all = this.findAll();
+        for (User user : all) {
+            if (user.getLogin().equals(login) && user.getPassword().equals(password)) {
+                result = user;
+                break;
+            }
+        }
+        return result;
+    }
+
 }

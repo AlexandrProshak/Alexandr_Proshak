@@ -27,10 +27,12 @@ public class DaoManager extends BaseDataSource {
      * The query string to the init table users.
      */
     private static final String INIT_TABLE = "CREATE TABLE IF NOT EXISTS users ("
-            + "id INTEGER,"
+            + "id SERIAL,"
             + "name CHARACTER VARYING(50) NOT NULL,"
             + "login CHARACTER VARYING(50) NOT NULL,"
+            + "password CHARACTER VARYING(50) NOT NULL,"
             + "email CHARACTER VARYING(50) NOT NULL,"
+            + "role CHARACTER VARYING(50) NOT NULL,"
             + "date TIMESTAMP NOT NULL,"
             + "PRIMARY KEY (id));";
 

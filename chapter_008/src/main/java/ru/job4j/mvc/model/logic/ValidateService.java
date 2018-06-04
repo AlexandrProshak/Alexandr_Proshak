@@ -42,4 +42,12 @@ public interface ValidateService {
      * @return user or null in case of absent..
      */
     User findById(int id);
+
+    /**
+     * The method check user's data.
+     * @param login of user.
+     * @param password of user.
+     * @return user if it exist, or null - otherwise.
+     */
+    User isCredential(String login, String password);
 }

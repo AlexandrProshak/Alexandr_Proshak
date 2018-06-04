@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 /**
- * The class User describes a user entity.
+ * The class user describes a user entity.
  */
 public class User {
 
@@ -24,9 +24,19 @@ public class User {
     private String login;
 
     /**
+     * The password of user.
+     */
+    private String password;
+
+    /**
      * The email of user.
      */
     private String email;
+
+    /**
+     * The user role.
+     */
+    private Role role;
 
     /**
      * The date of user creating.
@@ -113,6 +123,38 @@ public class User {
         this.crateDate = crateDate;
     }
 
+    /**
+     * The password for role.
+     * @return role.
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * The setter for role.
+     * @param password to set.
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     * The getter for role.
+     * @return role.
+     */
+    public Role getRole() {
+        return role;
+    }
+
+    /**
+     * The setter for role.
+     * @param role to set.
+     */
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -125,22 +167,25 @@ public class User {
         return id == user.id
                 && Objects.equals(name, user.name)
                 && Objects.equals(login, user.login)
+                && Objects.equals(password, user.password)
                 && Objects.equals(email, user.email)
+                && role == user.role
                 && Objects.equals(crateDate, user.crateDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, login, email, crateDate);
+        return Objects.hash(id, name, login, password, email, role, crateDate);
     }
 
     @Override
     public String toString() {
-        return "User{"
+        return "user{"
                 + "id=" + id
                 + ", name='" + name + '\''
                 + ", login='" + login + '\''
                 + ", email='" + email + '\''
+                + ", role='" + role.toString() + '\''
                 + ", crateDate=" + crateDate
                 + '}'
                 + System.lineSeparator();
