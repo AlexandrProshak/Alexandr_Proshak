@@ -72,11 +72,9 @@ public class LoginController extends HttpServlet {
             User user = ValidateServiceImpl.getInstance().isCredential(login, password);
             if (user != null) {
                 HttpSession session = req.getSession();
-                synchronized (session) {
-                    session.setAttribute(ATTRIBUTE_SYSTEM_USER, user);
-                    resp.addCookie(new Cookie(USER_LOGIN, login));
-                    resp.addCookie(new Cookie(USER_PASSWORD, password));
-                }
+                session.setAttribute(ATTRIBUTE_SYSTEM_USER, user);
+                resp.addCookie(new Cookie(USER_LOGIN, login));
+                resp.addCookie(new Cookie(USER_PASSWORD, password));
                 resp.sendRedirect(String.format("%s/", req.getContextPath()));
             } else {
                 req.setAttribute(ATTRIBUTE_ERROR, "Current login or password is not present in the system. "

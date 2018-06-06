@@ -40,12 +40,10 @@ public class AuthenticationFilter implements Filter {
                 chain.doFilter(req, resp);
             } else {
                 HttpSession session = req.getSession();
-                synchronized (session) {
-                    if (session.getAttribute(ATTRIBUTE_SYSTEM_USER) != null) {
-                        chain.doFilter(req, resp);
-                    } else {
-                        resp.sendRedirect(String.format("%s/login", req.getContextPath()));
-                    }
+                if (session.getAttribute(ATTRIBUTE_SYSTEM_USER) != null) {
+                    chain.doFilter(req, resp);
+                } else {
+                    resp.sendRedirect(String.format("%s/login", req.getContextPath()));
                 }
             }
         } catch (Exception e) {

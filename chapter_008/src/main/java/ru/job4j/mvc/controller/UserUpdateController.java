@@ -7,12 +7,14 @@ import ru.job4j.mvc.model.entity.User;
 import ru.job4j.mvc.model.logic.ValidateService;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static ru.job4j.mvc.controller.ControllerConstants.ATTRIBUTE_STORAGE;
+import static ru.job4j.mvc.controller.ControllerConstants.ATTRIBUTE_SYSTEM_USER;
 import static ru.job4j.mvc.controller.ControllerConstants.ATTRIBUTE_USER;
 import static ru.job4j.mvc.controller.ControllerConstants.PARAMETER_USER_ID;
 import static ru.job4j.mvc.controller.ControllerConstants.PARAMETER_USER_NAME;
@@ -75,6 +77,12 @@ public class UserUpdateController extends HttpServlet {
             user.setRole(Role.valueOf(req.getParameter(PARAMETER_USER_ROLE)));
             user.setCrateDate(storage.findById(Integer.valueOf(req.getParameter(PARAMETER_USER_ID))).getCrateDate());
             storage.update(user);
+            if (((User) req.getSession().getAttribute(ATTRIBUTE_SYSTEM_USER)).getId()
+                    == Integer.valueOf(req.getParameter(PARAMETER_USER_ID))) {
+                req.getSession().setAttribute(ATTRIBUTE_SYSTEM_USER, user);
+                resp.addCookie(new Cookie(USER_LOGIN, user.getLogin()));
+                resp.addCookie(new Cookie(USER_PASSWORD, user.getPassword()));
+            }
             req.getRequestDispatcher(PREFIX_PAGE + ALL_USERS_PAGE).forward(req, resp);
         } catch (ServletException | IOException e) {
             LOG.error(e.getMessage(), e);
