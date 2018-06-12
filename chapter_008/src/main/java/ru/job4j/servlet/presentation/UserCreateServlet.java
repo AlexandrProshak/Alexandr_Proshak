@@ -50,13 +50,14 @@ public class UserCreateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html");
-        PrintWriter writer = new PrintWriter(resp.getOutputStream());
+        //PrintWriter writer = new PrintWriter(resp.getOutputStream());
+        PrintWriter writer = resp.getWriter();
         writer.append(""
                 + "<!DOCTYPE html>"
                 + "<html>"
                 + "<body>"
                 + "<p>Write user's info into the form below</p>"
-                + "<form action=" + req.getContextPath() + "/create method='post'>"
+                + "<form action='" + req.getContextPath() + "/create' method='post'>"
                 + "  <fieldset>"
                 + "    <legend>Personal user's information:</legend>"
                 + "    id:<br><input type='text' name='id'><br>"
@@ -77,7 +78,8 @@ public class UserCreateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html");
-        PrintWriter writer = new PrintWriter(resp.getOutputStream());
+        //PrintWriter writer = new PrintWriter(resp.getOutputStream());
+        PrintWriter writer = resp.getWriter();
         ValidateService storage = (ValidateService) req.getSession().getAttribute(ATTRIBUTE_STORAGE);
         if (storage == null) {
             storage = ValidateServiceMemoryImpl.getInstance();

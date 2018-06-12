@@ -49,7 +49,8 @@ public class UserUpdateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html");
-        PrintWriter writer = new PrintWriter(resp.getOutputStream());
+        //PrintWriter writer = new PrintWriter(resp.getOutputStream());
+        PrintWriter writer = resp.getWriter();
         String userId = req.getParameter(PARAMETER_USER_ID);
 
         if (userId != null) {
@@ -75,7 +76,7 @@ public class UserUpdateServlet extends HttpServlet {
                             + "<html>"
                             + "<body>"
                             + "<p>Edit user's info into the form below</p>"
-                            + "<form action=" + req.getContextPath() + "/edit method='post'>"
+                            + "<form action='" + req.getContextPath() + "/edit' method='post'>"
                             + "  <fieldset>"
                             + "    <legend>Personal user's information:</legend>"
                             + "    id:   <br><input type='text' name='id' value='" + userById.getId() + "' readonly><br>"
@@ -84,14 +85,13 @@ public class UserUpdateServlet extends HttpServlet {
                             + "    email:<br><input type='email' name='email' value='" + userById.getEmail() + "'><br>"
                             + "          <br><input type='submit' value='update'><br><br>"
                             + " </form>"
-                            + " <form action=" + req.getContextPath() + "/list>"
+                            + " <form action='" + req.getContextPath() + "/list'>"
                             + "     <button type='submit'>show all users</button>"
                             + " </form>"
                             + " </fieldset>"
                             + "</body>"
                             + "</html>");
                 }
-                writer.flush();
             } catch (Exception e) {
                 LOG.error(e.getMessage(), e);
                 writer.append(""
@@ -112,7 +112,8 @@ public class UserUpdateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html");
-        PrintWriter writer = new PrintWriter(resp.getOutputStream());
+        //PrintWriter writer = new PrintWriter(resp.getOutputStream());
+        PrintWriter writer = resp.getWriter();
         ValidateService storage = (ValidateService) req.getSession().getAttribute(ATTRIBUTE_STORAGE);
         try {
             //storage = ValidateServiceMemoryImpl.getInstance();
@@ -127,7 +128,7 @@ public class UserUpdateServlet extends HttpServlet {
                         + "<!DOCTYPE html>"
                         + "<html>"
                         + "<body>"
-                        + " <form action=" + req.getContextPath() + "/list>"
+                        + " <form action='" + req.getContextPath() + "/list'>"
                         + "     <button type='submit'>show all users</button>"
                         + " </form>"
                         + "</body>"

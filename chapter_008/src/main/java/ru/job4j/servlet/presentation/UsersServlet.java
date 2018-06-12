@@ -38,7 +38,8 @@ public class UsersServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         resp.setContentType("text/html");
-        PrintWriter writer = new PrintWriter(resp.getOutputStream());
+        //PrintWriter writer = new PrintWriter(resp.getOutputStream());
+        PrintWriter writer = resp.getWriter();
         ValidateService storage = (ValidateService) session.getAttribute(ATTRIBUTE_STORAGE);
         String noUsers = "<!DOCTYPE html>"
                 + "<html lang=en>"

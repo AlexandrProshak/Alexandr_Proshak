@@ -38,18 +38,34 @@
 			<scope>test</scope>
 		</dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.0</version>
+            <scope>test</scope>
+        </dependency>
+
 		<dependency>
 			<groupId>net.jcip</groupId>
 			<artifactId>jcip-annotations</artifactId>
 			<version>1.0</version>
 		</dependency>
 
+        <!--Was commented for providing tests.
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
 			<version>1.7.5</version>
 		</dependency>
-
+        -->
+        <!-- https://mvnrepository.com/artifact/uk.org.lidalia/slf4j-test -->
+        <dependency>
+            <groupId>uk.org.lidalia</groupId>
+            <artifactId>slf4j-test</artifactId>
+            <version>1.2.0</version>
+            <scope>test</scope>
+        </dependency>
 	</dependencies>
 
 	<build>
