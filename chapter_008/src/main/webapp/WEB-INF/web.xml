@@ -14,7 +14,7 @@
     </resource-ref>
     
     <!-- Define servlets that are included in the application -->
-<!--
+
     <servlet>
         <servlet-name>EchoServlet</servlet-name>
         <servlet-class>ru.job4j.webprojectstructure.EchoServlet</servlet-class>
@@ -24,18 +24,18 @@
         <servlet-name>EchoServlet</servlet-name>
         <url-pattern>/echo</url-pattern>
     </servlet-mapping>
+    <!--
+        <servlet>
+            <servlet-name>userServlet</servlet-name>
+            <servlet-class>ru.job4j.crudservlet.presentation.UserServlet</servlet-class>
+            <load-on-startup>1</load-on-startup>
+        </servlet>
 
-    <servlet>
-        <servlet-name>userServlet</servlet-name>
-        <servlet-class>ru.job4j.crudservlet.presentation.UserServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>userServlet</servlet-name>
-        <url-pattern>/user</url-pattern>
-    </servlet-mapping>
--->
+        <servlet-mapping>
+            <servlet-name>userServlet</servlet-name>
+            <url-pattern>/user</url-pattern>
+        </servlet-mapping>
+    -->
 
     <!--CRUD servlet-->
 <!--
@@ -216,5 +216,13 @@
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ajaxController</servlet-name>
+        <servlet-class>ru.job4j.samples.controller.AjaxController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ajaxController</servlet-name>
+        <url-pattern>/ajax</url-pattern>
+    </servlet-mapping>
 
 </web-app>

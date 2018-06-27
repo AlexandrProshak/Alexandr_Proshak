@@ -78,7 +78,7 @@ public class ControllerConstants {
     /**
      * The home page.
      */
-    public static final String HOME_PAGE = "homePage.jsp";
+    public static final String HOME_PAGE = "homePage_OLD.jsp";
 
     /**
      * The page for showing all users.

@@ -2,6 +2,7 @@ package ru.job4j.servlet.presentation;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import ru.job4j.crudservlet.logic.ValidateService;
 import ru.job4j.crudservlet.logic.entity.User;
@@ -25,6 +26,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static ru.job4j.servlet.presentation.UserUpdateServlet.ATTRIBUTE_STORAGE;
 import static ru.job4j.servlet.presentation.UserUpdateServlet.PARAMETER_USER_ID;
+import static ru.job4j.servlet.presentation.UserUpdateServlet.PARAMETER_USER_NAME;
+import static ru.job4j.servlet.presentation.UserUpdateServlet.PARAMETER_USER_LOGIN;
+import static ru.job4j.servlet.presentation.UserUpdateServlet.PARAMETER_USER_EMAIL;
 import static uk.org.lidalia.slf4jtest.LoggingEvent.error;
 
 /**
@@ -231,54 +235,55 @@ public class UserUpdateServletTest {
         verifyNoMoreInteractions(request, response, writer);
     }
 
-//    /**
-//     * The doPost's method test in the case of all data are correct.
-//     * @throws IOException exception.
-//     */
-//    @Test
-//    public void whenAllCorrectThanShowAllUsersWithUpdatedFields() throws IOException {
-//        //init
-//        ValidateService storage = mock(ValidateService.class);
-//        PrintWriter writer = mock(PrintWriter.class);
-//        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-//        when(request.getContextPath()).thenReturn("http://localhost:8080/item");
-//        when(response.getWriter()).thenReturn(writer);
-//        when(request.getSession()).thenReturn(session);
-//        when(session.getAttribute(ATTRIBUTE_STORAGE)).thenReturn(storage);
-//        when(request.getParameter(PARAMETER_USER_ID)).thenReturn("12");
-//        when(request.getParameter(PARAMETER_USER_NAME)).thenReturn("name");
-//        when(request.getParameter(PARAMETER_USER_LOGIN)).thenReturn("login");
-//        when(request.getParameter(PARAMETER_USER_EMAIL)).thenReturn("user@mail.ru");
-//        User userMock = mock(User.class);
-//        when(userMock.getId()).thenReturn(12);
-//        when(userMock.getName()).thenReturn("name");
-//        when(userMock.getLogin()).thenReturn("login");
-//        when(userMock.getEmail()).thenReturn("user@mail.ru");
-//        when(userMock.getCrateDate()).thenReturn(timestamp);
-//        when(storage.findById(12)).thenReturn(userMock);
-//        when(userMock.getCrateDate()).thenReturn(timestamp);
-//        when(storage.update(userMock)).thenReturn(true);
-//        String result = "<!DOCTYPE html>"
-//                + "<html>"
-//                + "<body>"
-//                + " <form action='http://localhost:8080/item/list'>"
-//                + "     <button type='submit'>show all users</button>"
-//                + " </form>"
-//                + "</body>"
-//                + "</html>";
-//        //use
-//        servlet.doPost(request, response);
-//
-//        //check
-//        verify(response, times(1)).setContentType("text/html");
-//        verify(response, times(1)).getWriter();
-//        verify(request, times(1)).getContextPath();
-//        verify(request, times(2)).getParameter(PARAMETER_USER_ID);
-//        verify(request, times(1)).getParameter(PARAMETER_USER_NAME);
-//        verify(request, times(1)).getParameter(PARAMETER_USER_LOGIN);
-//        verify(request, times(1)).getParameter(PARAMETER_USER_EMAIL);
-//        verify(writer, times(1)).append(result);
-//        verify(writer, times(1)).flush();
-//        verifyNoMoreInteractions(request, response, session, writer);
-//    }
+    /**
+     * The doPost's method test in the case of all data are correct.
+     * @throws IOException exception.
+     */
+    @Ignore
+    @Test
+    public void whenAllCorrectThanShowAllUsersWithUpdatedFields() throws IOException {
+        //init
+        ValidateService storage = mock(ValidateService.class);
+        PrintWriter writer = mock(PrintWriter.class);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        when(request.getContextPath()).thenReturn("http://localhost:8080/item");
+        when(response.getWriter()).thenReturn(writer);
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute(ATTRIBUTE_STORAGE)).thenReturn(storage);
+        when(request.getParameter(PARAMETER_USER_ID)).thenReturn("12");
+        when(request.getParameter(PARAMETER_USER_NAME)).thenReturn("name");
+        when(request.getParameter(PARAMETER_USER_LOGIN)).thenReturn("login");
+        when(request.getParameter(PARAMETER_USER_EMAIL)).thenReturn("user@mail.ru");
+        User userMock = mock(User.class);
+        when(userMock.getId()).thenReturn(12);
+        when(userMock.getName()).thenReturn("name");
+        when(userMock.getLogin()).thenReturn("login");
+        when(userMock.getEmail()).thenReturn("user@mail.ru");
+        when(userMock.getCrateDate()).thenReturn(timestamp);
+        when(storage.findById(12)).thenReturn(userMock);
+        when(userMock.getCrateDate()).thenReturn(timestamp);
+        when(storage.update(userMock)).thenReturn(true);
+        String result = "<!DOCTYPE html>"
+                + "<html>"
+                + "<body>"
+                + " <form action='http://localhost:8080/item/list'>"
+                + "     <button type='submit'>show all users</button>"
+                + " </form>"
+                + "</body>"
+                + "</html>";
+        //use
+        servlet.doPost(request, response);
+
+        //check
+        verify(response, times(1)).setContentType("text/html");
+        verify(response, times(1)).getWriter();
+        verify(request, times(1)).getContextPath();
+        verify(request, times(2)).getParameter(PARAMETER_USER_ID);
+        verify(request, times(1)).getParameter(PARAMETER_USER_NAME);
+        verify(request, times(1)).getParameter(PARAMETER_USER_LOGIN);
+        verify(request, times(1)).getParameter(PARAMETER_USER_EMAIL);
+        verify(writer, times(1)).append(result);
+        verify(writer, times(1)).flush();
+        verifyNoMoreInteractions(request, response, session, writer);
+    }
 }

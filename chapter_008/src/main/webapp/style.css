@@ -1,0 +1,166 @@
+/*    --------------------------------------------------
+    :: Login Section
+    -------------------------------------------------- */
+
+#login .form-wrap {
+    width: 30%;
+    margin: 0 auto;
+}
+#login h1 {
+    color: #1fa67b;
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+#login .form-group {
+    margin-bottom: 25px;
+}
+#login .checkbox {
+    margin-bottom: 20px;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+#login .checkbox.show:before {
+    content: '\e013';
+    color: #1fa67b;
+    font-size: 17px;
+    margin: 1px 0 0 3px;
+    position: absolute;
+    pointer-events: none;
+    font-family: 'Glyphicons Halflings';
+}
+#login .checkbox .character-checkbox {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    vertical-align: middle;
+    display: inline-block;
+}
+#login .checkbox .label {
+    color: #6d6d6d;
+    font-size: 13px;
+    font-weight: normal;
+}
+#login .btn.btn-custom {
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/*    --------------------------------------------------
+    :: Inputs & Buttons
+    -------------------------------------------------- */
+.form-control {
+    color: #212121;
+}
+.btn-custom {
+    color: #fff;
+    background-color: #1fa67b;
+}
+.btn-custom:hover,
+.btn-custom:focus {
+    color: #fff;
+}
+
+
+
+/*--------------------------------------------------
+:: Users table Section
+-------------------------------------------------- */
+
+/* Table css Start */
+a.del
+{
+    background:#d9534f;
+    border-radius: 2px;
+    width: 35px;
+    height:28px;
+    padding-left:12px;
+    line-height:10px;
+}
+
+a.edit
+{
+    padding-left:10px;
+    background:#337ab7;
+    color:#fff;
+    border-radius:2px;
+    border:none;
+}
+
+tr.row-name
+{
+    font-size: 16px;
+    color:#1fa67b;
+}
+
+tr.row-content
+{
+    color:#6c7173;
+}
+
+table
+{
+    border-bottom: 8px solid #1fa67b;
+}
+
+td.check
+{
+    text-align: center;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd)
+{
+    background:#F0F2F2 !important;
+}
+
+a.btn-danger:hover
+{
+    background: #de6c69;
+}
+
+a.btn-danger
+{
+    background:#d9534f;
+}
+
+a.btn-low
+{
+    float: right;
+    background:#1fa67b;
+    color:#fff;
+    border:1px solid #1fa67b;
+    padding: 7px 10px;
+    border-radius:4px;
+}
+
+a.btn-low:hover
+{
+    text-decoration: none;
+    box-shadow:3px 3px 5px #222;
+    transition:box-shadow 0.5s;
+}
+
+/* Table css End */
+
+
+/*--------- Footer ---------*/
+
+#footer {
+    color: #6d6d6d;
+    font-size: 12px;
+    text-align: center;
+}
+#footer p {
+    margin-bottom: 0;
+}
+#footer a {
+    color: inherit;
+}
+

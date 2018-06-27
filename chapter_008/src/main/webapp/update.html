@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title> Update </title>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<a href="http://localhost:8080/item/logout" style="float: right; padding-right: 15px; color: #1fa67b; font-size: medium">Log out</a>
+<h2 style="color: #1fa67b;text-align: center;"> Update user </h2>
+<hr>
+<form class="form-horizontal" action="http://localhost:8080/item/edit" method="post" id="form">
+    <fieldset>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="id">Id</label>
+            <div class="col-md-4">
+                <input id="id" name="id" type="text" placeholder="id" class="form-control input-md" readonly>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="name">Name</label>
+            <div class="col-md-4">
+                <input id="name" name="name" type="text" placeholder="name" class="form-control input-md">
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="login">Login</label>
+            <div class="col-md-4">
+                <input id="login" name="login" type="text" placeholder="login" class="form-control input-md">
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="password">Password</label>
+            <div class="col-md-4">
+                <input id="password" name="password" type="password" placeholder="password" class="form-control input-md">
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="email">Email</label>
+            <div class="col-md-4">
+                <input id="email" name="email" type="email" placeholder="your@email.do" class="form-control input-md">
+            </div>
+        </div>
+        <!-- Select Basic -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="role">Role</label>
+            <div class="col-md-4">
+                <select id="role" name="role" class="form-control">
+                    <option value="1">User</option>
+                    <option value="2">Admin</option>
+                </select>
+            </div>
+        </div>
+        <!-- Button (Double) -->
+        <div class="form-group">
+            <!--<label class="col-md-4 control-label" for="button1id"></label>-->
+            <div class="col-md-8" style="float: right">
+                <button id="button1id" class="btn btn-success" type="submit" form="form" value="Submit">Update</button>
+                <!--<button id="button1id" name="button1id" class="btn btn-success">Create</button>.-->
+                <button id="button2id" name="button2id" class="btn btn-danger">Cancel</button>
+            </div>
+        </div>
+        <hr>
+    </fieldset>
+</form>
+<footer id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <p>Tracker © - 2018</p>
+                <p>Sources on <strong><a href="https://github.com/AlexandrProshak/Alexandr_Proshak" target="_blank">GitHub</a></strong></p>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

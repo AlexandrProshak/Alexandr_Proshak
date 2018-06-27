@@ -10,44 +10,151 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-<html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>.
+<script>
+
+    // function editUser() {
+    //     var a = document.getElementById("idToAct").value;
+    //
+    //
+    //     }
+    // }
+
+    function removeUser() {
+        $.ajax('./remove', {
+            type : 'post',
+            data : 'id=' + document.getElementById('idToAct').val()
+        })
+    }
+
+
+</script>
 <head>
-    <title>All users</title>
-    <h3 style="text-align:center">All users</h3>
-    <h4 style="text-align:right">
-        <div style="background-color: lightslategrey">
-            <c:out value="Current user: "></c:out><br>
-            <c:out value="login : "></c:out>
-            <c:out value="${systemUser.login}"></c:out><br>
-            <c:out value="role: "></c:out>
-            <c:out value="${systemUser.role}"></c:out>
-        </div>
-    </h4>
-    <meta charset='UTF-8'>
+    <meta charset="UTF-8">
+    <title> Users table </title>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
-        table { width:100%; }
-        table, th, td { border: 2px solid black; border-collapse: collapse; }
-        th, td { padding: 5px; text-align: center; }
+
+        /*--------- Users table Section ---------*/
+
+        a.del
+        {
+            background:#d9534f;
+            border-radius: 2px;
+            width: 35px;
+            height:28px;
+            padding-left:12px;
+            line-height:10px;
+        }
+
+        a.edit
+        {
+            padding-left:10px;
+            background:#337ab7;
+            color:#fff;
+            border-radius:2px;
+            border:none;
+        }
+
+        tr.row-name
+        {
+            font-size: 16px;
+            color:#1fa67b;
+        }
+
+        tr.row-content
+        {
+            color:#6c7173;
+        }
+
+        table
+        {
+            border-bottom: 8px solid #1fa67b;
+        }
+
+        td.check
+        {
+            text-align: center;
+        }
+
+        .table-striped>tbody>tr:nth-of-type(odd)
+        {
+            background:#F0F2F2 !important;
+        }
+
+        a.btn-danger:hover
+        {
+            background: #de6c69;
+        }
+
+        a.btn-danger
+        {
+            background:#d9534f;
+        }
+
+        a.btn-low
+        {
+            float: right;
+            background:#1fa67b;
+            color:#fff;
+            border:1px solid #1fa67b;
+            padding: 7px 10px;
+            border-radius:4px;
+        }
+
+        a.btn-low:hover
+        {
+            text-decoration: none;
+            box-shadow:3px 3px 5px #222;
+            transition:box-shadow 0.2s;
+        }
+
+        /*--------- Footer ---------*/
+
+        #footer {
+            color: #6d6d6d;
+            font-size: 12px;
+            text-align: center;
+        }
+        #footer p {
+            margin-bottom: 0;
+        }
+        #footer a {
+            color: inherit;
+        }
+
     </style>
 </head>
 <body>
-<fieldset>
-    <legend style="text-align:right">User's table</legend>
-    <c:if test="${systemUser.role eq 'admin'}">
-    <table>
-        <tr>
-            <th>id</th>
-            <th>name</th>
-            <th>login</th>
-            <th>password</th>
-            <th>email</th>
-            <th>role</th>
-            <th>date</th>
-            <th>action</th>
-        </tr>
-        <c:forEach var="user" items="${storage.findAll()}">
-        <tr>
-            <td><c:out value="${user.id}"></c:out></td>
+<div style="float: right; padding-right: 15px; color: #1fa67b; font-size: medium">
+    <c:out value="Hello, "></c:out>
+    <c:out value="${systemUser.name}"></c:out><br>
+    <a href="http://localhost:8080/item/logout" style="float: right; padding-right: 15px; color: #1fa67b; font-size: medium">log out</a>
+</div>
+<h2 style="color: #1fa67b;text-align: center;"> Users table </h2>
+<hr>
+<c:if test="${systemUser.role eq 'admin'}">
+<table class="table table-striped">
+    <thead>
+    <tr class="row-name">
+        <th>Id</th>
+        <th>Name</th>
+        <th>Login</th>
+        <th>Password</th>
+        <th>Email</th>
+        <th style="width:10%">Role</th>
+        <th>Date</th>
+        <th>Settings</th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach var="user" items="${storage.findAll()}">
+        <tr class="row-content">
+            <c:set var="idToAct" scope="session" value="${user.id}"/>
+            <td>${idToAct}</td>
             <td><c:out value="${user.name}"></c:out></td>
             <td><c:out value="${user.login}"></c:out></td>
             <td><c:out value="${user.password}"></c:out></td>
@@ -55,59 +162,75 @@
             <td><c:out value="${user.role}"></c:out></td>
             <fmt:formatDate value="${user.crateDate}" pattern="d MMM yy, HH:mm" var="date"/>
             <td><c:out value="${date}"></c:out></td>
-            <td><br>
-                <form action="${pageContext.servletContext.contextPath}/edit" method="get">
-                    <button value="${user.id}" name="id" type="submit">edit</button>
-                </form>
-                <form action="${pageContext.servletContext.contextPath}/remove" method="post">
-                    <button value="${user.id}" name="id" type="submit">remove</button>
-                </form>
+            <td>
+                <a class="btn btn-danger edit" onclick="return removeUser()" aria-label="Settings" target="remove">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+                &nbsp
+                <a class="btn btn-info edit" onclick="" aria-label="Settings" target="edit">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true" ></i>
+                </a>
             </td>
         </tr>
-        </c:forEach>
-    </table>
-    </c:if>
-    <c:if test="${systemUser.role eq 'user'}">
-        <table>
-            <tr>
-                <th>id</th>
-                <th>name</th>
-                <th>login</th>
-                <th>email</th>
-                <th>role</th>
-                <th>date</th>
-                <th>action</th>
+    </c:forEach>
+    </tbody>
+</table>
+</c:if>
+<c:if test="${systemUser.role eq 'user'}">
+    <table class="table table-striped">
+        <thead>
+        <tr class="row-name">
+            <th>Id</th>
+            <th>Name</th>
+            <th>Login</th>
+            <th>Email</th>
+            <th style="width:10%">Role</th>
+            <th>Date</th>
+            <th>Settings</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="user" items="${storage.findAll()}">
+            <tr class="row-content">
+                <c:set var="idToAct" scope="session" value="${user.id}"/>
+                <td>${idToAct}</td>
+                <td><c:out value="${user.name}"></c:out></td>
+                <td><c:out value="${user.login}"></c:out></td>
+                <td><c:out value="${user.email}"></c:out></td>
+                <td><c:out value="${user.role}"></c:out></td>
+                <fmt:formatDate value="${user.crateDate}" pattern="d MMM yy, HH:mm" var="date"/>
+                <td><c:out value="${date}"></c:out></td>
+                <td>
+                    <a class="btn btn-danger edit" onclick="editUser()" aria-label="Settings" target="edit">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                    &nbsp
+                    <a class="btn btn-info edit" onclick="removeUser()" aria-label="Settings" target="remove">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" ></i>
+                    </a>
+                </td>
             </tr>
-            <c:forEach var="user" items="${storage.findAll()}">
-                <tr>
-                    <td><c:out value="${user.id}"></c:out></td>
-                    <td><c:out value="${user.name}"></c:out></td>
-                    <td><c:out value="${user.login}"></c:out></td>
-                    <td><c:out value="${user.email}"></c:out></td>
-                    <td><c:out value="${user.role}"></c:out></td>
-                    <fmt:formatDate value="${user.crateDate}" pattern="d MMM yy, HH:mm" var="date"/>
-                    <td><c:out value="${date}"></c:out></td>
-                    <td><br>
-                        <form action="${pageContext.servletContext.contextPath}/edit" method="get">
-                            <button value="${user.id}" name="id" type="submit">edit</button>
-                        </form>
-                        <form action="${pageContext.servletContext.contextPath}/remove" method="post">
-                            <button value="${user.id}" name="id" type="submit">remove</button>
-                        </form>
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
-    </c:if>
-    <br/>
-    <form action="${pageContext.servletContext.contextPath}/create">
-        <button type="submit">Create new user</button>
-    </form>
-    <br/>
-    <form action="${pageContext.servletContext.contextPath}/logout">
-        <button type="submit">Exit</button>
-    </form>
-</fieldset>
-<p style="text-align: right">jsp version with JSTL and filters</p>
+        </c:forEach>
+        </tbody>
+    </table>
+</c:if>
+<div class="dropdown">
+    <a class="btn-low" href="${pageContext.servletContext.contextPath}/create">
+        <i class="fa fa-plus" aria-hidden="true"></i>&nbsp Create new user
+    </a>
+    <br>
+</div>
+<br>
+<hr>
+<footer id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <p>Tracker © - 2018</p>
+                <p>Sources on <strong><a href="https://github.com/AlexandrProshak/Alexandr_Proshak" target="_blank">GitHub</a></strong></p>
+            </div>
+        </div>
+    </div>
+</footer>
 </body>
 </html>
