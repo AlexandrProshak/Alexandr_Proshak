@@ -55,7 +55,7 @@ public class UsersServlet extends HttpServlet {
         } catch (ServletException | IOException e) {
             LOG.error(e.getMessage(), e);
             try {
-                resp.sendRedirect("index.jsp");
+                resp.sendRedirect("ajax.jsp");
             } catch (IOException e1) {
                 LOG.error(e1.getMessage(), e1);
             }

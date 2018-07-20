@@ -60,7 +60,7 @@ public class UserUpdateServlet extends HttpServlet {
                 ValidateService storage = (ValidateService) req.getSession().getAttribute(ATTRIBUTE_STORAGE);
                 User userById = storage.findById(id);
                 if (userById == null) {
-                    resp.sendRedirect("index.jsp");
+                    resp.sendRedirect("ajax.jsp");
                 } else {
                     req.setAttribute(ATTRIBUTE_USER, userById);
                     req.getRequestDispatcher("updateUser.jsp").forward(req, resp);
@@ -71,7 +71,7 @@ public class UserUpdateServlet extends HttpServlet {
         } catch (ServletException | IOException  e) {
             LOG.error(e.getMessage(), e);
             try {
-                resp.sendRedirect("index.jsp");
+                resp.sendRedirect("ajax.jsp");
             } catch (IOException e1) {
                 LOG.error(e1.getMessage(), e1);
             }
@@ -93,7 +93,7 @@ public class UserUpdateServlet extends HttpServlet {
         } catch (ServletException | IOException e) {
             LOG.error(e.getMessage(), e);
             try {
-                resp.sendRedirect("index.jsp");
+                resp.sendRedirect("ajax.jsp");
             } catch (IOException e1) {
                 LOG.error(e1.getMessage(), e1);
             }

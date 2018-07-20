@@ -35,6 +35,16 @@ public class ControllerConstants {
     public static final String ATTRIBUTE_INFO = "userInfo";
 
     /**
+     * The countries.
+     */
+    public static final String ATTRIBUTE_COUNTRIES = "countries";
+
+    /**
+     * The cities.
+     */
+    public static final String ATTRIBUTE_CITIES = "cities";
+
+    /**
      * Parameters.
      */
     /**
@@ -66,6 +76,16 @@ public class ControllerConstants {
      * The request parameter user's role.
      */
     public static final String PARAMETER_USER_ROLE = "role";
+
+    /**
+     * The request parameter user's country.
+     */
+    public static final String PARAMETER_USER_COUNTRY = "country";
+
+    /**
+     * The request parameter user's city.
+     */
+    public static final String PARAMETER_USER_CITY = "city";
 
     /**
      * Pages.

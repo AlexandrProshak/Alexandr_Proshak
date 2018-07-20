@@ -52,19 +52,29 @@
 			<version>1.0</version>
 		</dependency>
 
-        <!--Was commented for providing tests.
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.5</version>
+			<artifactId>slf4j-api</artifactId>
+			<version>RELEASE</version>
 		</dependency>
-        -->
-        <!-- https://mvnrepository.com/artifact/uk.org.lidalia/slf4j-test -->
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>RELEASE</version>
+		</dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
         <dependency>
-            <groupId>uk.org.lidalia</groupId>
-            <artifactId>slf4j-test</artifactId>
-            <version>1.2.0</version>
-            <scope>test</scope>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.11.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.6.3</version>
         </dependency>
 	</dependencies>
 

@@ -130,6 +130,7 @@
             <div class="col-xs-12">
                 <div class="form-wrap">
                     <hr>
+                    <p style="text-align: center">test user - guest / guest</p>
                     <form name="login-form" action="${pageContext.servletContext.contextPath}/login"
                           onsubmit="return validateForm()" method="post" autocomplete="off">
                         <div class="form-group">

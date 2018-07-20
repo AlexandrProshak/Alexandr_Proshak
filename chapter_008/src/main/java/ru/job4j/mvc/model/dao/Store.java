@@ -1,5 +1,7 @@
 package ru.job4j.mvc.model.dao;
 
+import ru.job4j.mvc.model.entity.City;
+import ru.job4j.mvc.model.entity.Country;
 import ru.job4j.mvc.model.entity.User;
 
 import java.util.Collection;
@@ -39,4 +41,17 @@ public interface Store {
      * @return user; in case of absent - returns null.
      */
     User findById(int id);
+
+    /**
+     * Finds all countries into a storage.
+     * @return a collection with countries.
+     */
+    Collection<Country> findAllCountries();
+
+    /**
+     * Finds all cities into a storage.
+     * @param countryName country's name.
+     * @return a collection with cities.
+     */
+    Collection<City> findAllCitiesByCountry(String countryName);
 }

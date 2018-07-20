@@ -217,12 +217,39 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>ajaxController</servlet-name>
-        <servlet-class>ru.job4j.samples.controller.AjaxController</servlet-class>
+        <servlet-name>fetchCities</servlet-name>
+        <servlet-class>ru.job4j.mvc.controller.FetchCitiesController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>ajaxController</servlet-name>
-        <url-pattern>/ajax</url-pattern>
+        <servlet-name>fetchCities</servlet-name>
+        <url-pattern>/cities</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>checkLogin</servlet-name>
+        <servlet-class>ru.job4j.mvc.controller.CheckLoginController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>checkLogin</servlet-name>
+        <url-pattern>/checkLogin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>checkEmail</servlet-name>
+        <servlet-class>ru.job4j.mvc.controller.CheckEmailController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>checkEmail</servlet-name>
+        <url-pattern>/checkEmail</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>usersTableAjaxController</servlet-name>
+        <servlet-class>ru.job4j.mvc.controller.UsersTableAjaxController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>usersTableAjaxController</servlet-name>
+        <url-pattern>/usersTableAjax</url-pattern>
     </servlet-mapping>
 
 </web-app>

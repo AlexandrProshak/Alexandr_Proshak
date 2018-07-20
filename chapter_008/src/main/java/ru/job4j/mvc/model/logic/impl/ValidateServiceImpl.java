@@ -2,6 +2,8 @@ package ru.job4j.mvc.model.logic.impl;
 
 import ru.job4j.mvc.model.dao.Store;
 import ru.job4j.mvc.model.dao.impl.DatabaseStoreImpl;
+import ru.job4j.mvc.model.entity.City;
+import ru.job4j.mvc.model.entity.Country;
 import ru.job4j.mvc.model.logic.ValidateService;
 import ru.job4j.mvc.model.entity.User;
 
@@ -92,4 +94,23 @@ public class ValidateServiceImpl implements ValidateService {
         return result;
     }
 
+    @Override
+    public Collection<Country> findAllCountries() {
+        Collection<Country> countries = store.findAllCountries();
+        if (!countries.isEmpty()) {
+            return countries;
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public Collection<City> findAllCitiesByCountry(String countryName) {
+        Collection<City> cities = store.findAllCitiesByCountry(countryName);
+        if (!cities.isEmpty()) {
+            return cities;
+        } else {
+            return Collections.emptyList();
+        }
+    }
 }

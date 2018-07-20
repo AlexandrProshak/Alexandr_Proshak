@@ -1,6 +1,8 @@
 package ru.job4j.mvc.model.dao.impl;
 
 import ru.job4j.mvc.model.dao.Store;
+import ru.job4j.mvc.model.entity.City;
+import ru.job4j.mvc.model.entity.Country;
 import ru.job4j.mvc.model.entity.User;
 
 import java.util.Collection;
@@ -71,5 +73,17 @@ public class MemoryStoreImpl implements Store {
     @Override
     public User findById(int id) {
         return store.get(id);
+    }
+
+    //TODO
+    @Override
+    public Collection<Country> findAllCountries() {
+        return null;
+    }
+
+    //TODO
+    @Override
+    public Collection<City> findAllCitiesByCountry(String countryName) {
+        return null;
     }
 }

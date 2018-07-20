@@ -44,6 +44,16 @@ public class User {
     private Timestamp crateDate = new Timestamp(System.currentTimeMillis());
 
     /**
+     * The user's country.
+     */
+    private String country;
+
+    /**
+     * The user's city.
+     */
+    private String city;
+
+    /**
      *  The getter for id.
      * @return id.
      */
@@ -155,6 +165,38 @@ public class User {
         this.role = role;
     }
 
+    /**
+     * The getter for country.
+     * @return country.
+     */
+    public String getCountry() {
+        return country;
+    }
+
+    /**
+     * The setter for country.
+     * @param country to set.
+     */
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    /**
+     * The getter for city.
+     * @return city.
+     */
+    public String getCity() {
+        return city;
+    }
+
+    /**
+     * The setter for city.
+     * @param city to set.
+     */
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -170,12 +212,15 @@ public class User {
                 && Objects.equals(password, user.password)
                 && Objects.equals(email, user.email)
                 && role == user.role
+                && Objects.equals(country, user.country)
+                && Objects.equals(city, user.city)
                 && Objects.equals(crateDate, user.crateDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, login, password, email, role, crateDate);
+
+        return Objects.hash(id, name, login, password, email, role, country, city, crateDate);
     }
 
     @Override
@@ -186,7 +231,9 @@ public class User {
                 + ", login='" + login + '\''
                 + ", email='" + email + '\''
                 + ", role='" + role.toString() + '\''
-                + ", crateDate=" + crateDate
+                + ", crateDate=" + crateDate + '\''
+                + ", country=" + country + '\''
+                + ", city=" + city
                 + '}'
                 + System.lineSeparator();
     }

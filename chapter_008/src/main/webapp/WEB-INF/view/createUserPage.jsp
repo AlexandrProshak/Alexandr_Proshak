@@ -9,9 +9,64 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<style>
+    #footer {
+        color: #6d6d6d;
+        font-size: 12px;
+        text-align: center;
+    }
+    #footer p {
+        margin-bottom: 0;
+    }
+    #footer a {
+        color: inherit;
+    }
+</style>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script>
+    function validateLogin() {
+        var loginParam = document.getElementById("login").value;
+        $.ajax('./checkLogin?loginParam=' + loginParam, {
+            method: 'get',
+            complete: function (data) {
+                if (data.responseText =="free") {
+                    return true;
+                } else {
+                    alert("User with login " + loginParam + " already used");
+                    return false;
+                }
+            }
+        })
+    }
+
+    function validateEmail() {
+        var emailParam = document.getElementById("email").value;
+        $.ajax('./checkEmail?emailParam=' + emailParam, {
+            method: 'get',
+            complete: function (data) {
+                if (data.responseText =="free") {
+                    return true;
+                } else {
+                    alert("User with login " + emailParam + " already used");
+                    return false;
+                }
+            }
+        })
+    }
+
+    function updateCitiesByCountry() {
+        var country = document.getElementById("country-opt").value;
+        $.ajax('./cities?country=' + country, {
+            method: 'get',
+            complete: function (data) {
+                var cities = JSON.parse(data.responseText);
+                for(var i = 0; i < cities.length; ++i) {
+                    document.getElementById("city-opt").options[i] = new Option(cities[i].name, cities[i].name);
+                }
+            }
+        })
+    }
 
     function validateForm() {
         var nam = document.forms["create-form"]["name"].value;
@@ -24,32 +79,16 @@
             return false;
         }
     }
-
 </script>
 <head>
     <meta charset="UTF-8">
     <title> Create new user </title>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <style>
-        /*--------- Footer ---------*/
-
-        #footer {
-            color: #6d6d6d;
-            font-size: 12px;
-            text-align: center;
-        }
-        #footer p {
-            margin-bottom: 0;
-        }
-        #footer a {
-            color: inherit;
-        }
-    </style>
 </head>
 <body>
 <div style="float: right; padding-right: 15px; color: #1fa67b; font-size: medium">
     <c:out value="Hello, "></c:out>
-    <c:out value="${systemUser.name}"></c:out><br>
+    <c:out value="${pageContext.servletContext.contextPath}"></c:out><br>
     <a href="http://localhost:8080/item/logout" style="float: right; padding-right: 15px; color: #1fa67b; font-size: medium">log out</a>
 </div>
 <h2 style="color: #1fa67b;text-align: center;">Create new user</h2>
@@ -57,46 +96,64 @@
 <form name="create-form" class="form-horizontal" action="${pageContext.servletContext.contextPath}/create" id="create-form"
       onsubmit="return validateForm()" method="post">
     <fieldset>
-        <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="name">Name</label>
             <div class="col-md-4">
-                <input type="text" name="name" id="name" class="form-control input-md">
+                <input type="text" name="name" id="name"
+                       class="form-control input-md" autocomplete="off" required>
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-4 control-label" for="login">Login</label>
             <div class="col-md-4">
-                <input type="text" name="login" id="login" class="form-control input-md">
+                <input type="text" name="login" id="login"
+                       class="form-control input-md" required oninput="validateLogin()">
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-4 control-label" for="password">Password</label>
             <div class="col-md-4">
-                <input type="password" name="password" id="password" class="form-control input-md">
+                <input type="password" name="password" id="password"
+                       class="form-control input-md" autocomplete="off" required>
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-4 control-label" for="email">Email</label>
             <div class="col-md-4">
-                <input type="email" name="email" id="email" placeholder="your@email.do" class="form-control input-md">
+                <input type="email" name="email" id="email" placeholder="your@email.do"
+                       class="form-control input-md" required oninput="validateEmail()">
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-4 control-label" for="role">Role</label>
             <div class="col-md-4">
-                <select name="role" id="role" class="form-control input-md">
+                <select name="role" id="role" class="form-control input-md" required>
                     <option value="user">user</option>
                     <option value="admin">admin</option>
                 </select>
             </div>
         </div>
-
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="country-opt">Country</label>
+            <div class="col-md-4">
+                <select id="country-opt" class="form-control" name="country" required onchange="updateCitiesByCountry()">
+                    <c:forEach var="country" items="${requestScope.countries}">
+                        <option>${country.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="city-opt">City</label>
+            <div class="col-md-4">
+                <select id="city-opt" class="form-control" name="city" required></select>
+            </div>
+        </div>
         <div class="form-group">
             <label class="col-md-4 control-label"></label>
             <div class="col-md-8">
                 <button class="btn btn-success" type="submit" form="create-form" value="Submit">Create</button>
-                <a class="btn btn-danger" href="${pageContext.servletContext.contextPath}/allUsersList">Cancel</a>
+                <a class="btn btn-danger" href="${pageContext.servletContext.contextPath}/allUsersList">Back</a>
             </div>
         </div>
     </fieldset>

@@ -1,13 +1,10 @@
 package ru.job4j.servlet.presentation;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import ru.job4j.crudservlet.logic.ValidateService;
 import ru.job4j.crudservlet.logic.entity.User;
-import uk.org.lidalia.slf4jtest.TestLogger;
-import uk.org.lidalia.slf4jtest.TestLoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,16 +16,12 @@ import java.util.Collections;
 import java.util.LinkedList;
 
 import static java.util.Arrays.asList;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.times;
 import static ru.job4j.mvc.controller.ControllerConstants.ATTRIBUTE_STORAGE;
-import static ru.job4j.mvc.controller.ControllerConstants.PARAMETER_USER_ID;
-import static uk.org.lidalia.slf4jtest.LoggingEvent.error;
 
 /**
  * The UsersServlet's class test.
@@ -56,11 +49,6 @@ public class UsersServletTest {
     private HttpSession session;
 
     /**
-     * The special test logger.
-     */
-    private TestLogger logger;
-
-    /**
      * The set upping method initial data.
      */
     @Before
@@ -69,15 +57,6 @@ public class UsersServletTest {
         this.request = mock(HttpServletRequest.class);
         this.response = mock(HttpServletResponse.class);
         this.session = mock(HttpSession.class);
-        this.logger = TestLoggerFactory.getTestLogger(UsersServlet.class);
-    }
-
-    /**
-     * The cleaning data.
-     */
-    @After
-    public void clearLoggers() {
-        TestLoggerFactory.clear();
     }
 
     /**
@@ -164,51 +143,4 @@ public class UsersServletTest {
         verifyNoMoreInteractions(request, response, session);
     }
 
-    /**
-     * The doPost's method test in the case of deleting a null user.
-     * @throws IOException exception.
-     */
-    @Test
-    public void whenDeleteNullUserThanErrorMassage() throws IOException {
-        //init
-        PrintWriter writer = mock(PrintWriter.class);
-        when(response.getWriter()).thenReturn(writer);
-        when(request.getContextPath()).thenReturn("http://localhost:8080/item");
-        ValidateService storage = mock(ValidateService.class);
-        when(request.getParameter(PARAMETER_USER_ID)).thenReturn(null);
-        when(request.getSession()).thenReturn(session);
-        when(storage.delete(1)).thenReturn(true);
-        when(session.getAttribute(ATTRIBUTE_STORAGE)).thenReturn(storage);
-
-        //use
-        servlet.doPost(request, response);
-
-        //check
-        verify(request).getParameter(PARAMETER_USER_ID);
-        assertThat(logger.getLoggingEvents(), is(asList(error("Null users to delete."))));
-    }
-
-    /**
-     * The doPost's method test in the case of deleting a user with wrong id.
-     * @throws IOException exception.
-     */
-    @Test (expected = AssertionError.class)
-    public void whenDeleteUserWithIncorrectIDThanErrorMassage() throws IOException {
-        //init
-        PrintWriter writer = mock(PrintWriter.class);
-        when(response.getWriter()).thenReturn(writer);
-        when(request.getContextPath()).thenReturn("http://localhost:8080/item");
-        ValidateService storage = mock(ValidateService.class);
-        when(request.getParameter(PARAMETER_USER_ID)).thenReturn("abc");
-        when(request.getSession()).thenReturn(session);
-        when(storage.delete(1)).thenReturn(true);
-        when(session.getAttribute(ATTRIBUTE_STORAGE)).thenReturn(storage);
-
-        //use
-        servlet.doPost(request, response);
-
-        //check
-        verify(request).getParameter(PARAMETER_USER_ID);
-        assertThat(logger.getLoggingEvents(), is(asList(error("abc"))));
-    }
 }

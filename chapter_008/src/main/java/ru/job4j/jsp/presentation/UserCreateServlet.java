@@ -55,12 +55,12 @@ public class UserCreateServlet extends HttpServlet {
             if (page != null) {
                 page.forward(req, resp);
             } else {
-                req.getRequestDispatcher("index.jsp").forward(req, resp);
+                req.getRequestDispatcher("ajax.jsp").forward(req, resp);
             }
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
             try {
-                req.getRequestDispatcher("index.jsp").forward(req, resp);
+                req.getRequestDispatcher("ajax.jsp").forward(req, resp);
             } catch (ServletException | IOException e1) {
                 LOG.error(e.getMessage(), e1);
             }
