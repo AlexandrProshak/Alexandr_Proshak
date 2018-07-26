@@ -17,6 +17,7 @@
     <modules>
         <module>1_JVM_Bate_Code</module>
         <module>3_Data_Type</module>
+        <module>4_Conditional_operator</module>
     </modules>
 
 </project>

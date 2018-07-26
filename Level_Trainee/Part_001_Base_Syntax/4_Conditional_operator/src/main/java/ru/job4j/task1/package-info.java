@@ -1,7 +1,7 @@
 /**
  * The package for the task:
- * 3.4. Distance between two points.
+ * 4.1. Stupid bot.
  *
  * @author Alex Proshak (olexandr_proshak@ukr.net)
  */
-package ru.job4j.task4;
+package ru.job4j.task1;

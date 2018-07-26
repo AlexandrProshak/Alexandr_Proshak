@@ -2,7 +2,7 @@ package ru.job4j.task3;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 import static org.hamcrest.number.IsCloseTo.closeTo;
 
 /**

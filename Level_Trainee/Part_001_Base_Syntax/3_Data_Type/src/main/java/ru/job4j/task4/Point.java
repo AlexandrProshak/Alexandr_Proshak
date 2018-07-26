@@ -1,7 +1,7 @@
 package ru.job4j.task4;
 
 /**
- * Point. The class describes a point in two dimensional .
+ * Point. The class describes a point in two dimensional.
  *
  * @author Alex Proshak (olexandr_proshak@ukr.net)
  */
@@ -24,6 +24,38 @@ public class Point {
      */
     public Point(int x, int y) {
         this.x = x;
+        this.y = y;
+    }
+
+    /**
+     * Getter.
+     * @return x;
+     */
+    public int getX() {
+        return x;
+    }
+
+    /**
+     * Setter.
+     * @param x set.
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    /**
+     * Getter.
+     * @return y;
+     */
+    public int getY() {
+        return y;
+    }
+
+    /**
+     * Setter.
+     * @param y set.
+     */
+    public void setY(int y) {
         this.y = y;
     }
 
