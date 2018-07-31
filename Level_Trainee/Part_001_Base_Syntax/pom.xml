@@ -19,6 +19,7 @@
         <module>3_Data_Type</module>
         <module>4_Conditional_operator</module>
         <module>5_Loops</module>
+        <module>6_Arrays</module>
     </modules>
 
 </project>
