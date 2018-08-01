@@ -8,8 +8,7 @@ public class ControllerConstants {
 
     /**
      * Attributes.
-     */
-    /**
+     **************************************************************
      * The request attribute storage.
      */
     public static final String ATTRIBUTE_STORAGE = "storage";
@@ -40,14 +39,8 @@ public class ControllerConstants {
     public static final String ATTRIBUTE_COUNTRIES = "countries";
 
     /**
-     * The cities.
-     */
-    public static final String ATTRIBUTE_CITIES = "cities";
-
-    /**
      * Parameters.
-     */
-    /**
+     **************************************************************
      * The request parameter user's id.
      */
     public static final String PARAMETER_USER_ID = "id";
@@ -89,26 +82,20 @@ public class ControllerConstants {
 
     /**
      * Pages.
-     */
-    /**
+     **************************************************************
      * The path to the folder with all views.
      */
     public static final String PREFIX_PAGE = "/WEB-INF/view/";
 
     /**
-     * The home page.
-     */
-    public static final String HOME_PAGE = "homePage_OLD.jsp";
-
-    /**
      * The page for showing all users.
      */
-    public static final String ALL_USERS_PAGE = "usersPage.jsp";
+    public static final String ALL_USERS_PAGE = "users.jsp";
 
     /**
      * The page for updating user.
      */
-    public static final String UPDATE_USER_PAGE = "updateUserPage.jsp";
+    public static final String UPDATE_USER_PAGE = "update.jsp";
 
     /**
      * The page for an empty storage.
@@ -118,12 +105,16 @@ public class ControllerConstants {
     /**
      * The page for creating new user.
      */
-    public static final String CREATE_USER_PAGE = "createUserPage.jsp";
+    public static final String CREATE_USER_PAGE = "create.jsp";
 
     /**
      * The page for login a user.
      */
-    public static final String LOGIN_PAGE = "loginPage.jsp";
+    public static final String LOGIN_PAGE = "login.jsp";
 
-
+    /**
+     * The private constructor to avoid instantiation of the class.
+     */
+    private ControllerConstants() {
+    }
 }

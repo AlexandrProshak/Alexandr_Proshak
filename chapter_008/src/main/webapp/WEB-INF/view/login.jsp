@@ -12,7 +12,6 @@
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script>
-
     function showPassword() {
         var key_attr = $('#password').attr('type');
         if(key_attr != 'text') {
@@ -32,16 +31,12 @@
             return false;
         }
     }
-
 </script>
 <head>
     <meta charset="UTF-8">
     <title>Log in</title>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
-
-        /*--------- Login Section ---------*/
-
         #login_section .form-wrap {
             width: 30%;
             margin: 0 auto;
@@ -92,9 +87,6 @@
             font-size: 14px;
             margin-bottom: 20px;
         }
-
-        /*--------- Inputs & Buttons ---------*/
-
         .form-control {
             color: #212121;
         }
@@ -106,9 +98,6 @@
         .btn-custom:focus {
             color: #fff;
         }
-
-        /*--------- Footer ---------*/
-
         #footer {
             color: #6d6d6d;
             font-size: 12px;
@@ -130,7 +119,7 @@
             <div class="col-xs-12">
                 <div class="form-wrap">
                     <hr>
-                    <p style="text-align: center">test user - guest / guest</p>
+                    <p style="text-align: center">test user-guest/guest</p>
                     <form name="login-form" action="${pageContext.servletContext.contextPath}/login"
                           onsubmit="return validateForm()" method="post" autocomplete="off">
                         <div class="form-group">

@@ -16,7 +16,6 @@ import java.util.Collection;
 
 import static ru.job4j.mvc.controller.ControllerConstants.ATTRIBUTE_STORAGE;
 import static ru.job4j.mvc.controller.ControllerConstants.PREFIX_PAGE;
-import static ru.job4j.mvc.controller.ControllerConstants.HOME_PAGE;
 import static ru.job4j.mvc.controller.ControllerConstants.ALL_USERS_PAGE;
 import static ru.job4j.mvc.controller.ControllerConstants.EMPTY_PAGE;
 import static ru.job4j.mvc.controller.ControllerConstants.PARAMETER_USER_ID;
@@ -50,13 +49,18 @@ public class UsersController extends HttpServlet {
         } catch (ServletException | IOException e) {
             LOG.error(e.getMessage(), e);
             try {
-                resp.sendRedirect(PREFIX_PAGE + HOME_PAGE);
+                resp.sendRedirect(PREFIX_PAGE + ALL_USERS_PAGE);
             } catch (IOException e1) {
                 LOG.error(e1.getMessage(), e1);
             }
         }
     }
 
+    /**
+     * The doPost method is used for removing user from db.
+     * @param req HttpServletRequest.
+     * @param resp HttpServletResponse.
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         try {
@@ -75,4 +79,5 @@ public class UsersController extends HttpServlet {
             doGet(req, resp);
         }
     }
+
 }

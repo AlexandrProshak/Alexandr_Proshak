@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.util.Collection;
 
 import static ru.job4j.mvc.controller.ControllerConstants.PREFIX_PAGE;
-import static ru.job4j.mvc.controller.ControllerConstants.HOME_PAGE;
 import static ru.job4j.mvc.controller.ControllerConstants.UPDATE_USER_PAGE;
 import static ru.job4j.mvc.controller.ControllerConstants.ALL_USERS_PAGE;
 import static ru.job4j.mvc.controller.ControllerConstants.ATTRIBUTE_STORAGE;
@@ -97,7 +96,7 @@ public class UserUpdateController extends HttpServlet {
         } catch (ServletException | IOException e) {
             LOG.error(e.getMessage(), e);
             try {
-                resp.sendRedirect(String.format("%s/", HOME_PAGE));
+                resp.sendRedirect(String.format("%s/", ALL_USERS_PAGE));
             } catch (IOException e1) {
                 LOG.error(e1.getMessage(), e1);
             }

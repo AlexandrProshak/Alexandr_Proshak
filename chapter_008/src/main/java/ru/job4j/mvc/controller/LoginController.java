@@ -5,13 +5,11 @@ import org.slf4j.LoggerFactory;
 import ru.job4j.mvc.model.entity.User;
 import ru.job4j.mvc.model.logic.impl.ValidateServiceImpl;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 
 import static ru.job4j.mvc.controller.ControllerConstants.ATTRIBUTE_SYSTEM_USER;
 import static ru.job4j.mvc.controller.ControllerConstants.ATTRIBUTE_ERROR;
@@ -31,7 +29,7 @@ public class LoginController extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         try {
             Cookie[] cookies = req.getCookies();
             if (cookies != null) {
@@ -65,7 +63,7 @@ public class LoginController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         try {
             String login = req.getParameter(USER_LOGIN);
             String password = req.getParameter(USER_PASSWORD);

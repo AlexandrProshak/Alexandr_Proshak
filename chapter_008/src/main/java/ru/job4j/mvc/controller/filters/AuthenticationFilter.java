@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.ServletException;
 import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
 import javax.servlet.FilterChain;
@@ -31,10 +30,8 @@ public class AuthenticationFilter implements Filter {
      * @param req HttpServletRequest.
      * @param resp HttpServletResponse.
      * @param chain FilterChain.
-     * @throws ServletException exception.
-     * @throws IOException exception.
      */
-    public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) throws ServletException, IOException {
+    public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) {
         try {
             if (req.getRequestURI().contains("/login")) {
                 chain.doFilter(req, resp);
@@ -48,16 +45,19 @@ public class AuthenticationFilter implements Filter {
             }
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
-            resp.sendRedirect(String.format("%s/login", req.getContextPath()));
+            try {
+                resp.sendRedirect(String.format("%s/login", req.getContextPath()));
+            } catch (IOException e1) {
+                LOG.error(e.getMessage(), e1);
+            }
         }
     }
 
     /**
      * The init method.
      * @param config parameters.
-     * @throws ServletException exception.
      */
-    public void init(FilterConfig config) throws ServletException {
+    public void init(FilterConfig config) {
     }
 
     /**
@@ -65,10 +65,8 @@ public class AuthenticationFilter implements Filter {
      * @param req ServletRequest.
      * @param resp ServletResponse.
      * @param chain FilterChain.
-     * @throws ServletException exception.
-     * @throws IOException exception.
      */
-    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
+    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) {
         doFilter((HttpServletRequest) req, (HttpServletResponse) resp, chain);
     }
 

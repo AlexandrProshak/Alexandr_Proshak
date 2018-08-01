@@ -16,10 +16,6 @@
             font-size: 14px;
             color:#1fa67b;
         }
-        tr.row-content
-        {
-            color:#6c7173;
-        }
         .table-striped>tbody>tr:nth-of-type(odd)
         {
             background:#F0F2F2 !important;
@@ -100,7 +96,7 @@
     <c:out value="${systemUser.name}"></c:out><br>
     <a href="${pageContext.servletContext.contextPath}/logout" style="float: right; padding-right: 15px; color: #1fa67b; font-size: medium">log out</a>
 </div>
-<h2>AJAX Retrieve Data from Database (use JSONArray)</h2>
+<h2>AJAX Retrieve Data from Database (used JSONArray)</h2>
 <input class="btn-low" type="button" value="Show users" id="showTable"/>
 <br/>
 <br/>

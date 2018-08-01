@@ -14,9 +14,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
 
-import static ru.job4j.mvc.controller.ControllerConstants.HOME_PAGE;
 import static ru.job4j.mvc.controller.ControllerConstants.PARAMETER_USER_COUNTRY;
 import static ru.job4j.mvc.controller.ControllerConstants.PREFIX_PAGE;
+import static ru.job4j.mvc.controller.ControllerConstants.ALL_USERS_PAGE;
 
 /**
  * The FetchCitiesController class.
@@ -46,7 +46,7 @@ public class FetchCitiesController extends HttpServlet {
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
             try {
-                req.getRequestDispatcher(PREFIX_PAGE + HOME_PAGE).forward(req, resp);
+                req.getRequestDispatcher(PREFIX_PAGE + ALL_USERS_PAGE).forward(req, resp);
             } catch (ServletException | IOException e1) {
                 LOG.error(e.getMessage(), e1);
             }

@@ -3,7 +3,6 @@ package ru.job4j.mvc.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +25,7 @@ public class LogoutController extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(LogoutController.class);
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)  {
         try {
             HttpSession session = req.getSession();
             if (session.getAttribute(ATTRIBUTE_SYSTEM_USER) != null) {
@@ -37,7 +36,11 @@ public class LogoutController extends HttpServlet {
             }
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
-            resp.sendRedirect(String.format("%s/login", req.getContextPath()));
+            try {
+                resp.sendRedirect(String.format("%s/login", req.getContextPath()));
+            } catch (IOException e1) {
+                LOG.error(e.getMessage(), e1);
+            }
         }
     }
 }

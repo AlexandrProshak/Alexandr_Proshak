@@ -6,13 +6,6 @@
          version="4.0"
          metadata-complete="true">
 
-    <resource-ref>
-        <description>postgreSQL Datasource example</description>
-        <res-ref-name>jdbc/postgres</res-ref-name>
-        <res-type>javax.sql.DataSource</res-type>
-        <res-auth>Container</res-auth>
-    </resource-ref>
-    
     <!-- Define servlets that are included in the application -->
 
     <servlet>
@@ -24,6 +17,7 @@
         <servlet-name>EchoServlet</servlet-name>
         <url-pattern>/echo</url-pattern>
     </servlet-mapping>
+
     <!--
         <servlet>
             <servlet-name>userServlet</servlet-name>
@@ -38,76 +32,76 @@
     -->
 
     <!--CRUD servlet-->
-<!--
-    <servlet>
-        <servlet-name>usersServlet</servlet-name>
-        <servlet-class>ru.job4j.servlet.presentation.UsersServlet</servlet-class>
-    </servlet>
+    <!--
+        <servlet>
+            <servlet-name>usersServlet</servlet-name>
+            <servlet-class>ru.job4j.servlet.presentation.UsersServlet</servlet-class>
+        </servlet>
 
-    <servlet-mapping>
-        <servlet-name>usersServlet</servlet-name>
-        <url-pattern>/list</url-pattern>
-    </servlet-mapping>
+        <servlet-mapping>
+            <servlet-name>usersServlet</servlet-name>
+            <url-pattern>/list</url-pattern>
+        </servlet-mapping>
 
-    <servlet>
-        <servlet-name>userUpdateServlet</servlet-name>
-        <servlet-class>ru.job4j.servlet.presentation.UserUpdateServlet</servlet-class>
-    </servlet>
+        <servlet>
+            <servlet-name>userUpdateServlet</servlet-name>
+            <servlet-class>ru.job4j.servlet.presentation.UserUpdateServlet</servlet-class>
+        </servlet>
 
-    <servlet-mapping>
-        <servlet-name>userUpdateServlet</servlet-name>
-        <url-pattern>/edit</url-pattern>
-    </servlet-mapping>
+        <servlet-mapping>
+            <servlet-name>userUpdateServlet</servlet-name>
+            <url-pattern>/edit</url-pattern>
+        </servlet-mapping>
 
-    <servlet>
-        <servlet-name>userCreateServlet</servlet-name>
-        <servlet-class>ru.job4j.servlet.presentation.UserCreateServlet</servlet-class>
-    </servlet>
+        <servlet>
+            <servlet-name>userCreateServlet</servlet-name>
+            <servlet-class>ru.job4j.servlet.presentation.UserCreateServlet</servlet-class>
+        </servlet>
 
-    <servlet-mapping>
-        <servlet-name>userCreateServlet</servlet-name>
-        <url-pattern>/create</url-pattern>
-    </servlet-mapping>
--->
+        <servlet-mapping>
+            <servlet-name>userCreateServlet</servlet-name>
+            <url-pattern>/create</url-pattern>
+        </servlet-mapping>
+    -->
 
     <!--JSP task-->
-<!--
-    <servlet>
-    <servlet-name>usersServlet</servlet-name>
-    <servlet-class>ru.job4j.jsp.presentation.UsersServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
+    <!--
+        <servlet>
         <servlet-name>usersServlet</servlet-name>
-        <url-pattern>/list</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>userUpdateServlet</servlet-name>
-        <servlet-class>ru.job4j.jsp.presentation.UserUpdateServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>userUpdateServlet</servlet-name>
-        <url-pattern>/edit</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>userCreateServlet</servlet-name>
-        <servlet-class>ru.job4j.jsp.presentation.UserCreateServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>userCreateServlet</servlet-name>
-        <url-pattern>/create</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>removeUserServlet</servlet-name>
         <servlet-class>ru.job4j.jsp.presentation.UsersServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>removeUserServlet</servlet-name>
-        <url-pattern>/remove</url-pattern>
-    </servlet-mapping>
--->
+        </servlet>
+        <servlet-mapping>
+            <servlet-name>usersServlet</servlet-name>
+            <url-pattern>/list</url-pattern>
+        </servlet-mapping>
+
+        <servlet>
+            <servlet-name>userUpdateServlet</servlet-name>
+            <servlet-class>ru.job4j.jsp.presentation.UserUpdateServlet</servlet-class>
+        </servlet>
+        <servlet-mapping>
+            <servlet-name>userUpdateServlet</servlet-name>
+            <url-pattern>/edit</url-pattern>
+        </servlet-mapping>
+
+        <servlet>
+            <servlet-name>userCreateServlet</servlet-name>
+            <servlet-class>ru.job4j.jsp.presentation.UserCreateServlet</servlet-class>
+        </servlet>
+        <servlet-mapping>
+            <servlet-name>userCreateServlet</servlet-name>
+            <url-pattern>/create</url-pattern>
+        </servlet-mapping>
+
+        <servlet>
+            <servlet-name>removeUserServlet</servlet-name>
+            <servlet-class>ru.job4j.jsp.presentation.UsersServlet</servlet-class>
+        </servlet>
+        <servlet-mapping>
+            <servlet-name>removeUserServlet</servlet-name>
+            <url-pattern>/remove</url-pattern>
+        </servlet-mapping>
+    -->
 
     <!--MVC task-->
 

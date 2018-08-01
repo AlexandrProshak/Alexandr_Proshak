@@ -20,7 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static ru.job4j.mvc.controller.ControllerConstants.PREFIX_PAGE;
-import static ru.job4j.mvc.controller.ControllerConstants.HOME_PAGE;
+import static ru.job4j.mvc.controller.ControllerConstants.ALL_USERS_PAGE;
 import static ru.job4j.mvc.controller.ControllerConstants.CREATE_USER_PAGE;
 import static ru.job4j.mvc.controller.ControllerConstants.ATTRIBUTE_STORAGE;
 import static ru.job4j.mvc.controller.ControllerConstants.ATTRIBUTE_INFO;
@@ -53,12 +53,12 @@ public class UserCreateController extends HttpServlet {
                 req.setAttribute(ATTRIBUTE_INFO, "Creating new user ...");
                 page.forward(req, resp);
             } else {
-                req.getRequestDispatcher(PREFIX_PAGE + HOME_PAGE).forward(req, resp);
+                req.getRequestDispatcher(PREFIX_PAGE + ALL_USERS_PAGE).forward(req, resp);
             }
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
             try {
-                req.getRequestDispatcher(PREFIX_PAGE + HOME_PAGE).forward(req, resp);
+                req.getRequestDispatcher(PREFIX_PAGE + ALL_USERS_PAGE).forward(req, resp);
             } catch (ServletException | IOException e1) {
                 LOG.error(e.getMessage(), e1);
             }
@@ -75,7 +75,12 @@ public class UserCreateController extends HttpServlet {
                 user.setLogin(req.getParameter(USER_LOGIN));
                 user.setPassword(req.getParameter(USER_PASSWORD));
                 user.setEmail(req.getParameter(PARAMETER_USER_EMAIL));
-                user.setRole(Role.valueOf(req.getParameter(PARAMETER_USER_ROLE)));
+                Role role = Role.valueOf(req.getParameter(PARAMETER_USER_ROLE));
+                if (Role.admin.equals(role)) {
+                    user.setRole(Role.admin);
+                } else {
+                    user.setRole(Role.user);
+                }
                 user.setCountry(req.getParameter(PARAMETER_USER_COUNTRY));
                 user.setCity(req.getParameter(PARAMETER_USER_CITY));
                 if (storage.add(user)) {
@@ -114,12 +119,10 @@ public class UserCreateController extends HttpServlet {
         String email = req.getParameter(PARAMETER_USER_EMAIL);
         String country = req.getParameter(PARAMETER_USER_COUNTRY);
         String city = req.getParameter(PARAMETER_USER_CITY);
-
         List<String> loginList = new LinkedList<>();
         List<String> emailList = new LinkedList<>();
         List<String> countryList = new LinkedList<>();
         List<String> cityList = new LinkedList<>();
-
         Collection<Country> allCountries = ValidateServiceImpl.getInstance().findAllCountries();
         for (Country each: allCountries) {
             countryList.add(each.getName());
@@ -127,7 +130,6 @@ public class UserCreateController extends HttpServlet {
         if (!countryList.contains(country)) {
             return false;
         }
-
         Collection<City> allCitiesByCountry = ValidateServiceImpl.getInstance().findAllCitiesByCountry(country);
         for (City each: allCitiesByCountry) {
             cityList.add(each.getName());
@@ -135,7 +137,6 @@ public class UserCreateController extends HttpServlet {
         if (!cityList.contains(city)) {
             return false;
         }
-
         for (User user: users) {
             loginList.add(user.getLogin());
             emailList.add(user.getEmail());
@@ -147,4 +148,5 @@ public class UserCreateController extends HttpServlet {
         }
         return result;
     }
+
 }

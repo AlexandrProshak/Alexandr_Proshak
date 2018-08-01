@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import ru.job4j.mvc.model.entity.Role;
 import ru.job4j.mvc.model.entity.User;
 
-import javax.servlet.ServletException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -34,10 +33,8 @@ public class RemoveFilter implements Filter {
      * @param req HttpServletRequest.
      * @param resp HttpServletResponse.
      * @param chain FilterChain.
-     * @throws ServletException exception.
-     * @throws IOException exception.
      */
-    public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) throws ServletException, IOException {
+    public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) {
         try {
             User user = (User) req.getSession().getAttribute(ATTRIBUTE_SYSTEM_USER);
             if (user.getRole().equals(Role.admin)) {
@@ -47,16 +44,19 @@ public class RemoveFilter implements Filter {
             }
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
-            resp.sendRedirect(String.format("%s/login", req.getContextPath()));
+            try {
+                resp.sendRedirect(String.format("%s/login", req.getContextPath()));
+            } catch (IOException e1) {
+                LOG.error(e.getMessage(), e1);
+            }
         }
     }
 
     /**
      * The init method.
      * @param filterConfig parameters.
-     * @throws ServletException exception.
      */
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
 
     }
 
@@ -65,10 +65,8 @@ public class RemoveFilter implements Filter {
      * @param req ServletRequest.
      * @param resp ServletResponse.
      * @param chain FilterChain.
-     * @throws ServletException exception.
-     * @throws IOException exception.
      */
-    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
+    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) {
         doFilter((HttpServletRequest) req, (HttpServletResponse) resp, chain);
     }
 
