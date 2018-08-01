@@ -1,4 +1,4 @@
-package ru.job4j.test.tictactoe;
+package ru.job4j.tictactoe;
 
 import javafx.scene.shape.Rectangle;
 

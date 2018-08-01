@@ -1,4 +1,4 @@
-package ru.job4j.test.tictactoe;
+package ru.job4j.tictactoe;
 
 import org.junit.Test;
 
