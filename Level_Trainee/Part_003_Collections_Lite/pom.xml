@@ -3,22 +3,20 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <modules>
+        <module>1_Collections_Framework</module>
+        <module>2_Generics</module>
+        <module>3_Sorts</module>
+        <module>5_Control_Tasks</module>
+    </modules>
 
     <parent>
+        <artifactId>Level_Trainee</artifactId>
         <groupId>ru.job4j</groupId>
-        <artifactId>Alexandr_Proshak</artifactId>
         <version>2.0</version>
     </parent>
 
-    <artifactId>Level_Trainee</artifactId>
-    <packaging>pom</packaging>
-    <version>2.0</version>
-
-    <modules>
-        <module>Part_001_Base_Syntax</module>
-        <module>Part_002_OOP</module>
-        <module>Part_003_Collections_Lite</module>
-        <module>Part_004_FP_Lambda_Stream_API</module>
-    </modules>
+    <artifactId>Part_003_Collections_Lite</artifactId>
 
 </project>

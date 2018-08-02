@@ -5,20 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
+        <artifactId>Part_003_Collections_Lite</artifactId>
         <groupId>ru.job4j</groupId>
-        <artifactId>Alexandr_Proshak</artifactId>
         <version>2.0</version>
     </parent>
 
-    <artifactId>Level_Trainee</artifactId>
-    <packaging>pom</packaging>
-    <version>2.0</version>
-
-    <modules>
-        <module>Part_001_Base_Syntax</module>
-        <module>Part_002_OOP</module>
-        <module>Part_003_Collections_Lite</module>
-        <module>Part_004_FP_Lambda_Stream_API</module>
-    </modules>
+    <artifactId>5_Control_Tasks</artifactId>
 
 </project>

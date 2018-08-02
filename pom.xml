@@ -14,7 +14,6 @@
 	</properties>
 
 	<modules>
-		<module>chapter_003</module>
 		<module>chapter_005</module>
 		<module>chapter_006</module>
 		<module>chapter_007</module>
