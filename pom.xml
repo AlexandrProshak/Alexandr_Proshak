@@ -14,11 +14,11 @@
 	</properties>
 
 	<modules>
-		<module>chapter_005</module>
 		<module>chapter_006</module>
 		<module>chapter_007</module>
         <module>chapter_008</module>
         <module>Level_Trainee</module>
+        <module>Level_Junior</module>
     </modules>
 
 	<dependencies>

@@ -1,18 +1,18 @@
 [![N](http://job4j.ru/img/logomini.png)](http://job4j.ru)
-##### This project is implemented for training purposes. 
-##### Curent course name is "From scratch to employment, Java SE + EE"
+#### This project is implemented for training purposes. 
+##### Current course name is "From scratch to employment, Java SE + EE"
   - Autor: A.Proshak
   - E-mail: olexandr_proshak@ukr.net
 
  [![Build Status](https://travis-ci.org/AlexandrProshak/Alexandr_Proshak.svg?branch=master)](https://travis-ci.org/AlexandrProshak/Alexandr_Proshak)   [![codecov](https://codecov.io/gh/AlexandrProshak/Alexandr_Proshak/branch/master/graph/badge.svg)](https://codecov.io/gh/AlexandrProshak/Alexandr_Proshak) 
 
 
-##### The goal of this project is to consolidate programming skills in Java, mastering the necessary stack technologies for employment in the position of the Java developer.
+#### The goal of this project is to consolidate programming skills in Java, mastering the necessary stack technologies for employment in the position of the Java developer.
 
   - The expected completion date of the course:   01-09-2018
   - The planned date of employment:			      01-10-2018
 
-##### The project consists of two levels: Trainee and  Junior.
+#### The project consists of two levels: Trainee and  Junior.
 
 Each level consists of the parts. Each part includes topics related to different sections of Java. Themes are packages consisting of sets of training exercises.
 
