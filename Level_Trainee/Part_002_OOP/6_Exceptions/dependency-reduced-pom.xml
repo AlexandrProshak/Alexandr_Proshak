@@ -22,7 +22,7 @@
               <fileName>tracker</fileName>
               <transformers>
                 <transformer>
-                  <mainClass>ru.job4j.task1.StartUi</mainClass>
+                  <mainClass>ru.job4j.ru.job4j.task1.StartUi</mainClass>
                 </transformer>
               </transformers>
             </configuration>

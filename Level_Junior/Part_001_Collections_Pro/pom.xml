@@ -19,6 +19,7 @@
         <module>4_Set</module>
         <module>5_Map</module>
         <module>6_Tree</module>
+        <module>7_Control_Tasks_Collection_Pro</module>
     </modules>
 
 </project>
