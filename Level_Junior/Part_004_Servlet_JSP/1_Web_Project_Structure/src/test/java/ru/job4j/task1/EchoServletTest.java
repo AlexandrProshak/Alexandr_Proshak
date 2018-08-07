@@ -14,6 +14,8 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 /**
  * The EchoServletTest class.
+ *
+ * @author Alex Proshak (olexandr_proshak@ukr.net)
  */
 public class EchoServletTest {
 
