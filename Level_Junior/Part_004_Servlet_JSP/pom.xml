@@ -9,6 +9,7 @@
         <module>3_Servlet</module>
         <module>4_JSP</module>
         <module>5_MVC_On_Servlet_JSP_JSTL</module>
+        <module>6_Filter_Security</module>
     </modules>
 
     <parent>
