@@ -109,7 +109,7 @@ job4j.ru/courses/java_with_zero_to_job.html
   -	Strategy 
   -	Iterator 
 
-### The project is separated into two levels:: Trainee and  Junior.
+### The project is separated into two levels: Trainee and  Junior.
 
 Each level consists of the parts. Each part includes topics related to different sections of Java. Themes are packages consisting of sets of training exercises.
 
