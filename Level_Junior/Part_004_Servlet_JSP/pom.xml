@@ -11,6 +11,7 @@
         <module>5_MVC_On_Servlet_JSP_JSTL</module>
         <module>6_Filter_Security</module>
         <module>7_Mockito</module>
+        <module>8_HTML_CSS_JS</module>
     </modules>
 
     <parent>
