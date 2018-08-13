@@ -6,4 +6,23 @@
          version="4.0"
          metadata-complete="true">
 
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>default.html</welcome-file>
+        <welcome-file>default.htm</welcome-file>
+        <welcome-file>default.jsp</welcome-file>
+    </welcome-file-list>
+
+    <servlet>
+        <description>Get Information about Country - jQuery Ajax Request</description>
+        <display-name>JsonController</display-name>
+        <servlet-name>JsonController</servlet-name>
+        <servlet-class>ru.job4j.task4.JsonController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>JsonController</servlet-name>
+        <url-pattern>/info</url-pattern>
+    </servlet-mapping>
 </web-app>

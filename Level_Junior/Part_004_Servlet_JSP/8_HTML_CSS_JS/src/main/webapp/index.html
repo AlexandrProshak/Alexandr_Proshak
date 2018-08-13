@@ -4,106 +4,210 @@
     <title>Bootstrap Example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script>
-        function validate() {
-            if (document.forms["simple-form"]["firstName"].value == '') {
-                alert("The field \"First name\" should be filled out");
-                return false;
+
+    <script type="text/javascript">
+
+        /**
+         * Context path.
+         * @type {string}
+         */
+        var context = location.href;
+
+        /**
+         * Add rows to user table in case of valid date.
+         * @returns {boolean} false to prevent default action of form.
+         */
+        function addIfValid() {
+            var firstName = $('#first_name').val();
+            var secondName = $('#second_name').val();
+            var sex = $("#sex").find("input[type='radio']:checked").val();
+            var description = $('#description').val();
+            var result = false;
+            if (validate(firstName, secondName, sex, description)) {
+                var person = createPerson(firstName, secondName, sex, description);
+                ajax(person);
             }
-            if (document.forms["simple-form"]["lastName"].value == '') {
-                alert("The field \"Last name\" should be filled out");
-                return false;
-            }
-            if (document.forms["simple-form"]["sex"].value == '') {
-                alert("The field \"Sex\" should be filled out");
-                return false;
-            }
-            if (document.forms["simple-form"]["description"].value == '') {
-                alert("The field \"Description\" should be filled out");
-                return false;
-            }
-            return true;
+            return result;
         }
 
-        function addRow() {
-            var newFirstName = document.getElementById("firstName");
-            var newLastName = document.getElementById("lastName");
-            var newSex = document.getElementById("sex");
-            var newDescription = document.getElementById("description");
-            var table = document.getElementById("simple-table");
-
-            var rowCount = table.rows.length;
-            var row = table.insertRow(rowCount);
-            row.insertCell(0).innerHTML = rowCount - 2 + 1;
-            row.insertCell(1).innerHTML = newFirstName.value;
-            row.insertCell(2).innerHTML = newLastName.value;
-            row.insertCell(3).innerHTML = newSex.value;
-            row.insertCell(4).innerHTML = newDescription.value;
-            return true;
+        /**
+         * Validate input data.
+         * @param firstName parameter.
+         * @param secondName parameter.
+         * @param sex parameter.
+         * @param description parameter.
+         * @returns {boolean} true in if data is valid; false - if not.
+         */
+        function validate(firstName, secondName, sex, description) {
+            var empties = [];
+            if (firstName === "") {
+                empties.push(" first name");
+            }
+            if (secondName === "") {
+                empties.push(" second name");
+            }
+            if (!sex) {
+                empties.push(" sex");
+            }
+            if (description === "") {
+                empties.push(" description");
+            }
+            var result = false;
+            if (empties.length === 0) {
+                result = true;
+            } else {
+                alert("The field(s) cant not be empty: "+ empties);
+            }
+            return result;
         }
+
+        /**
+         * Creates JSON string of a person.
+         * @param firstName parameter.
+         * @param secondName parameter.
+         * @param sex parameter.
+         * @param description parameter.
+         * @returns {{firstName: *, secondName: *, sex: *, description: *}}
+         */
+        function createPerson(firstName, secondName, sex, description) {
+            return {
+                firstName: firstName,
+                secondName: secondName,
+                sex: sex,
+                description: description
+            };
+        }
+
+        /**
+         *  Send ajax request to the a server.
+         * @param person parameter.
+         */
+        function ajax(person) {
+            $.ajax({
+                type: "POST",
+                url: context + "/info",
+                dataType: "json",
+                data: JSON.stringify(person),
+                success: addRow(person)
+            });
+        }
+
+        /**
+         * Adds new row to user table.
+         * @param person to add.
+         * @returns {boolean} false to prevent the default action of a form.
+         */
+        function addRow(person) {
+            var number = document.getElementById('user_table').rows.length;
+            $('#user_table').find('tr:last').after(
+                '<tr>' +
+                '<td>' + number + '</td>' +
+                '<td>' + person.firstName + '</td>' +
+                '<td>' + person.secondName + '</td>' +
+                '<td>' + person.sex + '</td>' +
+                '<td>' + person.description + '</td>' +
+                '</tr>'
+            );
+            return false;
+        }
+
     </script>
+
+    <style>
+        table
+        {
+            border-bottom: 8px solid #1fa67b;
+        }
+        th
+        {
+            text-align: center;
+            color:#6c7173;
+        }
+        .table-striped>tbody>tr:nth-of-type(odd)
+        {
+            background:#F0F2F2 !important;
+        }
+    </style>
 </head>
 <body>
-<div class="container-fluid">
-    <h3 style="text-align: center">My First Bootstrap Page</h3>
-    <div class="container">
-        <form class="form-horizontal" id="simple-form">
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="firstName">First name:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="firstName" placeholder="Enter first name">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="lastName">Last name:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="lastName" placeholder="Enter last name">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="sex">Sex:</label>
-                <div class="col-sm-10">
-                    <select name="sex" class="form-control" id="sex">
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-12">
-                    <label for="description">Description:</label>
-                    <textarea class="form-control" rows="5" id="description"></textarea>
-                </div>
-            </div>
-            <div class="form-group">
-                <div style="text-align: right" class="col-sm-offset-2 col-sm-10">
-                    <button type="button" class="btn btn-default" onclick=" return (validate() && addRow())">Submit</button>
-                </div>
-            </div>
-        </form>
-        </form>
-    </div>
-</div>
-<div class="container-fluid">
-<h4 style="text-align: center">The striped rows table</h4>
-<table class="table table-striped" id="simple-table">
-    <tr>
-        <th>Id</th>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Sex</th>
-        <th>Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
 
-    </tr>
-    </tbody>
-</table>
+<div class="container">
+    <h3>Create user</h3>
+    <p>Add new user</p>
+    <form class="form-horizontal" name="create_user">
+        <!--first name-->
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="first_name">
+                First name:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="first_name"
+                       placeholder="Enter your first name (example John"
+                       name="first_name">
+            </div>
+        </div>
+        <!--second name-->
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="second_name">
+                Second name:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="second_name"
+                       placeholder="Enter your second name (example Dow"
+                       name="second_name">
+            </div>
+        </div>
+        <!--sex-->
+        <div class="form-group" id="sex">
+            <label class="control-label col-sm-2">
+                Sex:</label>
+            <div class="col-sm-10">
+                <label class="radio-inline">
+                    <input type="radio" name="sex" value="Male">Male
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="sex" value="Female">Female
+                </label>
+            </div>
+        </div>
+        <!--description-->
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="description">
+                Description:</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="description"
+                          placeholder="Enter users description"
+                          name="description">
+                </textarea>
+            </div>
+        </div>
+        <!--submit data-->
+        <div class="form-group" >
+            <div style="text-align: right" class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default"
+                        onclick="return addIfValid();">Submit</button>
+            </div>
+        </div>
+    </form>
 </div>
+<!--users table-->
+<div class="container">
+    <h3 style="text-align: center">Users table</h3>
+    <table class="table table-striped table-bordered" id="user_table" style="text-align: center">
+        <tr>
+            <th>Id</th>
+            <th>First name</th>
+            <th>Second name</th>
+            <th>Sex</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
 </body>
 </html>
