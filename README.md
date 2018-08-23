@@ -1,7 +1,7 @@
 [![N](http://job4j.ru/img/logomini.png)](http://job4j.ru)
 ### This project is implemented for learning purposes. 
-#### Current course name is "From scratch to employment, Java SE + EE"
-job4j.ru/courses/java_with_zero_to_job.html
+#### Current course name is "From scratch to employment, Java SE + EE" 
+[http://job4j.ru](http://job4j.ru/courses/java_with_zero_to_job.html)
   - Autor: A.Proshak
   - E-mail: olexandr_proshak@ukr.net
 

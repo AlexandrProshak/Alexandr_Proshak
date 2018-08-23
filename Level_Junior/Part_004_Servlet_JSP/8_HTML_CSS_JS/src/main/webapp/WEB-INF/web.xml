@@ -15,6 +15,15 @@
         <welcome-file>default.jsp</welcome-file>
     </welcome-file-list>
 
+    <resource-ref>
+        <description>postgreSQL Datasource example</description>
+        <res-ref-name>jdbc/postgres</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+
+    <!-- Define servlets that are included in the application -->
+
     <servlet>
         <description>Get Information about Country - jQuery Ajax Request</description>
         <display-name>JsonController</display-name>
@@ -25,4 +34,146 @@
         <servlet-name>JsonController</servlet-name>
         <url-pattern>/info</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <description>Send Information about new user - jQuery Ajax</description>
+        <display-name>JsonUserController</display-name>
+        <servlet-name>JsonUserController</servlet-name>
+        <servlet-class>ru.job4j.task5.controller.JsonUserController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>JsonUserController</servlet-name>
+        <url-pattern>/createThrowJson</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>appController</servlet-name>
+        <servlet-class>ru.job4j.task5.controller.AppController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>appController</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>usersController</servlet-name>
+        <servlet-class>ru.job4j.task5.controller.UsersController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>usersController</servlet-name>
+        <url-pattern>/allUsersList</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>userCreateController</servlet-name>
+        <servlet-class>ru.job4j.task5.controller.UserCreateController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userCreateController</servlet-name>
+        <url-pattern>/create</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>userUpdateController</servlet-name>
+        <servlet-class>ru.job4j.task5.controller.UserUpdateController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userUpdateController</servlet-name>
+        <url-pattern>/edit</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>removeUserServlet</servlet-name>
+        <servlet-class>ru.job4j.task5.controller.UsersController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>removeUserServlet</servlet-name>
+        <url-pattern>/remove</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>authentication</filter-name>
+        <filter-class>ru.job4j.task5.controller.filters.AuthenticationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>authentication</filter-name>
+        <url-pattern>*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>removeFilter</filter-name>
+        <filter-class>ru.job4j.task5.controller.filters.RemoveFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>removeFilter</filter-name>
+        <url-pattern>/remove</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>editFilter</filter-name>
+        <filter-class>ru.job4j.task5.controller.filters.EditFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>editFilter</filter-name>
+        <url-pattern>/edit</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>createFilter</filter-name>
+        <filter-class>ru.job4j.task5.controller.filters.CreateFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>createFilter</filter-name>
+        <url-pattern>/create</url-pattern>
+    </filter-mapping>
+
+    <session-config>
+        <session-timeout>240</session-timeout>
+    </session-config>
+
+    <servlet>
+        <servlet-name>loginController</servlet-name>
+        <servlet-class>ru.job4j.task5.controller.LoginController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginController</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>logoutController</servlet-name>
+        <servlet-class>ru.job4j.task5.controller.LogoutController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>logoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>checkLoginController</servlet-name>
+        <servlet-class>ru.job4j.task5.controller.CheckLoginController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>checkLoginController</servlet-name>
+        <url-pattern>/checkLogin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>checkEmailController</servlet-name>
+        <servlet-class>ru.job4j.task5.controller.CheckEmailController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>checkEmailController</servlet-name>
+        <url-pattern>/checkEmail</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>fetchCitiesController</servlet-name>
+        <servlet-class>ru.job4j.task5.controller.FetchCitiesController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>fetchCitiesController</servlet-name>
+        <url-pattern>/cities</url-pattern>
+    </servlet-mapping>
+
 </web-app>
