@@ -10,8 +10,8 @@
 
 ### The goal of this project is to consolidate programming skills in Java, mastering the necessary stack technologies for employment in the position of the Java developer.
 
-  - The expected completion date of the course:   01-09-2018
-  - The planned date of employment:			      01-10-2018
+  - The expected completion date of the course:   01-10-2018
+  - The planned date of employment:			      01-12-2018
 
 ### Development tools and themes in the project:
 

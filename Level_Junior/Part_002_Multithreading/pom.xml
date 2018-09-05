@@ -20,7 +20,7 @@
         <module>4_Wait_Notify_NotifyAll</module>
         <module>5_Non_Blocking_Algorithm</module>
         <module>6_Pools</module>
-        <module>7_Control_Tasks_Multthreading</module>
+        <module>7_Control_Tasks_Multithreading</module>
     </modules>
 
 
