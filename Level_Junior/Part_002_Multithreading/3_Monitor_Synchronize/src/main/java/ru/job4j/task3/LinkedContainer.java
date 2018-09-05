@@ -19,7 +19,7 @@ public class LinkedContainer<T> implements SimpleContainer<T> {
 
         /** Link to the store date.*/
 
-        private T item;
+        private final T item;
 
         /** Link to the previous node.*/
         private Node<T> prev;
@@ -180,5 +180,19 @@ public class LinkedContainer<T> implements SimpleContainer<T> {
                 throw new NoSuchElementException();
             }
         }
+    }
+
+    @Override
+    public SimpleContainer copy() {
+        LinkedContainer<T> copy = new LinkedContainer<>();
+        if (this.first != null) {
+            Node<T> node = this.first;
+            copy.add(node.item);
+            while (node.next != null) {
+                copy.add(node.next.item);
+                node = node.next;
+            }
+        }
+        return copy;
     }
 }

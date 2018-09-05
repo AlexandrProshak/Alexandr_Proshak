@@ -53,7 +53,15 @@ public class MyThreadSafeList<E> implements SimpleContainer<E> {
     @Override
     public Iterator<E> iterator() {
         synchronized (mutex) {
-            return this.list.iterator();
+            return this.copy().iterator();
+        }
+    }
+
+    @GuardedBy("mutex")
+    @Override
+    public SimpleContainer copy() {
+        synchronized (mutex) {
+            return this.list.copy();
         }
     }
 }

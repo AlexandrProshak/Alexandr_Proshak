@@ -6,7 +6,7 @@ package ru.job4j.task3;
  * @author Alex Proshak (olexandr_proshak@ukr.net)
  * @param <T> generic type.
  */
-public interface SimpleContainer<T> extends Iterable<T> {
+public interface SimpleContainer<T> extends Iterable<T>, Copyable {
 
     /**
      * Adds element.
@@ -16,7 +16,7 @@ public interface SimpleContainer<T> extends Iterable<T> {
 
     /**
      * Gets element by index.
-     * @param index of geting element.
+     * @param index of getting element.
      * @return element.
      */
     T get(int index);

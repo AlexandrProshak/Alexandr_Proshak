@@ -27,16 +27,10 @@ public class DynamicList<T> implements SimpleContainer<T> {
     private int index;
 
     /**
-     * Link to the iterator of the collection.
-     */
-    private Iterator iterator;
-
-    /**
      * Constructor.
      */
     public DynamicList() {
         this.container = new Object[INITIAL_CAPACITY];
-        this.iterator = new DynamicListIterator(this.container);
     }
 
     @Override
@@ -64,14 +58,6 @@ public class DynamicList<T> implements SimpleContainer<T> {
 
     @Override
     public Iterator iterator() {
-        return this.iterator;
-    }
-
-    /**
-     * Returns fresh iterator of the DynamicList class.
-     * @return an instance of iterator.
-     */
-    public Iterator newIterator() {
         return new DynamicListIterator(this.container);
     }
 
@@ -102,7 +88,7 @@ public class DynamicList<T> implements SimpleContainer<T> {
         /**
          * Container for the iterator.
          */
-        private Object[] container;
+        private final Object[] container;
 
         /**
          * An index for the iterator.
@@ -138,5 +124,14 @@ public class DynamicList<T> implements SimpleContainer<T> {
             }
             return (E) result;
         }
+    }
+
+    @Override
+    public SimpleContainer copy() {
+        DynamicList copy = new DynamicList();
+        Object[] copyCon = new Object[this.container.length];
+        System.arraycopy(this.container, 0, copyCon, 0, this.container.length);
+        copy.container = copyCon;
+        return copy;
     }
 }
