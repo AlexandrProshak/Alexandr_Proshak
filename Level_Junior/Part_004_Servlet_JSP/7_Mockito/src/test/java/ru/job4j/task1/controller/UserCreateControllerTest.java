@@ -3,6 +3,10 @@ package ru.job4j.task1.controller;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import ru.job4j.task1.model.entity.Role;
 import ru.job4j.task1.model.entity.User;
 import ru.job4j.task1.model.logic.ValidateService;
@@ -37,6 +41,8 @@ import static ru.job4j.task1.controller.ControllerConstants.PARAMETER_USER_EMAIL
  *
  * @author Alex Proshak (olexandr_proshak@ukr.net)
  */
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(ValidateServiceImpl.class)
 public class UserCreateControllerTest {
 
     /**
@@ -77,9 +83,11 @@ public class UserCreateControllerTest {
         this.request = mock(HttpServletRequest.class);
         this.response = mock(HttpServletResponse.class);
         this.dispatcher = mock(RequestDispatcher.class);
-        this.storage = ValidateServiceImpl.getInstance();
+        this.storage = new ValidateServiceStub();
         this.servlet = new UserCreateController();
         this.session = mock(HttpSession.class);
+        PowerMockito.mockStatic(ValidateServiceImpl.class);
+        PowerMockito.when(ValidateServiceImpl.getInstance()).thenReturn(this.storage);
     }
 
     /**
@@ -159,7 +167,7 @@ public class UserCreateControllerTest {
         verify(request).getParameter(PARAMETER_USER_ROLE);
         verify(request).setAttribute(ATTRIBUTE_INFO, "New user was successfully created");
         verify(dispatcher).forward(request, response);
-        assertThat(storage.findAll().size(), is(1));
+        assertThat(storage.findAll().iterator().next().getName(), is("name"));
     }
 
     /**
@@ -195,6 +203,7 @@ public class UserCreateControllerTest {
         assertThat(result.getName(), is("name"));
         assertThat(result.getLogin(), is("login"));
         assertThat(result.getRole(), is(Role.admin));
+        assertThat(storage.findAll().iterator().next().getRole(), is(Role.admin));
     }
 
     /**
@@ -230,7 +239,7 @@ public class UserCreateControllerTest {
      * @throws ServletException exception.
      */
     @Test
-    public void whenCreateNewButIllegalArgumentExceptionThenAddIncorractInfo() throws IOException, ServletException {
+    public void whenCreateNewButIllegalArgumentExceptionThenAddIncorrectInfo() throws IOException, ServletException {
         //init
         when(request.getParameter(PARAMETER_USER_NAME)).thenReturn(null);
         when(request.getRequestDispatcher(PREFIX_PAGE + CREATE_USER_PAGE)).thenReturn(dispatcher);
@@ -243,6 +252,5 @@ public class UserCreateControllerTest {
         verify(request).setAttribute(ATTRIBUTE_INFO, "Something was incorrect, please check the date!");
         verify(dispatcher).forward(request, response);
     }
-
 
 }

@@ -3,6 +3,10 @@ package ru.job4j.task1.controller;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import ru.job4j.task1.model.entity.Role;
 import ru.job4j.task1.model.entity.User;
 import ru.job4j.task1.model.logic.ValidateService;
@@ -31,6 +35,8 @@ import static ru.job4j.task1.controller.ControllerConstants.PARAMETER_USER_ID;
  *
  * @author Alex Proshak (olexandr_proshak@ukr.net)
  */
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(ValidateServiceImpl.class)
 public class UsersControllerTest {
 
 
@@ -72,9 +78,11 @@ public class UsersControllerTest {
         this.request = mock(HttpServletRequest.class);
         this.response = mock(HttpServletResponse.class);
         this.dispatcher = mock(RequestDispatcher.class);
-        this.storage = ValidateServiceImpl.getInstance();
+        this.storage = new ValidateServiceStub();
         this.servlet = new UsersController();
         this.session = mock(HttpSession.class);
+        PowerMockito.mockStatic(ValidateServiceImpl.class);
+        PowerMockito.when(ValidateServiceImpl.getInstance()).thenReturn(this.storage);
     }
 
     /**
