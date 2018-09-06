@@ -4,11 +4,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotSame;
 
 /**
  * Class StubInputTest.
@@ -63,13 +64,13 @@ public class StubInputTest {
                 "0", "Test name 5", "desc 5",
                 "1", "6"});
         new StartUi(this.tracker, input).init();
-        assertNotEquals(tracker.findAll(), null);
+        assertNotNull(tracker.findAll());
         assertThat(this.tracker.findAll()[0].getName(), is("Test name 1"));
         assertThat(this.tracker.findAll()[1].getName(), is("Test name 2"));
         assertThat(this.tracker.findAll()[2].getName(), is("Test name 3"));
         assertThat(this.tracker.findAll()[3].getName(), is("Test name 4"));
         assertThat(this.tracker.findAll()[4].getName(), is("Test name 5"));
-        assertNotEquals(this.tracker.findAll()[5].getName(), is("Test name 6"));
+        assertNotSame(this.tracker.findAll()[5].getName(), is("Test name 6"));
     }
 
     /**
