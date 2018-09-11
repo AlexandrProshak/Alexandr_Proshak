@@ -13,13 +13,13 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <form name="login-form" action="${context}/login"
-                                  onsubmit="return validateForm()" method="post" autocomplete="off">
+                                  onsubmit="return validateLoginForm()" method="post" autocomplete="off">
                                 <div class="form-group">
-                                    <input type="text" name="login" id="login" class="form-control"
+                                    <input type="text" name="systemUserLogin" id="systemUserLogin" class="form-control"
                                            placeholder="test login - guest">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="password" id="password" class="form-control"
+                                    <input type="password" name="systemUserPassword" id="systemUserPassword" class="form-control"
                                            placeholder="test password - guest">
                                 </div>
                                 <div class="checkbox">

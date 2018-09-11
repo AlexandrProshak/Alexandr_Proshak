@@ -23,18 +23,23 @@
         });
         $("#login").change(function(){
             var login = $("#login").val();
+            var oldLogin = $("#old-login").val();
             var letters = /^[A-Za-z]+$/;
             if(!(login.match(letters))){
                 $("#err-login").show();
                 return false;
             }else{
                 $("#err-login").hide();
-                return validateLogin(login);
+                if (oldLogin === login) {
+                    return true;
+                } else {
+                    return validateLogin(login);
+                }
             }
         });
-        $("#c-password").change(function(){
+        $("#cpassword").change(function(){
             var password = $("#password").val();
-            var cpassword = $("#c-password").val();
+            var cpassword = $("#cpassword").val();
             if(!(password === cpassword)){
                 $("#err-pass").show();
                 return false;
@@ -47,13 +52,18 @@
         });
         $("#email").change(function(){
             var email=$("#email").val();
+            var oldEmail = $("#old-email").val();
             var mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
             if(!(email.match(mailFormat))){
                 $("#err-email").show();
                 return false;
             }else{
                 $("#err-email").hide();
-                return validateEmail(email);
+                if (oldEmail === email) {
+                    return true;
+                } else {
+                    return validateEmail(email);
+                }
             }
         });
         $("#country-opt").change(function(){
@@ -70,11 +80,10 @@
     });
 
     /**
-     * Retrieves users data from the form and check them.
-     * @returns {boolean} if data are corrected
-     * and allows to submit the form.
+     * Add rows to user table in case of valid date.
+     * @returns {boolean} true to prevent default action of form.
      */
-    function validateCreateForm() {
+    function validateUpdateForm() {
         var name = $("#name").val();
         var login = $("#login").val();
         var password = $("#password").val();

@@ -1,148 +1,98 @@
-<%@ page import="ru.job4j.task5.model.entity.User" %><%--
-  Created by IntelliJ IDEA.
-  User: Proshak
-  Date: 21.05.2018
-  Time: 16:24
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="ru.job4j.task5.model.entity.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="context" scope="request" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
-<html lang="en">
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<script>
-    function validateLogin() {
-        var loginParam = document.getElementById("login").value;
-        $.ajax('./checkLogin?loginParam=' + loginParam, {
-            method: 'get',
-            complete: function (data) {
-                if (data.responseText =="free") {
-                    return true;
-                } else {
-                    alert("User with login " + loginParam + " already used");
-                    return false;
-                }
-            }
-        })
-    }
-
-    function validateEmail() {
-        var emailParam = document.getElementById("email").value;
-        $.ajax('./checkEmail?emailParam=' + emailParam, {
-            method: 'get',
-            complete: function (data) {
-                if (data.responseText =="free") {
-                    return true;
-                } else {
-                    alert("User with login " + emailParam + " already used");
-                    return false;
-                }
-            }
-        })
-    }
-
-    function updateCitiesByCountry() {
-        var country = document.getElementById("country-opt").value;
-        $.ajax('./cities?country=' + country, {
-            method: 'get',
-            complete: function (data) {
-                var cities = JSON.parse(data.responseText);
-                for(var i = 0; i < cities.length; ++i) {
-                    document.getElementById("city-opt").options[i] = new Option(cities[i].name, cities[i].name);
-                }
-            }
-        })
-    }
-
-    function validateForm() {
-        var nam = document.forms["form"]["name"].value;
-        var log = document.forms["form"]["login"].value;
-        var pas = document.forms["form"]["password"].value;
-        var rol = document.forms["form"]["role"].value;
-        var eml = document.forms["form"]["email"].value;
-        if (nam == "" || log == "" || pas == "" || rol == "" || eml == "") {
-            alert("All fields should be filled out");
-            return false;
-        }
-    }
-</script>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta charset="UTF-8">
-    <title> Update </title>
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <style>
-        .btn-danger:hover
-        {
-            background: #de6c69;
-        }
-        .btn-danger
-        {
-            background:#d9534f;
-        }
-        #footer {
-            color: #6d6d6d;
-            font-size: 12px;
-            text-align: center;
-        }
-        #footer p {
-            margin-bottom: 0;
-        }
-        #footer a {
-            color: inherit;
-        }
-    </style>
+    <title> Update user </title>
+    <c:import url="page-parts/meta-inf.jsp"/>
+    <c:import url="page-parts/style/css.jsp"/>
+    <c:import url="scripts/user_common_validation.jsp"/>
+    <c:import url="scripts/user_update_validation.jsp"/>
 </head>
 <body>
-<div style="float: right; padding-right: 15px; color: #1fa67b; font-size: medium">
-    <c:out value="Hello, "></c:out>
-    <c:out value="${pageContext.servletContext.contextPath}"></c:out><br>
-    <a href="http://localhost:8080/item/logout" style="float: right; padding-right: 15px; color: #1fa67b; font-size: medium">log out</a>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="${context}/">Tracker</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="${context}/allUsersList">All Users</a></li>
+            <li><a href="${context}/create">Create new</a></li>
+            <li class="active"><a href="#">Update user</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="${context}/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="panel panel-info">
+    <div class="panel-body">&nbsp</div>
+    <div class="panel-footer" style="text-align: right">
+        Logged user id:&nbsp${systemUser.id}, name:&nbsp${systemUser.name}, role:&nbsp${systemUser.role}
+    </div>
 </div>
-<h2 style="color: #1fa67b;text-align: center;"> Update user </h2>
-<hr>
-<form class="form-horizontal" action="http://localhost:8080/item/edit" method="post" id="form"
-      onsubmit="return validateForm()">
-    <fieldset>
+<div class="container">
+    <form action="${context}/edit" method="post" class="form-horizontal" id="form-upd"
+          onsubmit="return validateUpdateForm()">
         <div class="form-group">
-            <label class="col-md-4 control-label" for="id">Id</label>
-            <div class="col-md-4">
+            <label class="control-label col-sm-2" for="id">Id</label>
+            <div class="col-sm-10">
                 <input id="id" name="id" type="text" value="${user.id}"
                        class="form-control input-md" readonly>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label" for="name">Name</label>
-            <div class="col-md-4">
+            <label class="control-label col-sm-2" for="name">Name</label>
+            <div class="col-sm-10">
                 <input id="name" name="name" type="text" value="${user.name}"
                        class="form-control input-md">
+                <span class="alert alert-danger col-sm-12"
+                      id="err-name">Should Contain Only Characters</span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label" for="login">Login</label>
-            <div class="col-md-4">
+            <label class="control-label col-sm-2" for="login">Login</label>
+            <div class="col-sm-10">
+                <input id="old-login" value="${user.login}" hidden>
                 <input id="login" name="login" type="text" value="${user.login}"
-                       class="form-control input-md" required oninput="validateLogin()">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="password">Password</label>
-            <div class="col-md-4">
-                <input id="password" name="password" type="text" value="${user.password}"
                        class="form-control input-md">
+                <span class="alert alert-danger col-sm-12"
+                      id="err-login">Should Contain Only Characters</span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label" for="email">Email</label>
-            <div class="col-md-4">
+            <label class="control-label col-sm-2" for="password">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="password"
+                       name="password" placeholder="Enter Password">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="cpassword">Confirm password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="cpassword"
+                       name="password" placeholder="Enter Password">
+                <span class="alert alert-danger col-sm-12"
+                      id="err-pass">Should Match the passwords</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Email</label>
+            <div class="col-sm-10">
+                <input id="old-email" value="${user.email}" hidden>
                 <input id="email" name="email" type="email" value="${user.email}"
-                       class="form-control input-md" required oninput="validateEmail()">
+                class="form-control input-md">
+                <span class="alert alert-danger col-sm-12"
+                      id="err-email">Invalid Email Address</span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label" for="role">Role</label>
-            <div class="col-md-4">
+            <label class="control-label col-sm-2" for="role">Role</label>
+            <div class="col-sm-10">
                 <select name="role" id="role" class="form-control input-md" required>
                     <c:choose>
                         <c:when test="${systemUser.role eq 'admin'}">
@@ -157,39 +107,33 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label" for="country-opt">Country</label>
-            <div class="col-md-4">
-                <select id="country-opt" class="form-control" name="country" required onchange="updateCitiesByCountry()">
-                    <c:forEach var="country" items="${requestScope.countries}">
+            <label class="control-label col-sm-2" for="country-opt">Country</label>
+            <div class="col-sm-10">
+                <select id="country-opt" class="form-control" name="country"
+                        required onchange="updateCitiesByCountry()">
+                    <option>...</option>
+                    <c:forEach var="country" items="${sessionScope.countries}">
                         <option>${country.name}</option>
                     </c:forEach>
                 </select>
+                <span class="alert alert-danger col-sm-12"
+                      id="err-country">Must select the country</span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label" for="city-opt">City</label>
-            <div class="col-md-4">
-                <select id="city-opt" class="form-control" name="city" required></select>
+            <label class="control-label col-sm-2" for="city-opt">City</label>
+            <div class="col-sm-10">
+                <select id="city-opt" class="form-control" name="city"
+                        required></select>
             </div>
         </div>
         <div class="form-group">
-            <div class="col-md-8" style="float: right">
-                <button id="button1id" class="btn btn-success" type="submit" form="form" value="Submit">Update</button>
-                <a class="btn btn-danger" href="${pageContext.servletContext.contextPath}/allUsersList">Back</a>
+            <div class="col-sm-offset-2">
+                <input type="submit" class="btn btn-success" value="Update">
             </div>
         </div>
-        <hr>
-    </fieldset>
-</form>
-<footer id="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <p>Tracker © - 2018</p>
-                <p>Sources on <strong><a href="https://github.com/AlexandrProshak/Alexandr_Proshak" target="_blank">GitHub</a></strong></p>
-            </div>
-        </div>
-    </div>
-</footer>
+    </form>
+</div>
+<c:import url="page-parts/footer.jsp"/>
 </body>
 </html>

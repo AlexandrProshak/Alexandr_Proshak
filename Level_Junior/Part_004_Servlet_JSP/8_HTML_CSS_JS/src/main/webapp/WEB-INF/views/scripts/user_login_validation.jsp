@@ -3,9 +3,9 @@
      * Validate input data.
      * @returns {boolean} true in if data is valid; false - if not.
      */
-    function validateForm() {
-        var login = $('#login').val();
-        var password = $('#password').val();
+    function validateLoginForm() {
+        var login = $('#systemUserLogin').val();
+        var password = $('#systemUserPassword').val();
         var empties = [];
         if (login === "") {
             empties.push(" login");
@@ -26,13 +26,13 @@
      * Shows password.
      */
     function showPassword() {
-        var key_attr = $('#password').attr('type');
+        var key_attr = $('#systemUserPassword').attr('type');
         if(key_attr != 'text') {
             $('.checkbox').addClass('show');
-            $('#password').attr('type', 'text');
+            $('#systemUserPassword').attr('type', 'text');
         } else {
             $('.checkbox').removeClass('show');
-            $('#password').attr('type', 'password');
+            $('#systemUserPassword').attr('type', 'password');
         }
     }
 </script>

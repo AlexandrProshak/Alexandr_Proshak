@@ -36,17 +36,6 @@
     </servlet-mapping>
 
     <servlet>
-        <description>Send Information about new user - jQuery Ajax</description>
-        <display-name>JsonUserController</display-name>
-        <servlet-name>JsonUserController</servlet-name>
-        <servlet-class>ru.job4j.task5.controller.JsonUserController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>JsonUserController</servlet-name>
-        <url-pattern>/createThrowJson</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>appController</servlet-name>
         <servlet-class>ru.job4j.task5.controller.AppController</servlet-class>
     </servlet>
@@ -61,7 +50,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>usersController</servlet-name>
-        <url-pattern>/allUsersList</url-pattern>
+        <url-pattern>/users</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -150,30 +139,30 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>checkLoginController</servlet-name>
-        <servlet-class>ru.job4j.task5.controller.CheckLoginController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>checkLoginController</servlet-name>
-        <url-pattern>/checkLogin</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>checkEmailController</servlet-name>
-        <servlet-class>ru.job4j.task5.controller.CheckEmailController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>checkEmailController</servlet-name>
-        <url-pattern>/checkEmail</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>fetchCitiesController</servlet-name>
         <servlet-class>ru.job4j.task5.controller.FetchCitiesController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>fetchCitiesController</servlet-name>
         <url-pattern>/cities</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>checkLogin</servlet-name>
+        <servlet-class>ru.job4j.task5.controller.CheckLoginController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>checkLogin</servlet-name>
+        <url-pattern>/checkLogin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>checkEmail</servlet-name>
+        <servlet-class>ru.job4j.task5.controller.CheckEmailController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>checkEmail</servlet-name>
+        <url-pattern>/checkEmail</url-pattern>
     </servlet-mapping>
 
 </web-app>
